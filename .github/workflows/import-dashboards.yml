@@ -1,0 +1,57 @@
+name: Import BI dashboards
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-dashboards.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download dashboards
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-c5f4-820b-9f68-8f7eff388450/raw?se=2026-09-17T10%3A52%3A33Z&sp=r&sv=2026-02-06&sr=b&scid=b660d616-decd-5cbc-b997-c638aa3dbf88&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T06%3A04%3A38Z&ske=2026-09-18T06%3A04%3A38Z&sks=b&skv=2026-02-06&sig=XSaFqOfwPT0UxKx1R7O%2BB26SzfHetSvT59n8wtrZcUE%3D' -o enterprise-data-bi-portfolio.html
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-e58c-81fa-9942-36540bfcea5d/raw?se=2026-09-17T10%3A50%3A52Z&sp=r&sv=2026-02-06&sr=b&scid=5fc68e28-b8ac-5950-a3b4-04f7529ac4bd&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T04%3A48%3A42Z&ske=2026-09-18T04%3A48%3A42Z&sks=b&skv=2026-02-06&sig=lJstyzWgbUdfgwg%2BFWwcVxdGpaS0BN3wGUotDNzPzWY%3D' -o transformation-performance-benefits-dashboard.html
+          curl -fL 'https://sdmntprcentralus.oaiusercontent.com/files/00000000-b520-81f5-8815-7caf2eff3d6e/raw?se=2026-09-17T10%3A51%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=45c90c17-dd7e-594e-a346-be2051cadeef&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T07%3A03%3A34Z&ske=2026-09-18T07%3A03%3A34Z&sks=b&skv=2026-02-06&sig=5vi9svon/z3gVjkJ3aopwBxPt1kCjm23qZ0SLQ5Paqg%3D' -o applied-ai-quality-assurance-dashboard.html
+          curl -fL 'https://sdmntprwestcentralus.oaiusercontent.com/files/00000000-8e5c-81fb-a6d1-4ac441b50090/raw?se=2026-09-17T10%3A51%3A11Z&sp=r&sv=2026-02-06&sr=b&scid=d08bfcfb-8b65-53e9-acfc-f797b2371207&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T19%3A59%3A30Z&ske=2026-09-17T19%3A59%3A30Z&sks=b&skv=2026-02-06&sig=e3xgcffJ70%2BWp8FYgMfCOIDTZiy%2BTimRiVW7Sk4YWWg%3D' -o business-reporting-data-quality-dashboard.html
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-0910-81fa-a27f-d6e148b829f8/raw?se=2026-09-17T10%3A51%3A18Z&sp=r&sv=2026-02-06&sr=b&scid=3c987a91-ccd6-5ba6-b4b5-5acc6e467529&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T21%3A45%3A34Z&ske=2026-09-17T21%3A45%3A34Z&sks=b&skv=2026-02-06&sig=10vtLb9IirIFwu2ejL/KvqxOdLFeKThTr4HTvvQAFLU%3D' -o treasury-liquidity-transformation-portfolio.html
+          curl -fL 'https://sdmntprnznorth.oaiusercontent.com/files/00000000-3848-820b-9845-2d1131ec222c/raw?se=2026-09-17T10%3A51%3A25Z&sp=r&sv=2026-02-06&sr=b&scid=41e7a44d-b8b0-5203-a192-549d19b8f5ea&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T01%3A57%3A06Z&ske=2026-09-18T01%3A57%3A06Z&sks=b&skv=2026-02-06&sig=H4jZ1W69w%2B0raQCIqutdCJIam9%2BHp2CX57p2RbQD2Yo%3D' -o consumer-bi-insights-portfolio.html
+          curl -fL 'https://sdmntprnznorth.oaiusercontent.com/files/00000000-1ff4-820b-a8f3-13761fa0d114/raw?se=2026-09-17T10%3A51%3A31Z&sp=r&sv=2026-02-06&sr=b&scid=c5c16c82-efc2-50e1-afa5-3fd9f5c5c3e9&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T01%3A21%3A25Z&ske=2026-09-18T01%3A21%3A25Z&sks=b&skv=2026-02-06&sig=/1wTsUV3L2UquID1YgsYMdVSzTdMx9s8bHdKbVk1eW0%3D' -o model-assumption-forecasting-portfolio.html
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-ac4c-81fa-8f7d-2dfc9ecc7964/raw?se=2026-09-17T10%3A51%3A38Z&sp=r&sv=2026-02-06&sr=b&scid=d591740b-b8b5-5c32-820f-ae333cb004e9&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T00%3A14%3A27Z&ske=2026-09-18T00%3A14%3A27Z&sks=b&skv=2026-02-06&sig=nf5nIoyHHrcw96t8Z1TfpiHP1c2ahFXxoB5kFas1Pxc%3D' -o financial-crime-intelligence-analytics-dashboard.html
+          curl -fL 'https://sdmntprcentralus.oaiusercontent.com/files/00000000-9594-81f5-a1e3-d651bd781b8b/raw?se=2026-09-17T10%3A51%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=9464e921-cafd-58df-90bd-5b1e750314ae&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T01%3A21%3A34Z&ske=2026-09-18T01%3A21%3A34Z&sks=b&skv=2026-02-06&sig=wHGfSwSeIXquvL4zYI7kmO%2B7M6wxMA46nidTzBctNUY%3D' -o fraud-intelligence-investigation-workbench.html
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-5f20-81fa-bd92-125ebac251e6/raw?se=2026-09-17T10%3A51%3A52Z&sp=r&sv=2026-02-06&sr=b&scid=3682b959-553b-56b8-b26b-7d9c02bdcc8f&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T06%3A04%3A45Z&ske=2026-09-18T06%3A04%3A45Z&sks=b&skv=2026-02-06&sig=xH%2ByoBa0%2BAa0nORpM/EQiRFyBoFBUsK/7MTwAv8ol0s%3D' -o transport-insights-performance-dashboard.html
+          curl -fL 'https://sdmntprwestus.oaiusercontent.com/files/00000000-4308-8230-b238-48979b32a118/raw?se=2026-09-17T10%3A52%3A00Z&sp=r&sv=2026-02-06&sr=b&scid=9412fb5f-c627-5ed1-a44a-6720fe12dfa1&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T04%3A01%3A35Z&ske=2026-09-18T04%3A01%3A35Z&sks=b&skv=2026-02-06&sig=V4mMR8brnSANran1PlwfN1yxXW20jhwyuGoAKpO74QY%3D' -o aml-systems-data-analytics-dashboard.html
+          curl -fL 'https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-3fb4-81fa-902e-cb22f4b74e16/raw?se=2026-09-17T10%3A52%3A10Z&sp=r&sv=2026-02-06&sr=b&scid=5dfe5dd0-da56-5b34-83a3-d1ecc13f1546&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T04%3A01%3A26Z&ske=2026-09-18T04%3A01%3A26Z&sks=b&skv=2026-02-06&sig=HzdmP1ruLCxlD0U46rrZTmcO/DusXJ7h/rweM3bfiJ4%3D' -o technology-demand-investment-planning-dashboard.html
+          curl -fL 'https://sdmntprwestus.oaiusercontent.com/files/00000000-ecc4-8230-9826-ea13dfa229bb/raw?se=2026-09-17T10%3A52%3A19Z&sp=r&sv=2026-02-06&sr=b&scid=c5809d09-977a-5e6f-8722-f923ac394c90&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T01%3A20%3A48Z&ske=2026-09-18T01%3A20%3A48Z&sks=b&skv=2026-02-06&sig=8jcJ29aP%2Bh/NQV9oJngQ3V3lfz2YAs0ma9kDmrNgLAU%3D' -o commercial-insights-reporting-portfolio.html
+          curl -fL 'https://sdmntprcentralus.oaiusercontent.com/files/00000000-0840-81f5-9f08-2077e84c4dcf/raw?se=2026-09-17T10%3A52%3A26Z&sp=r&sv=2026-02-06&sr=b&scid=d59db6b5-db50-5234-86e9-639ec0782c42&skoid=697dc613-6c29-4a76-87a7-d1b783c6d43f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T01%3A21%3A36Z&ske=2026-09-18T01%3A21%3A36Z&sks=b&skv=2026-02-06&sig=b1SQEblioZHYby2yGmfMOJbsr0JV6wB1w3V2xZNOXjk%3D' -o research-reporting-analytics-dashboard.html
+          cat > index.html <<'EOF'
+          <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BI Portfolio</title><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:900px;margin:48px auto;padding:0 20px;color:#18232c;background:#f4f6f7}h1{font-family:Georgia,serif;font-size:2rem;margin-bottom:6px}p{color:#65727c;margin-bottom:28px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}a{display:block;text-decoration:none;color:inherit;background:white;border:1px solid #d8e0e5;border-radius:10px;padding:14px}a:hover{border-color:#0b5d6b}strong{display:block;margin-bottom:5px}span{font-size:.78rem;color:#71808a;word-break:break-all}</style></head><body><h1>BI Portfolio</h1><p>Standalone dashboard artefacts.</p><div class="grid">
+          <a href="./enterprise-data-bi-portfolio.html"><strong>Enterprise Data & BI Portfolio</strong><span>enterprise-data-bi-portfolio.html</span></a>
+          <a href="./transformation-performance-benefits-dashboard.html"><strong>Transformation Performance & Benefits</strong><span>transformation-performance-benefits-dashboard.html</span></a>
+          <a href="./applied-ai-quality-assurance-dashboard.html"><strong>Applied AI Quality Assurance</strong><span>applied-ai-quality-assurance-dashboard.html</span></a>
+          <a href="./business-reporting-data-quality-dashboard.html"><strong>Business Reporting & Data Quality</strong><span>business-reporting-data-quality-dashboard.html</span></a>
+          <a href="./treasury-liquidity-transformation-portfolio.html"><strong>Treasury Liquidity Transformation</strong><span>treasury-liquidity-transformation-portfolio.html</span></a>
+          <a href="./consumer-bi-insights-portfolio.html"><strong>Consumer BI Insights</strong><span>consumer-bi-insights-portfolio.html</span></a>
+          <a href="./model-assumption-forecasting-portfolio.html"><strong>Model Assumption & Forecasting</strong><span>model-assumption-forecasting-portfolio.html</span></a>
+          <a href="./financial-crime-intelligence-analytics-dashboard.html"><strong>Financial Crime Intelligence Analytics</strong><span>financial-crime-intelligence-analytics-dashboard.html</span></a>
+          <a href="./fraud-intelligence-investigation-workbench.html"><strong>Fraud Intelligence Investigation Workbench</strong><span>fraud-intelligence-investigation-workbench.html</span></a>
+          <a href="./transport-insights-performance-dashboard.html"><strong>Transport Insights & Performance</strong><span>transport-insights-performance-dashboard.html</span></a>
+          <a href="./aml-systems-data-analytics-dashboard.html"><strong>AML Systems & Data Analytics</strong><span>aml-systems-data-analytics-dashboard.html</span></a>
+          <a href="./technology-demand-investment-planning-dashboard.html"><strong>Technology Demand & Investment Planning</strong><span>technology-demand-investment-planning-dashboard.html</span></a>
+          <a href="./commercial-insights-reporting-portfolio.html"><strong>Commercial Insights & Reporting</strong><span>commercial-insights-reporting-portfolio.html</span></a>
+          <a href="./research-reporting-analytics-dashboard.html"><strong>Research Reporting & Analytics</strong><span>research-reporting-analytics-dashboard.html</span></a>
+          </div></body></html>
+          EOF
+      - name: Commit dashboards
+        shell: bash
+        run: |
+          git config user.name 'Khaled Sanad'
+          git config user.email '138832352+sanadzadeh@users.noreply.github.com'
+          git add index.html *.html
+          git commit -m 'Consolidate BI dashboards' || exit 0
+          git push
