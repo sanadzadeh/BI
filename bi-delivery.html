@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Delivery Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--ink:#172033;--muted:#6b7280;--line:#e5e7eb;--nav:#10243f;--accent:#1f6feb;--good:#17804b;--warn:#b7791f;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{height:64px;background:var(--nav);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:5}header h1{font-size:18px;margin:0;font-weight:700}header .meta{font-size:12px;opacity:.8}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}
+aside{background:#0f1f35;color:#d7e0eb;padding:20px 14px;position:sticky;top:64px;height:calc(100vh - 64px)}
+.nav{display:block;padding:11px 12px;margin:4px 0;border-radius:8px;cursor:pointer;font-size:13px}.nav.active,.nav:hover{background:#1d3555;color:#fff}
+main{padding:24px;max-width:1500px;width:100%}.pagehead{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}.pagehead h2{margin:0 0 6px;font-size:24px}.pagehead p{margin:0;color:var(--muted);font-size:13px}.pill{background:#eaf2ff;color:#245db8;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(15,23,42,.04)}.kpi .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.kpi .value{font-size:29px;font-weight:750;margin:7px 0 3px}.kpi .sub{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:16px;margin-bottom:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card h3{font-size:15px;margin:0 0 14px}.chartbox{height:270px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th{text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:9px 8px}td{padding:10px 8px;border-bottom:1px solid #eef1f4}.tag{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700}.green{background:#e7f6ee;color:var(--good)}.amber{background:#fff4db;color:var(--warn)}.red{background:#fdecec;color:var(--bad)}
+.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}.bar{height:8px;background:#eef1f4;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--accent);border-radius:99px}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.node{padding:10px 12px;border:1px solid var(--line);background:#fafcff;border-radius:9px;font-size:12px}.arrow{color:#99a3b2}.note{font-size:12px;color:var(--muted);line-height:1.5}
+.view{display:none}.view.active{display:block}
+@media(max-width:900px){.app{grid-template-columns:1fr}aside{display:none}.kpis,.grid2,.grid3{grid-template-columns:1fr}main{padding:14px}}
+</style>
+</head>
+<body>
+<header><h1>BI Delivery Dashboard</h1><div class="meta">reporting · modelling · data quality · deployment</div></header>
+<div class="app">
+<aside>
+<div class="nav active" data-view="overview">00 Overview</div>
+<div class="nav" data-view="models">01 Models & datasets</div>
+<div class="nav" data-view="quality">02 Data quality</div>
+<div class="nav" data-view="delivery">03 Delivery pipeline</div>
+<div class="nav" data-view="performance">04 Report performance</div>
+</aside>
+<main>
+<section id="overview" class="view active">
+<div class="pagehead"><div><h2>Reporting estate overview</h2><p>Current view of BI products, refresh health, quality controls and delivery status.</p></div><div class="pill">Current release</div></div>
+<div class="kpis">
+<div class="card kpi"><div class="label">Active reports</div><div class="value">18</div><div class="sub">6 executive · 12 operational</div></div>
+<div class="card kpi"><div class="label">Refresh success</div><div class="value">98.7%</div><div class="sub">last 30 days</div></div>
+<div class="card kpi"><div class="label">Open data issues</div><div class="value">7</div><div class="sub">2 high priority</div></div>
+<div class="card kpi"><div class="label">Median load time</div><div class="value">2.3s</div><div class="sub">target &lt; 3.0s</div></div>
+</div>
+<div class="grid2">
+<div class="card"><h3>Usage and refresh trend</h3><div class="chartbox"><canvas id="usageChart"></canvas></div></div>
+<div class="card"><h3>Delivery health</h3>
+<div class="barrow"><div class="barlabel"><span>Requirements coverage</span><b>96%</b></div><div class="bar"><div class="fill" style="width:96%"></div></div></div>
+<div class="barrow"><div class="barlabel"><span>Data validation</span><b>94%</b></div><div class="bar"><div class="fill" style="width:94%"></div></div></div>
+<div class="barrow"><div class="barlabel"><span>Documentation</span><b>88%</b></div><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+<div class="barrow"><div class="barlabel"><span>Regression checks</span><b>91%</b></div><div class="bar"><div class="fill" style="width:91%"></div></div></div>
+<p class="note">Focus: close two source-definition issues before the next production release.</p></div>
+</div>
+<div class="card"><h3>BI product register</h3><table><thead><tr><th>Product</th><th>Audience</th><th>Source systems</th><th>Refresh</th><th>Status</th></tr></thead><tbody>
+<tr><td>Portfolio Performance</td><td>Executive</td><td>Clarity + Finance</td><td>Daily</td><td><span class="tag green">Healthy</span></td></tr>
+<tr><td>Delivery Capacity</td><td>Planning</td><td>Rally + Excel</td><td>Daily</td><td><span class="tag amber">Review</span></td></tr>
+<tr><td>Risk & Exceptions</td><td>Governance</td><td>Multiple</td><td>Daily</td><td><span class="tag green">Healthy</span></td></tr>
+<tr><td>Monthly Executive Pack</td><td>Executive</td><td>Multiple</td><td>Monthly</td><td><span class="tag green">Healthy</span></td></tr>
+</tbody></table></div>
+</section>
+<section id="models" class="view">
+<div class="pagehead"><div><h2>Models & datasets</h2><p>Semantic model coverage, transformation logic and dataset ownership.</p></div></div>
+<div class="grid3">
+<div class="card"><h3>Model complexity</h3><div class="barrow"><div class="barlabel"><span>Executive model</span><b>74</b></div><div class="bar"><div class="fill" style="width:74%"></div></div></div><div class="barrow"><div class="barlabel"><span>Capacity model</span><b>61</b></div><div class="bar"><div class="fill" style="width:61%"></div></div></div><div class="barrow"><div class="barlabel"><span>Risk model</span><b>53</b></div><div class="bar"><div class="fill" style="width:53%"></div></div></div></div>
+<div class="card"><h3>Transformation flow</h3><div class="flow"><div class="node">Source</div><div class="arrow">→</div><div class="node">SQL</div><div class="arrow">→</div><div class="node">Power Query</div><div class="arrow">→</div><div class="node">Model</div><div class="arrow">→</div><div class="node">Report</div></div><p class="note">Business rules and reconciliation checks are applied before measures are exposed to report consumers.</p></div>
+<div class="card"><h3>Core measures</h3><table><tbody><tr><td>Performance variance</td><td>18</td></tr><tr><td>Capacity utilisation</td><td>14</td></tr><tr><td>Forecast measures</td><td>22</td></tr><tr><td>Exception measures</td><td>11</td></tr></tbody></table></div>
+</div>
+</section>
+<section id="quality" class="view">
+<div class="pagehead"><div><h2>Data quality controls</h2><p>Reconciliation, completeness and source-to-output checks.</p></div></div>
+<div class="grid2"><div class="card"><h3>Control outcomes</h3><table><thead><tr><th>Check</th><th>Result</th><th>Owner</th></tr></thead><tbody><tr><td>Duplicate key check</td><td><span class="tag green">Pass</span></td><td>BI</td></tr><tr><td>Source total reconciliation</td><td><span class="tag green">Pass</span></td><td>BI</td></tr><tr><td>Missing hierarchy mapping</td><td><span class="tag amber">3 exceptions</span></td><td>Data owner</td></tr><tr><td>Definition alignment</td><td><span class="tag red">Open</span></td><td>Business</td></tr></tbody></table></div><div class="card"><h3>Quality trend</h3><div class="chartbox"><canvas id="qualityChart"></canvas></div></div></div>
+</section>
+<section id="delivery" class="view">
+<div class="pagehead"><div><h2>Delivery pipeline</h2><p>Requirements through development, testing and controlled release.</p></div></div>
+<div class="card"><h3>Release path</h3><div class="flow"><div class="node">Requirement</div><div class="arrow">→</div><div class="node">Design</div><div class="arrow">→</div><div class="node">Build</div><div class="arrow">→</div><div class="node">Test</div><div class="arrow">→</div><div class="node">Review</div><div class="arrow">→</div><div class="node">Release</div></div></div>
+<div class="grid3" style="margin-top:16px"><div class="card"><h3>In development</h3><p class="value" style="font-size:28px;font-weight:700;margin:0">4</p><p class="note">2 model changes · 2 report enhancements</p></div><div class="card"><h3>In test</h3><p class="value" style="font-size:28px;font-weight:700;margin:0">3</p><p class="note">Validation, regression and stakeholder review</p></div><div class="card"><h3>Ready for release</h3><p class="value" style="font-size:28px;font-weight:700;margin:0">2</p><p class="note">Documentation and approvals complete</p></div></div>
+</section>
+<section id="performance" class="view">
+<div class="pagehead"><div><h2>Report performance</h2><p>Load time, model size and usage indicators.</p></div></div>
+<div class="grid2"><div class="card"><h3>Load time by report</h3><div class="chartbox"><canvas id="perfChart"></canvas></div></div><div class="card"><h3>Optimisation queue</h3><table><thead><tr><th>Item</th><th>Action</th><th>Status</th></tr></thead><tbody><tr><td>Capacity matrix</td><td>Simplify measure logic</td><td><span class="tag amber">Planned</span></td></tr><tr><td>History table</td><td>Reduce imported columns</td><td><span class="tag green">Done</span></td></tr><tr><td>Exception page</td><td>Review visual interactions</td><td><span class="tag amber">In progress</span></td></tr></tbody></table></div></div>
+</section>
+</main></div>
+<script>
+const navs=document.querySelectorAll('.nav');const views=document.querySelectorAll('.view');navs.forEach(n=>n.onclick=()=>{navs.forEach(x=>x.classList.remove('active'));views.forEach(v=>v.classList.remove('active'));n.classList.add('active');document.getElementById(n.dataset.view).classList.add('active')});
+new Chart(document.getElementById('usageChart'),{type:'line',data:{labels:['Apr','May','Jun','Jul','Aug','Sep'],datasets:[{label:'Views',data:[820,910,1040,1180,1275,1430],tension:.35},{label:'Successful refreshes',data:[95,96,97,98,98,99],tension:.35,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y1:{position:'right',grid:{display:false}}}}});
+new Chart(document.getElementById('qualityChart'),{type:'bar',data:{labels:['Apr','May','Jun','Jul','Aug','Sep'],datasets:[{label:'Pass rate %',data:[88,90,91,93,94,96]}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:80,max:100}}}});
+new Chart(document.getElementById('perfChart'),{type:'bar',data:{labels:['Executive','Capacity','Risk','Monthly pack'],datasets:[{label:'Seconds',data:[2.1,3.4,1.8,2.7]}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y'}});
+</script>
+</body>
+</html>
