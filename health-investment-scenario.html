@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Health Investment Scenario Model — Khaled Sanad</title>
+<meta name="description" content="Illustrative dynamic investment model covering business cases, portfolio allocation, scenario modelling, sensitivity and executive decision support.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f7;--card:#fff;--soft:#f7fafb;--line:#d9e2e7;--ink:#19252e;--muted:#66747f;--accent:#0b6170;--accent2:#4d7f9d;--good:#3b7b4a;--warn:#a46f08;--bad:#a13d31;--ser:'Cormorant Garamond',Georgia,serif;--mon:'DM Mono',monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);padding:12px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center}.brand h1{margin:0;font:600 1.15rem var(--ser)}.brand p{margin:3px 0 0;color:var(--muted);font:400 .55rem var(--mon);letter-spacing:.08em;text-transform:uppercase}.pill{font:500 .55rem var(--mon);border:1px solid #b8d6d9;background:#e7f3f4;color:var(--accent);border-radius:999px;padding:6px 9px}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 60px)}aside{background:#fff;border-right:1px solid var(--line);padding:16px 10px}.nav{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--muted);padding:10px;border-radius:8px;font-weight:600;font-size:.72rem;cursor:pointer;margin:2px 0}.nav.active,.nav:hover{background:#e7f3f4;color:var(--accent)}.meta{font-size:.57rem;line-height:1.5;color:var(--muted);padding:12px 10px;margin-top:15px;border-top:1px solid var(--line)}main{padding:22px 24px 44px;min-width:0}.view{display:none}.view.active{display:block}.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:14px}.head h2{margin:0 0 5px;font:600 1.45rem var(--ser)}.head p{margin:0;color:var(--muted);font-size:.7rem;line-height:1.5;max-width:850px}.grid{display:grid;gap:10px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:10px}.two{grid-template-columns:1.15fr .85fr;margin-bottom:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 3px 12px rgba(30,50,60,.05)}.eye{font:500 .5rem var(--mon);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.big{font:600 1.45rem var(--ser)}.sub{font-size:.58rem;color:var(--muted);margin-top:5px;line-height:1.4}.hero{padding:18px;background:linear-gradient(135deg,#fff,#f7fafb)}.hero h3{font:600 1.2rem/1.15 var(--ser);margin:0 0 8px}.hero p{font-size:.65rem;line-height:1.55;color:var(--muted);margin:0}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:.6rem;font-weight:600;margin-bottom:5px}.ctl input,.ctl select{width:100%}.ctl input[type=range]{accent-color:var(--accent)}select{padding:7px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:9px;border-bottom:1px solid var(--line);font-size:.6rem;text-align:left}th{background:var(--soft);font:500 .49rem var(--mon);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}tr:last-child td{border-bottom:0}.bar{height:8px;background:#e7ecef;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px}.good{color:var(--good);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}.decision{border-left:4px solid var(--accent)}.decision h3{font:600 1rem var(--ser);margin:0 0 7px}.decision p{font-size:.62rem;line-height:1.55;color:var(--muted);margin:0}.list{display:grid;gap:7px;margin-top:10px}.item{padding:8px 9px;background:var(--soft);border:1px solid var(--line);border-radius:8px;font-size:.58rem;display:flex;justify-content:space-between;gap:10px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.node{padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}.node b{font-size:.62rem}.node p{font-size:.55rem;color:var(--muted);line-height:1.4;margin:5px 0 0}.note{font-size:.58rem;color:var(--muted);line-height:1.5}.ai{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ai .card h4{margin:0 0 5px;font-size:.66rem}.ai .card p{margin:0;font-size:.56rem;line-height:1.45;color:var(--muted)}@media(max-width:1000px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}.meta{display:none}.nav{width:auto;white-space:nowrap}.kpis,.two,.ai{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}@media(max-width:650px){main{padding:16px 12px 36px}.kpis,.two,.ai,.controls,.flow{grid-template-columns:1fr}.top{position:static;align-items:flex-start;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><h1>Khaled S. — Health Investment Scenario Model</h1><p>dynamic modelling · business case · scenarios · decision support</p></div><span class="pill">Illustrative non-production model</span></header>
+<div class="layout">
+<aside>
+<button class="nav active" data-view="overview">Executive overview</button>
+<button class="nav" data-view="scenario">Scenario builder</button>
+<button class="nav" data-view="business">Business case</button>
+<button class="nav" data-view="sensitivity">Sensitivity</button>
+<button class="nav" data-view="ai">AI-assisted workflow</button>
+<div class="meta">Illustrative health-system investment example. No actual organisation, Treasury or patient data is used. The model demonstrates how dynamic spreadsheet logic can support funding choices under competing priorities.</div>
+</aside>
+<main>
+<section class="view active" id="overview">
+<div class="head"><div><h2>Executive investment view</h2><p>A constrained portfolio model comparing service value, financial return, risk reduction, delivery readiness and strategic fit across competing investment options.</p></div></div>
+<div class="grid kpis">
+<div class="card"><div class="eye">Available budget</div><div class="big" id="kBudget">$420m</div><div class="sub">Change the budget in the scenario builder.</div></div>
+<div class="card"><div class="eye">Recommended funding</div><div class="big" id="kFunded">$0m</div><div class="sub">Formula-driven allocation under the selected scenario.</div></div>
+<div class="card"><div class="eye">Portfolio NPV</div><div class="big" id="kNpv">$0m</div><div class="sub">Illustrative five-year discounted net value.</div></div>
+<div class="card"><div class="eye">Scenario</div><div class="big" id="kScenario">Balanced</div><div class="sub">Weights change with decision priorities.</div></div>
+</div>
+<div class="grid two">
+<div class="card hero"><div class="eye">Decision framing</div><h3>Funding choices should be tested as a portfolio, not assessed one initiative at a time.</h3><p>The model makes the trade-offs explicit. A service-first scenario can favour capacity and access, a resilience scenario can favour risk reduction, and a constrained-budget scenario can shift funding toward initiatives with stronger quantified value. The result is a comparable decision view rather than a single fixed ranking.</p></div>
+<div class="card decision"><h3>Model logic</h3><div class="list"><div class="item"><span>Inputs</span><strong>costs, benefits, scores</strong></div><div class="item"><span>Scenario</span><strong>weights + budget</strong></div><div class="item"><span>Business case</span><strong>NPV + BCR</strong></div><div class="item"><span>Decision</span><strong>funding mix</strong></div></div></div>
+</div>
+<div class="card"><div class="eye">Illustrative portfolio</div><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Category</th><th>Requested</th><th>Recommended</th><th>NPV</th><th>BCR</th><th>Funding coverage</th></tr></thead><tbody id="overviewRows"></tbody></table></div></div>
+</section>
+
+<section class="view" id="scenario">
+<div class="head"><div><h2>Dynamic scenario builder</h2><p>Adjust the portfolio budget and decision weights. The recommended funding mix, value indicators and business-case outputs update immediately.</p></div></div>
+<div class="grid two">
+<div class="card">
+<div class="controls">
+<div class="ctl"><label><span>Scenario</span><strong id="scenarioLabel">Balanced</strong></label><select id="scenarioSelect"><option>Balanced</option><option>Service First</option><option>Digital First</option><option>Resilience</option><option>Constrained Budget</option></select></div>
+<div class="ctl"><label><span>Budget ($m)</span><strong id="budgetVal">420</strong></label><input id="budget" type="range" min="250" max="600" step="10" value="420"></div>
+<div class="ctl"><label><span>Service weight</span><strong id="serviceVal">30%</strong></label><input id="service" type="range" min="10" max="50" step="5" value="30"></div>
+<div class="ctl"><label><span>Financial value weight</span><strong id="financialVal">25%</strong></label><input id="financial" type="range" min="10" max="50" step="5" value="25"></div>
+<div class="ctl"><label><span>Risk weight</span><strong id="riskVal">20%</strong></label><input id="risk" type="range" min="10" max="50" step="5" value="20"></div>
+<div class="ctl"><label><span>Readiness weight</span><strong id="readyVal">15%</strong></label><input id="ready" type="range" min="5" max="30" step="5" value="15"></div>
+</div>
+<p class="note">Strategic fit receives the remaining weight. In Excel, these would be blue hardcoded assumption cells feeding formula-driven scenario and business-case sheets.</p>
+</div>
+<div class="card decision"><h3>Scenario interpretation</h3><p id="scenarioNarrative"></p><div class="list"><div class="item"><span>Budget utilised</span><strong id="budgetUsed">0%</strong></div><div class="item"><span>Highest funded</span><strong id="topFunded">—</strong></div><div class="item"><span>Highest NPV</span><strong id="topNpv">—</strong></div></div></div>
+</div>
+<div class="card"><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Score</th><th>Requested</th><th>Recommended</th><th>Coverage</th><th>Service</th><th>Risk</th><th>Value</th></tr></thead><tbody id="scenarioRows"></tbody></table></div></div>
+</section>
+
+<section class="view" id="business">
+<div class="head"><div><h2>Business-case comparison</h2><p>Each option is compared on cost, quantified benefit, five-year NPV and benefit-cost ratio, then viewed alongside service and risk outcomes.</p></div></div>
+<div class="card"><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Upfront cost</th><th>Annual run cost</th><th>Annual benefit</th><th>5Y gross benefit</th><th>NPV</th><th>BCR</th><th>Interpretation</th></tr></thead><tbody id="businessRows"></tbody></table></div></div>
+<div class="grid two" style="margin-top:10px"><div class="card hero"><div class="eye">Business-case principle</div><h3>Financial return is one part of the decision, not the whole decision.</h3><p>Some investments may have lower directly quantified value but stronger service, resilience or strategic outcomes. A useful model keeps those dimensions visible rather than forcing everything into one financial metric.</p></div><div class="card"><div class="eye">Five-year discount rate</div><div class="big">7.0%</div><div class="sub">Illustrative assumption. In the Excel model this sits on the assumptions sheet and feeds all NPV formulas.</div></div></div>
+</section>
+
+<section class="view" id="sensitivity">
+<div class="head"><div><h2>Sensitivity and trade-offs</h2><p>Decision quality improves when the model shows what changes the recommendation rather than presenting one answer as certain.</p></div></div>
+<div class="grid two">
+<div class="card"><div class="eye">Budget sensitivity</div><div id="sensBars"></div></div>
+<div class="card decision"><h3>Questions the model should answer</h3><div class="list"><div class="item"><span>If funding falls 20%</span><strong>what is deferred?</strong></div><div class="item"><span>If benefits are 15% lower</span><strong>does NPV remain positive?</strong></div><div class="item"><span>If risk reduction matters more</span><strong>what moves up?</strong></div><div class="item"><span>If delivery readiness drops</span><strong>what should be resequenced?</strong></div></div></div>
+</div>
+<div class="card"><div class="flow"><div class="node"><b>1. Define</b><p>Clarify the decision, constraints and outcomes.</p></div><div class="node"><b>2. Model</b><p>Build transparent assumptions and formulas.</p></div><div class="node"><b>3. Scenario</b><p>Test funding, benefit and risk changes.</p></div><div class="node"><b>4. Challenge</b><p>Inspect data quality and assumption sensitivity.</p></div><div class="node"><b>5. Recommend</b><p>Explain the trade-off and decision required.</p></div></div></div>
+</section>
+
+<section class="view" id="ai">
+<div class="head"><div><h2>AI-assisted modelling workflow</h2><p>AI is used to accelerate the work around the model, not to replace financial logic, governance or human judgement.</p></div></div>
+<div class="ai">
+<div class="card"><h4>Scenario generation</h4><p>Generate alternative assumptions and edge cases to test before a recommendation is finalised.</p></div>
+<div class="card"><h4>Model review</h4><p>Use AI to challenge formula logic, identify missing assumptions and surface possible inconsistencies for human checking.</p></div>
+<div class="card"><h4>Documentation</h4><p>Draft model notes, assumptions, business-case narratives and executive summaries from reviewed outputs.</p></div>
+<div class="card"><h4>Iteration</h4><p>Speed up changes to analysis, formulas or prototypes while preserving version control and final review.</p></div>
+</div>
+<div class="card hero" style="margin-top:10px"><div class="eye">Working principle</div><h3>Use the fastest suitable method, then retain control over the decision.</h3><p>Some problems need a process change, some need deterministic formulas or automation, and some benefit from AI. The judgement is in choosing the right method, validating the output and keeping the recommendation explainable.</p></div>
+</section>
+</main></div>
+<script>
+const items=[
+{name:"Emergency Response Upgrade",cat:"Emergency response",cost:110,run:12,benefit:38,service:5,risk:4,ready:4,fit:5},
+{name:"Digital Clinical Platform",cat:"Digital platforms",cost:150,run:18,benefit:52,service:4,risk:3,ready:3,fit:5},
+{name:"Hospital Infrastructure Renewal",cat:"Hospital modernisation",cost:185,run:10,benefit:46,service:5,risk:3,ready:4,fit:4},
+{name:"Cyber Resilience Program",cat:"Cyber resilience",cost:80,run:14,benefit:24,service:3,risk:5,ready:5,fit:5},
+{name:"Community Care Expansion",cat:"Community services",cost:95,run:9,benefit:34,service:4,risk:4,ready:4,fit:4}
+];
+const discount=.07;
+function npv(x){let v=-x.cost;for(let y=1;y<=5;y++)v+=(x.benefit-x.run)/Math.pow(1+discount,y);return v}
+function bcr(x){return (x.benefit*5)/(x.cost+x.run*5)}
+function money(x){return "$"+Math.round(x)+"m"}
+function calc(){
+ const budget=+document.getElementById("budget").value;
+ const sw=+document.getElementById("service").value/100, fw=+document.getElementById("financial").value/100, rw=+document.getElementById("risk").value/100, dw=+document.getElementById("ready").value/100;
+ const fitw=Math.max(.05,1-sw-fw-rw-dw);
+ const scored=items.map(x=>{const value=Math.min(5,(x.benefit/x.cost)*5);const score=x.service*sw+value*fw+x.risk*rw+x.ready*dw+x.fit*fitw;return {...x,value,score,npv:npv(x),bcr:bcr(x)}})
+ const totalScore=scored.reduce((a,x)=>a+x.score,0);
+ scored.forEach(x=>x.funding=Math.min(x.cost,budget*x.score/totalScore));
+ const funded=scored.reduce((a,x)=>a+x.funding,0);
+ const pnpv=scored.reduce((a,x)=>a+x.npv,0);
+ document.getElementById("kBudget").textContent=money(budget);document.getElementById("kFunded").textContent=money(funded);document.getElementById("kNpv").textContent=money(pnpv);
+ document.getElementById("budgetVal").textContent=budget;document.getElementById("serviceVal").textContent=Math.round(sw*100)+"%";document.getElementById("financialVal").textContent=Math.round(fw*100)+"%";document.getElementById("riskVal").textContent=Math.round(rw*100)+"%";document.getElementById("readyVal").textContent=Math.round(dw*100)+"%";
+ document.getElementById("budgetUsed").textContent=Math.round(funded/budget*100)+"%";
+ const top=[...scored].sort((a,b)=>b.funding-a.funding)[0], topn=[...scored].sort((a,b)=>b.npv-a.npv)[0];
+ document.getElementById("topFunded").textContent=top.name;document.getElementById("topNpv").textContent=topn.name;
+ document.getElementById("overviewRows").innerHTML=scored.map(x=>`<tr><td><strong>${x.name}</strong></td><td>${x.cat}</td><td>${money(x.cost)}</td><td>${money(x.funding)}</td><td class="${x.npv>=0?'good':'bad'}">${money(x.npv)}</td><td>${x.bcr.toFixed(2)}x</td><td><div class="bar"><i style="width:${Math.min(100,x.funding/x.cost*100)}%"></i></div></td></tr>`).join("");
+ document.getElementById("scenarioRows").innerHTML=scored.sort((a,b)=>b.score-a.score).map(x=>`<tr><td><strong>${x.name}</strong></td><td>${x.score.toFixed(2)}</td><td>${money(x.cost)}</td><td>${money(x.funding)}</td><td>${Math.round(x.funding/x.cost*100)}%</td><td>${x.service.toFixed(1)}</td><td>${x.risk.toFixed(1)}</td><td>${x.value.toFixed(2)}</td></tr>`).join("");
+ document.getElementById("businessRows").innerHTML=items.map(x=>{const n=npv(x), r=bcr(x);return `<tr><td><strong>${x.name}</strong></td><td>${money(x.cost)}</td><td>${money(x.run)}</td><td>${money(x.benefit)}</td><td>${money(x.benefit*5)}</td><td class="${n>=0?'good':'bad'}">${money(n)}</td><td>${r.toFixed(2)}x</td><td>${n>=0?'Positive quantified value':'Requires stronger non-financial case'}</td></tr>`}).join("");
+ document.getElementById("sensBars").innerHTML=[300,360,420,480,540].map(b=>{const coverage=Math.min(100,Math.round((b/items.reduce((a,x)=>a+x.cost,0))*100));return `<div style="display:grid;grid-template-columns:75px 1fr 42px;gap:8px;align-items:center;margin:10px 0;font-size:.6rem"><span>${money(b)}</span><div class="bar"><i style="width:${coverage}%"></i></div><strong>${coverage}%</strong></div>`}).join("");
+}
+const presets={
+"Balanced":[420,30,25,20,15,"Balanced weighting keeps financial value, service outcomes, risk and delivery readiness visible together."],
+"Service First":[440,45,20,15,10,"Service First increases the weight on service impact, favouring options with stronger capacity or access outcomes."],
+"Digital First":[430,25,40,15,10,"Digital First places more emphasis on quantified value and scalable digital investment while retaining service and risk considerations."],
+"Resilience":[420,25,20,40,10,"Resilience increases the weight on risk reduction and operational continuity, changing the preferred funding mix."],
+"Constrained Budget":[320,30,35,20,10,"Constrained Budget reduces available funding and increases the pressure to sequence or defer initiatives with weaker quantified value."]
+};
+document.getElementById("scenarioSelect").addEventListener("change",e=>{const p=presets[e.target.value];["budget","service","financial","risk","ready"].forEach((id,i)=>document.getElementById(id).value=p[i]);document.getElementById("scenarioLabel").textContent=e.target.value;document.getElementById("kScenario").textContent=e.target.value;document.getElementById("scenarioNarrative").textContent=p[5];calc()});
+["budget","service","financial","risk","ready"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav,.view").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.view).classList.add("active")});
+document.getElementById("scenarioNarrative").textContent=presets.Balanced[5];calc();
+</script>
+</body></html>
