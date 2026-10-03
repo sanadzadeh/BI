@@ -78,8 +78,8 @@ function readinessGauge(){
  const s=scenarios[scenario],score=s.readiness,pass=score>=88?'5/6 pass':score>=80?'4/6 pass':score>=75?'3/6 pass':'2/6 pass';
  const pos=score>=88?'Controlled':score>=80?'Conditional':score>=75?'Re-test':'Restricted';
  const cx=100,cy=105,r=72,startX=28,startY=105,theta=Math.PI*(score/100);
- const endX=cx-r*Math.cos(theta),endY=cy-r*Math.sin(theta),large=theta>Math.PI/2?1:0;
- const valuePath='M '+startX+' '+startY+' A '+r+' '+r+' 0 '+large+' 1 '+endX.toFixed(2)+' '+endY.toFixed(2);
+ const endX=cx-r*Math.cos(theta),endY=cy-r*Math.sin(theta);
+ const valuePath='M '+startX+' '+startY+' A '+r+' '+r+' 0 0 1 '+endX.toFixed(2)+' '+endY.toFixed(2);
  return '<div class="readiness"><svg class="gauge" viewBox="0 0 200 155" role="img" aria-labelledby="gaugeTitle gaugeDesc"><title id="gaugeTitle">Release readiness for '+s.label+'</title><desc id="gaugeDesc">Illustrative readiness score of '+score+' percent for '+s.label+'.</desc><path d="M 28 105 A 72 72 0 0 1 172 105" fill="none" stroke="var(--surface-deep)" stroke-width="18" stroke-linecap="round"/><path d="'+valuePath+'" fill="none" stroke="'+s.colour+'" stroke-width="18" stroke-linecap="round"/><circle cx="'+endX.toFixed(2)+'" cy="'+endY.toFixed(2)+'" r="5" fill="'+s.colour+'"/><text x="100" y="91" text-anchor="middle" style="font:600 28px Inter;fill:var(--ink)">'+score+'%</text><text x="100" y="111" text-anchor="middle" class="tick">'+s.label.toUpperCase()+'</text><text x="100" y="128" text-anchor="middle" class="tick">READINESS</text></svg><div class="stage-list"><div class="stage"><span class="stage-dot" style="background:var(--ok)"></span><span>Evaluation thresholds</span><b>'+pass+'</b></div><div class="stage"><span class="stage-dot" style="background:var(--cyan)"></span><span>Critical safety / privacy</span><b>0 events</b></div><div class="stage"><span class="stage-dot" style="background:var(--orange)"></span><span>Open assurance items</span><b>'+s.issues+'</b></div><div class="stage"><span class="stage-dot" style="background:'+s.colour+'"></span><span>Release position</span><b>'+pos+'</b></div></div></div>'
 }
 function overviewDetail(){
