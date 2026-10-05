@@ -1,129 +1,384 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Health Investment Scenario Model — Khaled Sanad</title>
-<meta name="description" content="Illustrative dynamic investment model covering business cases, portfolio allocation, scenario modelling, sensitivity and executive decision support.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Investment Case | Dynamic Model</title>
+<meta name="description" content="Illustrative ICT investment business case and dynamic scenario model for interview discussion.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f6f7;--card:#fff;--soft:#f7fafb;--line:#d9e2e7;--ink:#19252e;--muted:#66747f;--accent:#0b6170;--accent2:#4d7f9d;--good:#3b7b4a;--warn:#a46f08;--bad:#a13d31;--ser:'Cormorant Garamond',Georgia,serif;--mon:'DM Mono',monospace}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);padding:12px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center}.brand h1{margin:0;font:600 1.15rem var(--ser)}.brand p{margin:3px 0 0;color:var(--muted);font:400 .55rem var(--mon);letter-spacing:.08em;text-transform:uppercase}.pill{font:500 .55rem var(--mon);border:1px solid #b8d6d9;background:#e7f3f4;color:var(--accent);border-radius:999px;padding:6px 9px}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 60px)}aside{background:#fff;border-right:1px solid var(--line);padding:16px 10px}.nav{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--muted);padding:10px;border-radius:8px;font-weight:600;font-size:.72rem;cursor:pointer;margin:2px 0}.nav.active,.nav:hover{background:#e7f3f4;color:var(--accent)}.meta{font-size:.57rem;line-height:1.5;color:var(--muted);padding:12px 10px;margin-top:15px;border-top:1px solid var(--line)}main{padding:22px 24px 44px;min-width:0}.view{display:none}.view.active{display:block}.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:14px}.head h2{margin:0 0 5px;font:600 1.45rem var(--ser)}.head p{margin:0;color:var(--muted);font-size:.7rem;line-height:1.5;max-width:850px}.grid{display:grid;gap:10px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:10px}.two{grid-template-columns:1.15fr .85fr;margin-bottom:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 3px 12px rgba(30,50,60,.05)}.eye{font:500 .5rem var(--mon);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.big{font:600 1.45rem var(--ser)}.sub{font-size:.58rem;color:var(--muted);margin-top:5px;line-height:1.4}.hero{padding:18px;background:linear-gradient(135deg,#fff,#f7fafb)}.hero h3{font:600 1.2rem/1.15 var(--ser);margin:0 0 8px}.hero p{font-size:.65rem;line-height:1.55;color:var(--muted);margin:0}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:.6rem;font-weight:600;margin-bottom:5px}.ctl input,.ctl select{width:100%}.ctl input[type=range]{accent-color:var(--accent)}select{padding:7px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:9px;border-bottom:1px solid var(--line);font-size:.6rem;text-align:left}th{background:var(--soft);font:500 .49rem var(--mon);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}tr:last-child td{border-bottom:0}.bar{height:8px;background:#e7ecef;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px}.good{color:var(--good);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}.decision{border-left:4px solid var(--accent)}.decision h3{font:600 1rem var(--ser);margin:0 0 7px}.decision p{font-size:.62rem;line-height:1.55;color:var(--muted);margin:0}.list{display:grid;gap:7px;margin-top:10px}.item{padding:8px 9px;background:var(--soft);border:1px solid var(--line);border-radius:8px;font-size:.58rem;display:flex;justify-content:space-between;gap:10px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.node{padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}.node b{font-size:.62rem}.node p{font-size:.55rem;color:var(--muted);line-height:1.4;margin:5px 0 0}.note{font-size:.58rem;color:var(--muted);line-height:1.5}.ai{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ai .card h4{margin:0 0 5px;font-size:.66rem}.ai .card p{margin:0;font-size:.56rem;line-height:1.45;color:var(--muted)}@media(max-width:1000px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}.meta{display:none}.nav{width:auto;white-space:nowrap}.kpis,.two,.ai{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}@media(max-width:650px){main{padding:16px 12px 36px}.kpis,.two,.ai,.controls,.flow{grid-template-columns:1fr}.top{position:static;align-items:flex-start;flex-wrap:wrap}}
+:root{
+  --paper:#f3f5f9;--surface:#ffffff;--surface-alt:#f7f9fc;--surface-deep:#e9edf4;
+  --border:#d9dee8;--border-2:#b9c3d3;--ink:#17243a;--ink-2:#53627a;--ink-3:#7a879a;
+  --navy:#002664;--navy-2:#004c97;--navy-dim:#eaf1fb;--navy-mid:#b9cbe3;
+  --blue:#4b73a7;--blue-dim:#eaf0f7;
+  --red:#d7153a;--red-dim:#fdecef;--gold:#a56f00;--gold-dim:#fff5d9;--green:#2e7d57;--green-dim:#e8f4ee;
+  --seg1:#002664;--seg2:#2f5f9a;--seg3:#4b73a7;--seg4:#7795bb;--seg5:#a7b7ce;
+  --risk-low:#e8f3eb;--risk-med:#fbf1dc;--risk-high:#f8e8e5;
+  --shadow:0 7px 22px rgba(0,38,100,.08);--shadow-sm:0 2px 8px rgba(0,38,100,.06);
+  --radius:11px;--serif:'Cormorant Garamond',Georgia,serif;--mono:'DM Mono','Courier New',monospace;
+}
+:root[data-theme="dark"]{
+  --paper:#0c1424;--surface:#131e35;--surface-alt:#192843;--surface-deep:#22345a;
+  --border:#2a3d5e;--border-2:#41577f;--ink:#eaf0fa;--ink-2:#a9b7cf;--ink-3:#7f90ad;
+  --navy:#8db4f0;--navy-2:#6aa0e8;--navy-dim:#172c52;--navy-mid:#2c4a7c;
+  --blue:#7ba3d6;--blue-dim:#1a2d4d;
+  --red:#f0607a;--red-dim:#3a1a26;--gold:#e0ad4c;--gold-dim:#3a2e15;--green:#6fcf9c;--green-dim:#173427;
+  --seg1:#8db4f0;--seg2:#6a98d8;--seg3:#4f7fc0;--seg4:#3a68a8;--seg5:#2c5088;
+  --risk-low:#183226;--risk-med:#35291a;--risk-high:#3a2024;
+  --shadow:0 9px 26px rgba(0,0,0,.3);--shadow-sm:0 2px 10px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:13px/1.45 Inter,system-ui,Arial,sans-serif;overflow-x:hidden;font-variant-numeric:lining-nums}
+body,.card,.header,.sidebar,.nav,.scenario,.theme-btn,.ghost-btn{transition:background-color .18s,color .18s,border-color .18s}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+button,input,select{font:inherit}button{cursor:pointer}svg{max-width:100%}.mono,.num{font-family:var(--mono)}
+
+/* shell */
+.shell{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+.header{position:sticky;top:0;z-index:70;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.brand{display:flex;gap:11px;align-items:center;min-width:0}
+.brand-mark{width:34px;height:34px;flex:none;border-radius:9px;background:linear-gradient(145deg,#004c97,#002664);position:relative;box-shadow:var(--shadow-sm)}
+.brand-mark:before,.brand-mark:after{content:"";position:absolute;left:8px;right:8px;height:2px;background:#fff;border-radius:2px}
+.brand-mark:before{top:11px}.brand-mark:after{top:20px}
+.brand h1{font:600 1.18rem/1 var(--serif);margin:0;color:var(--ink)}
+.brand p{margin:4px 0 0;font:400 .58rem/1.15 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.theme-btn{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--surface-alt);color:var(--ink);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600}
+.theme-orb{width:10px;height:10px;border-radius:50%;background:#e0a72f;box-shadow:0 0 0 4px rgba(224,167,47,.14)}
+:root[data-theme="dark"] .theme-orb{background:#8bc5ec;box-shadow:0 0 0 4px rgba(139,197,236,.12)}
+.app{display:grid;grid-template-columns:288px minmax(0,1fr)}
+.sidebar{position:sticky;top:55px;height:calc(100vh - 55px);overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:14px 16px 20px}
+.side-title{font:400 .55rem/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding:0 9px 9px}
+.nav{width:100%;display:grid;grid-template-columns:24px 1fr;gap:7px;align-items:center;text-align:left;border:0;border-left:3px solid transparent;background:transparent;color:var(--ink-2);padding:9px;border-radius:7px;margin:2px 0}
+.nav:hover{background:var(--surface-alt);color:var(--ink)}
+.nav.active{background:var(--navy-dim);border-left-color:var(--navy);color:var(--navy)}
+.nav-num{font:400 .62rem/1.2 var(--mono);color:var(--ink-3)}.nav-label{font-size:.8rem;font-weight:600}
+.main{min-width:0;padding:20px 24px 44px}
+.view{display:none}.view.active{display:block}
+.demo{font:400 .55rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--navy-dim);border:1px solid var(--navy-mid);padding:6px 9px;border-radius:999px;white-space:nowrap}
+
+/* primitives */
+.grid{display:grid;gap:12px}.two{grid-template-columns:1.1fr .9fr}.equal{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px;min-width:0}
+.card.feature{box-shadow:var(--shadow)}
+.eyebrow{font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.chart-title{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.chart-title h3{font-size:.84rem;margin:0;color:var(--ink);font-weight:650}
+.chart-title p{font-size:.68rem;color:var(--ink-3);margin:3px 0 0}
+.info{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border);color:var(--ink-3);font:500 .66rem/1 var(--mono);background:var(--surface-alt)}
+.hoverable{cursor:help}.eyebrow.hoverable{text-decoration:underline dotted var(--border-2);text-underline-offset:3px}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;font-size:.66rem;font-weight:700}
+.badge:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.good{background:var(--green-dim);color:var(--green)}.warn{background:var(--gold-dim);color:var(--gold)}.bad{background:var(--red-dim);color:var(--red)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:.68rem;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:5px}.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.tooltip{position:fixed;z-index:1000;pointer-events:none;max-width:280px;padding:9px 10px;border-radius:7px;background:var(--ink);color:var(--surface);font-size:.72rem;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none}
+.tooltip strong{display:block;margin-bottom:3px}
+
+/* controls */
+.scenario-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.scenario{border:1px solid var(--border);border-radius:7px;background:var(--surface-alt);padding:8px 10px;text-align:left;color:var(--ink-2);font-size:.76rem;font-weight:600}
+.scenario:hover{border-color:var(--navy-mid)}
+.scenario.active{background:var(--navy-dim);border-color:var(--navy);color:var(--navy)}
+.adv-grid{display:grid;gap:12px 14px}.adv-grid.c2{grid-template-columns:repeat(2,1fr)}
+.control label{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--ink-2);margin-bottom:2px}
+.control .val{font-family:var(--mono);color:var(--navy);font-size:.72rem;font-weight:500}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:9px 0 3px;border-radius:99px;background:var(--surface-deep);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--navy),var(--shadow-sm)}
+input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--navy);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--navy)}
+input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:var(--surface-deep)}
+.check{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 9px;font-size:.66rem;font-weight:700}
+.check:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.check.ok{background:var(--green-dim);color:var(--green)}.check.bad{background:var(--red-dim);color:var(--red)}
+
+/* decision view */
+.kpi{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.kpi-value{font:600 1.7rem/1 var(--serif);color:var(--ink);margin-top:2px}
+.kpi-sub{font-size:.68rem;color:var(--ink-3);margin-top:6px}
+.kpi-icon{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--navy-dim);color:var(--navy);font:500 .6rem/1 var(--mono)}
+.chart{width:100%;height:300px;display:block}.chart-sm{height:235px}
+.axis{stroke:var(--border-2);stroke-width:1}.gridline{stroke:var(--border);stroke-width:1;stroke-dasharray:3 5}
+.tick{fill:var(--ink-3);font:11px var(--mono)}.label{fill:var(--ink-2);font:11.5px Inter,Arial,sans-serif}
+.threshold{stroke:var(--red);stroke-width:1.6;stroke-dasharray:5 5}
+.bubble{cursor:pointer;stroke-width:2}.bubble-label{font:600 11px Inter,Arial,sans-serif;pointer-events:none;fill:var(--ink)}
+.envelope-wrap{padding-top:36px}
+.envelope{position:relative;height:36px;border:1px solid var(--border);border-radius:8px;background:var(--surface-deep);overflow:visible;touch-action:none}
+.env-seg{position:absolute;top:0;bottom:0;border-right:1px solid var(--surface)}
+.env-seg:first-child{border-radius:7px 0 0 7px}
+.env-marker{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--navy);cursor:ew-resize}
+.env-marker:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--navy);top:-5px;left:-4px}
+.env-label{position:absolute;top:-34px;transform:translateX(-50%);font:500 .7rem var(--mono);color:var(--navy);background:var(--surface);border:1px solid var(--navy-mid);border-radius:5px;padding:4px 7px;white-space:nowrap}
+.env-gap{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,var(--red-dim),var(--red-dim) 5px,transparent 5px,transparent 10px);border-radius:0 7px 7px 0}
+.env-legend{display:grid;gap:6px;margin-top:14px;font-size:.72rem;color:var(--ink-2)}
+.env-legend span{display:flex;align-items:center;gap:7px}.swatch{width:9px;height:9px;border-radius:2px;flex:none}
+.details-toggle{margin-top:12px;width:100%;text-align:left;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:10px 12px;color:var(--navy);font-weight:650;font-size:.78rem}
+.details-toggle:hover{background:var(--navy-dim)}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:8px;margin-top:8px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:860px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:.76rem;text-align:left;vertical-align:middle}
+th{background:var(--surface-alt);color:var(--ink-3);font:400 .56rem/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:0}tbody tr:hover td{background:var(--surface-alt)}
+.open-case{border:1px solid var(--navy-mid);background:var(--navy-dim);color:var(--navy);border-radius:6px;padding:5px 9px;font-weight:700;font-size:.7rem}
+
+/* case view */
+.case-hero{border-left:4px solid var(--navy);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+.case-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.case-title{font:600 2rem/1.05 var(--serif);color:var(--ink);margin:0 0 6px}
+.touch-problem{font-size:.78rem;color:var(--ink-2);max-width:760px;line-height:1.5}
+.hero-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.hero-metric{background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;padding:10px}
+.hero-metric span{display:block;font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.hero-metric b{display:block;font:600 1.3rem/1 var(--serif);color:var(--ink);margin-top:6px}
+.allocation{height:6px;border-radius:999px;background:var(--surface-deep);overflow:hidden;margin-top:8px}
+.allocation>div{height:100%;background:var(--navy);border-radius:999px}
+.case-scenarios{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.case-scenario{border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--surface-alt)}
+.case-scenario.active{border-color:var(--navy);background:var(--navy-dim)}
+.case-scenario .name{font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.case-scenario .alloc{font:600 1.1rem/1 var(--serif);color:var(--ink);margin-top:8px}
+.case-scenario .npv{font:400 .66rem var(--mono);color:var(--ink-2);margin-top:6px}
+.case-controls{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.working{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.formula{background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;padding:12px}
+.formula .eq{font:400 .76rem/1.5 var(--mono);color:var(--navy)}
+.formula .result{font:600 1.5rem/1 var(--serif);color:var(--ink);margin-top:8px}
+.working-line{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding:6px 0;font-size:.74rem;color:var(--ink-2)}
+.working-line:last-child{border-bottom:0}.working-line b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.waterfall{display:flex;align-items:flex-end;gap:14px;height:220px;padding:15px 16px 30px;border-bottom:1px solid var(--border)}
+.wf-col{flex:1;text-align:center;position:relative}
+.wf-bar{margin:auto;width:min(70px,70%);border-radius:6px 6px 0 0;min-height:8px}
+.wf-bar.cost{background:var(--red)}.wf-bar.benefit{background:var(--blue)}.wf-bar.npv.pos{background:var(--green)}.wf-bar.npv.neg{background:var(--gold)}
+.wf-val{font:500 .76rem var(--mono);margin-bottom:6px;color:var(--ink)}
+.wf-label{font:500 .56rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:8px;position:absolute;left:0;right:0}
+.tornado{display:grid;gap:9px}
+.tor-head,.tor-row{display:grid;grid-template-columns:1.15fr .95fr .95fr 2fr 62px;gap:8px;align-items:center}
+.tor-head{font:400 .54rem/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.tor-row{font-size:.74rem;color:var(--ink-2)}
+.tor-track{height:16px;background:var(--surface-deep);border-radius:5px;position:relative;overflow:hidden}
+.tor-zero{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border-2)}
+.tor-neg{position:absolute;right:50%;top:2px;bottom:2px;background:var(--red);border-radius:4px 0 0 4px}
+.tor-pos{position:absolute;left:50%;top:2px;bottom:2px;background:var(--blue);border-radius:0 4px 4px 0}
+.tor-val{font-family:var(--mono);text-align:right;color:var(--ink)}
+.evidence-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.trace{border:1px solid var(--border);border-radius:8px;background:var(--surface-alt);padding:10px}
+.trace span{display:block;font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.trace b{display:block;font-size:.8rem;margin-top:6px;color:var(--ink)}
+.ai-note{margin-top:10px;font-size:.72rem;color:var(--ink-3)}
+.risk-matrix{display:grid;grid-template-columns:30px 1fr;gap:8px}
+.risk-y{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font:500 .56rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.risk-grid{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,42px);gap:3px;position:relative}
+.risk-cell{border-radius:4px;border:1px solid rgba(128,128,128,.08)}
+.risk-cell.low{background:var(--risk-low)}.risk-cell.med{background:var(--risk-med)}.risk-cell.high{background:var(--risk-high)}
+.risk-point{position:absolute;transform:translate(-50%,-50%);min-width:78px;max-width:110px;background:var(--surface);border:1px solid var(--navy);border-radius:6px;padding:4px 6px;font-size:.68rem;color:var(--navy);box-shadow:var(--shadow-sm);text-align:center}
+.risk-x{text-align:center;font:500 .56rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.footer-note{margin-top:14px;font-size:.68rem;color:var(--ink-3)}
+
+/* sidebar */
+.head-right{display:flex;gap:10px;align-items:center}
+.nav-group{margin-bottom:10px}.nav-group .side-title{padding:0 9px 8px}
+.side-block{padding:12px 0;border-top:1px solid var(--border)}
+.side-block .side-title{padding:0;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.side-block .control+.control{margin-top:10px}.adv-grid .control+.control{margin-top:0}
+.side-controls summary{display:none;cursor:pointer;font:500 .66rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding:8px 0}
+.side-checks{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-top:12px;border-top:1px solid var(--border)}
+.readout{margin:4px 0 12px;padding:11px 12px;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:8px;background:linear-gradient(135deg,var(--surface),var(--surface-alt))}
+.readout-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.readout-head .side-title{padding:0}
+.readout-text{font:600 .98rem/1.3 var(--serif);color:var(--ink)}
+@media(max-width:1280px){.two,.equal{grid-template-columns:1fr}}
+@media(max-width:1150px){.hero-metrics{grid-template-columns:repeat(2,1fr)}.evidence-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto;overflow:visible;border-right:0;border-bottom:1px solid var(--border);padding:10px 12px}.nav-group{display:flex;gap:6px;overflow:auto;margin-bottom:6px}.nav-group .side-title{display:none}.nav{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}.nav.active{border-left:0;border-bottom-color:var(--navy)}.side-controls summary{display:block}.main{padding:14px 12px 34px}.header{position:static}.kpis{grid-template-columns:repeat(2,1fr)}.case-controls{grid-template-columns:repeat(2,1fr)}.case-scenarios{grid-template-columns:repeat(2,1fr)}.working{grid-template-columns:1fr}.tor-head,.tor-row{grid-template-columns:1fr .8fr .8fr 1.5fr 56px}}
+@media(max-width:520px){.brand p{display:none}.demo{display:none}.scenario-strip{grid-template-columns:repeat(2,1fr)}.adv-grid.c2,.kpis,.hero-metrics,.case-controls,.case-scenarios,.evidence-strip{grid-template-columns:1fr}.main{padding:12px 10px 28px}.case-top{display:block}.hero-right{justify-content:flex-start;margin-top:10px}.chart{height:260px}.chart-sm{height:220px}.tor-head{display:none}.tor-row{grid-template-columns:1fr 1fr}.tor-track{grid-column:1 / -1}.tor-val{text-align:left}}
 </style>
 </head>
 <body>
-<header class="top"><div class="brand"><h1>Khaled S. — Health Investment Scenario Model</h1><p>dynamic modelling · business case · scenarios · decision support</p></div><span class="pill">Illustrative non-production model</span></header>
-<div class="layout">
-<aside>
-<button class="nav active" data-view="overview">Executive overview</button>
-<button class="nav" data-view="scenario">Scenario builder</button>
-<button class="nav" data-view="business">Business case</button>
-<button class="nav" data-view="sensitivity">Sensitivity</button>
-<button class="nav" data-view="ai">AI-assisted workflow</button>
-<div class="meta">Illustrative health-system investment example. No actual organisation, Treasury or patient data is used. The model demonstrates how dynamic spreadsheet logic can support funding choices under competing priorities.</div>
-</aside>
-<main>
-<section class="view active" id="overview">
-<div class="head"><div><h2>Executive investment view</h2><p>A constrained portfolio model comparing service value, financial return, risk reduction, delivery readiness and strategic fit across competing investment options.</p></div></div>
-<div class="grid kpis">
-<div class="card"><div class="eye">Available budget</div><div class="big" id="kBudget">$420m</div><div class="sub">Change the budget in the scenario builder.</div></div>
-<div class="card"><div class="eye">Recommended funding</div><div class="big" id="kFunded">$0m</div><div class="sub">Formula-driven allocation under the selected scenario.</div></div>
-<div class="card"><div class="eye">Portfolio NPV</div><div class="big" id="kNpv">$0m</div><div class="sub">Illustrative five-year discounted net value.</div></div>
-<div class="card"><div class="eye">Scenario</div><div class="big" id="kScenario">Balanced</div><div class="sub">Weights change with decision priorities.</div></div>
-</div>
-<div class="grid two">
-<div class="card hero"><div class="eye">Decision framing</div><h3>Funding choices should be tested as a portfolio, not assessed one initiative at a time.</h3><p>The model makes the trade-offs explicit. A service-first scenario can favour capacity and access, a resilience scenario can favour risk reduction, and a constrained-budget scenario can shift funding toward initiatives with stronger quantified value. The result is a comparable decision view rather than a single fixed ranking.</p></div>
-<div class="card decision"><h3>Model logic</h3><div class="list"><div class="item"><span>Inputs</span><strong>costs, benefits, scores</strong></div><div class="item"><span>Scenario</span><strong>weights + budget</strong></div><div class="item"><span>Business case</span><strong>NPV + BCR</strong></div><div class="item"><span>Decision</span><strong>funding mix</strong></div></div></div>
-</div>
-<div class="card"><div class="eye">Illustrative portfolio</div><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Category</th><th>Requested</th><th>Recommended</th><th>NPV</th><th>BCR</th><th>Funding coverage</th></tr></thead><tbody id="overviewRows"></tbody></table></div></div>
+<div class="shell">
+<header class="header">
+  <div class="brand"><div class="brand-mark"></div><div><h1>ICT Investment Analysis</h1><p>prioritisation · business case · scenario testing</p></div></div>
+  <div class="head-right"><span class="demo">Illustrative data</span><button class="theme-btn" id="themeBtn"><span class="theme-orb"></span><span id="themeText">Dark</span></button></div>
+</header>
+<div class="app">
+<nav class="sidebar">
+  <div class="nav-group">
+    <div class="side-title">Views</div>
+    <button class="nav active" data-view="decision"><span class="nav-num">01</span><span class="nav-label">Investment decision</span></button>
+    <button class="nav" data-view="case"><span class="nav-num">02</span><span class="nav-label">Business case</span></button>
+  </div>
+  <div class="readout" aria-live="polite"><div class="readout-head"><span class="side-title">Readout</span><span class="info hoverable" id="readoutInfo" data-tip="">i</span></div><div class="readout-text" id="changeSentence"></div></div>
+  <details class="side-controls" open>
+    <summary>Scenario controls</summary>
+    <div class="side-block"><div class="side-title">Scenario <span class="info hoverable" data-tip="Presets change the funding envelope and prioritisation weights. All outputs are recalculated from cash flows.">i</span></div>
+      <div class="scenario-strip"><button class="scenario active" data-scenario="base">Base</button><button class="scenario" data-scenario="constrained">Constrained</button><button class="scenario" data-scenario="risk">Risk priority</button><button class="scenario" data-scenario="service">Service priority</button></div>
+      <div style="margin-top:12px"><div class="control"><label><span>Funding envelope</span><span class="val" id="envelopeVal">$280m</span></label><input id="envelope" type="range" min="180" max="360" step="1" value="280"></div></div></div>
+    <div class="side-block"><div class="side-title">Assumptions</div><div class="control"><label><span>Benefit realisation</span><span class="val" id="realisationVal">100%</span></label><input id="realisation" type="range" min="60" max="120" step="1" value="100"></div><div class="control"><label><span>Discount rate</span><span class="val" id="discountVal">5.0%</span></label><input id="discount" type="range" min="2" max="10" step="0.5" value="5"></div></div>
+    <div class="side-block"><div class="side-title">Weights</div><div class="adv-grid c2"><div class="control"><label><span>Financial</span><span class="val" id="financialVal">25%</span></label><input id="financialW" type="range" min="5" max="60" step="1" value="25"></div><div class="control"><label><span>Service</span><span class="val" id="serviceVal">25%</span></label><input id="serviceW" type="range" min="5" max="60" step="1" value="25"></div><div class="control"><label><span>Risk</span><span class="val" id="riskVal">30%</span></label><input id="riskW" type="range" min="5" max="60" step="1" value="30"></div><div class="control"><label><span>Delivery</span><span class="val" id="deliveryVal">20%</span></label><input id="deliveryW" type="range" min="5" max="60" step="1" value="20"></div></div></div>
+    <div class="side-checks"><span class="check ok" id="weightCheck">Weights normalised to 100%</span><span class="check ok" id="allocationCheck">Allocation within envelope</span></div>
+  </details>
+</nav>
+<main class="main">
+<section class="view active" id="view-decision">
+    <div class="grid kpis" style="margin-bottom:12px">
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Total capital available to allocate across proposals.">Funding envelope</div><div class="kpi-value" id="kEnvelope">$280m</div></div><div class="kpi-icon">EN</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Present value of cost for the funded share of each proposal.">Funded TCO</div><div class="kpi-value" id="kTco">$0m</div></div><div class="kpi-icon">TC</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Present value of benefits less present value of costs, funded share only.">Portfolio NPV</div><div class="kpi-value" id="kNpv">$0m</div></div><div class="kpi-icon">NV</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Present value of benefits divided by present value of costs, funded share only.">Portfolio BCR</div><div class="kpi-value" id="kBcr">0.00</div></div><div class="kpi-icon">BC</div></div></div>
+  </div>
+  <div class="grid two" style="margin-bottom:12px">
+    <div class="card feature">
+      <div class="chart-title"><h3>Investment prioritisation</h3><span class="info hoverable" data-tip="BCR on the x-axis, weighted score on the y-axis, bubble size as funding ask and colour as allocation status. Click a bubble to open the business case.">i</span></div>
+      <svg class="chart" id="bubbleChart" role="img" aria-label="BCR versus weighted score bubble chart"></svg>
+      <div class="legend"><span><i style="background:#2e7d57"></i>Funded</span><span><i style="background:#a56f00"></i>Part-funded</span><span><i style="background:#d7153a"></i>Deferred</span><span>Size = funding ask</span></div>
+    </div>
+    <div class="card">
+      <div class="chart-title"><h3>Funding envelope</h3><span class="info hoverable" data-tip="Funded allocations are stacked against the current envelope. Drag the marker to test a different envelope.">i</span></div>
+      <div class="envelope-wrap"><div class="envelope" id="envelopeBar"><div class="env-marker" id="envelopeMarker"></div><div class="env-label" id="envelopeLabel">$280m</div></div><div class="env-legend" id="envelopeLegend"></div></div>
+    </div>
+  </div>
+  <button class="details-toggle" id="detailToggle">Show detailed prioritisation table</button>
+  <div id="detailPanel" style="display:none"><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Investment proposal</th><th>Ask</th><th>PV cost</th><th>PV benefit</th><th>NPV</th><th>BCR</th><th>Score</th><th>Allocation</th><th>Status</th><th></th></tr></thead><tbody id="proposalBody"></tbody></table></div></div>
 </section>
 
-<section class="view" id="scenario">
-<div class="head"><div><h2>Dynamic scenario builder</h2><p>Adjust the portfolio budget and decision weights. The recommended funding mix, value indicators and business-case outputs update immediately.</p></div></div>
-<div class="grid two">
-<div class="card">
-<div class="controls">
-<div class="ctl"><label><span>Scenario</span><strong id="scenarioLabel">Balanced</strong></label><select id="scenarioSelect"><option>Balanced</option><option>Service First</option><option>Digital First</option><option>Resilience</option><option>Constrained Budget</option></select></div>
-<div class="ctl"><label><span>Budget ($m)</span><strong id="budgetVal">420</strong></label><input id="budget" type="range" min="250" max="600" step="10" value="420"></div>
-<div class="ctl"><label><span>Service weight</span><strong id="serviceVal">30%</strong></label><input id="service" type="range" min="10" max="50" step="5" value="30"></div>
-<div class="ctl"><label><span>Financial value weight</span><strong id="financialVal">25%</strong></label><input id="financial" type="range" min="10" max="50" step="5" value="25"></div>
-<div class="ctl"><label><span>Risk weight</span><strong id="riskVal">20%</strong></label><input id="risk" type="range" min="10" max="50" step="5" value="20"></div>
-<div class="ctl"><label><span>Readiness weight</span><strong id="readyVal">15%</strong></label><input id="ready" type="range" min="5" max="30" step="5" value="15"></div>
-</div>
-<p class="note">Strategic fit receives the remaining weight. In Excel, these would be blue hardcoded assumption cells feeding formula-driven scenario and business-case sheets.</p>
-</div>
-<div class="card decision"><h3>Scenario interpretation</h3><p id="scenarioNarrative"></p><div class="list"><div class="item"><span>Budget utilised</span><strong id="budgetUsed">0%</strong></div><div class="item"><span>Highest funded</span><strong id="topFunded">—</strong></div><div class="item"><span>Highest NPV</span><strong id="topNpv">—</strong></div></div></div>
-</div>
-<div class="card"><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Score</th><th>Requested</th><th>Recommended</th><th>Coverage</th><th>Service</th><th>Risk</th><th>Value</th></tr></thead><tbody id="scenarioRows"></tbody></table></div></div>
-</section>
+<section class="view" id="view-case">
+  <section class="card case-hero">
+    <div class="case-top"><div><div class="eyebrow">Selected proposal</div><h1 class="case-title" id="caseTitle">Cyber resilience</h1><div class="touch-problem" id="caseProblem"></div></div><div class="hero-right"><span class="badge good" id="caseStatus">Funded</span></div></div>
+    <div class="hero-metrics">
+      <div class="hero-metric"><span>Allocation</span><b id="caseAlloc">$0m</b><div class="allocation"><div id="caseAllocFill"></div></div></div>
+      <div class="hero-metric"><span>Five-year PV cost</span><b id="casePvCost">$0m</b></div>
+      <div class="hero-metric"><span>NPV</span><b id="caseNpv">$0m</b></div>
+      <div class="hero-metric"><span>BCR</span><b id="caseBcr">0.00</b></div>
+    </div>
+    <div class="case-scenarios" id="caseScenarioStrip"></div>
+  </section>
 
-<section class="view" id="business">
-<div class="head"><div><h2>Business-case comparison</h2><p>Each option is compared on cost, quantified benefit, five-year NPV and benefit-cost ratio, then viewed alongside service and risk outcomes.</p></div></div>
-<div class="card"><div class="tablewrap"><table><thead><tr><th>Initiative</th><th>Upfront cost</th><th>Annual run cost</th><th>Annual benefit</th><th>5Y gross benefit</th><th>NPV</th><th>BCR</th><th>Interpretation</th></tr></thead><tbody id="businessRows"></tbody></table></div></div>
-<div class="grid two" style="margin-top:10px"><div class="card hero"><div class="eye">Business-case principle</div><h3>Financial return is one part of the decision, not the whole decision.</h3><p>Some investments may have lower directly quantified value but stronger service, resilience or strategic outcomes. A useful model keeps those dimensions visible rather than forcing everything into one financial metric.</p></div><div class="card"><div class="eye">Five-year discount rate</div><div class="big">7.0%</div><div class="sub">Illustrative assumption. In the Excel model this sits on the assumptions sheet and feeds all NPV formulas.</div></div></div>
-</section>
+  <section class="card" style="margin-bottom:12px">
+    <div class="chart-title"><h3>Case controls</h3><span class="info hoverable" data-tip="These controls alter the selected proposal and feed every chart below. Realisation and discount rate are shared with the portfolio model.">i</span></div>
+    <div class="case-controls">
+      <div class="control"><label><span>Benefit realisation</span><span class="val" id="caseRealisationVal">100%</span></label><input id="caseRealisation" type="range" min="60" max="120" step="1" value="100"></div>
+      <div class="control"><label><span>Implementation cost</span><span class="val" id="caseCostVal">100%</span></label><input id="caseCost" type="range" min="80" max="130" step="1" value="100"></div>
+      <div class="control"><label><span>Delay</span><span class="val" id="caseDelayVal">0m</span></label><input id="caseDelay" type="range" min="0" max="6" step="1" value="0"></div>
+      <div class="control"><label><span>Discount rate</span><span class="val" id="caseDiscountVal">5.0%</span></label><input id="caseDiscount" type="range" min="2" max="10" step="0.5" value="5"></div>
+    </div>
+  </section>
 
-<section class="view" id="sensitivity">
-<div class="head"><div><h2>Sensitivity and trade-offs</h2><p>Decision quality improves when the model shows what changes the recommendation rather than presenting one answer as certain.</p></div></div>
-<div class="grid two">
-<div class="card"><div class="eye">Budget sensitivity</div><div id="sensBars"></div></div>
-<div class="card decision"><h3>Questions the model should answer</h3><div class="list"><div class="item"><span>If funding falls 20%</span><strong>what is deferred?</strong></div><div class="item"><span>If benefits are 15% lower</span><strong>does NPV remain positive?</strong></div><div class="item"><span>If risk reduction matters more</span><strong>what moves up?</strong></div><div class="item"><span>If delivery readiness drops</span><strong>what should be resequenced?</strong></div></div></div>
-</div>
-<div class="card"><div class="flow"><div class="node"><b>1. Define</b><p>Clarify the decision, constraints and outcomes.</p></div><div class="node"><b>2. Model</b><p>Build transparent assumptions and formulas.</p></div><div class="node"><b>3. Scenario</b><p>Test funding, benefit and risk changes.</p></div><div class="node"><b>4. Challenge</b><p>Inspect data quality and assumption sensitivity.</p></div><div class="node"><b>5. Recommend</b><p>Explain the trade-off and decision required.</p></div></div></div>
-</section>
+  <section class="card" style="margin-bottom:12px">
+    <div class="chart-title"><h3>Show the working</h3><span class="info hoverable" data-tip="Headline figures are calculated from discounted five-year cash flows. BCR is never stored as an input.">i</span></div>
+    <div class="working">
+      <div class="formula"><div class="eq" id="npvFormula"></div><div class="result" id="npvResult"></div></div>
+      <div class="formula"><div class="eq" id="bcrFormula"></div><div class="result" id="bcrResult"></div></div>
+    </div>
+    <button class="details-toggle" id="workToggle">Show yearly working</button><div id="workingLines" style="display:none;margin-top:8px"></div>
+  </section>
 
-<section class="view" id="ai">
-<div class="head"><div><h2>AI-assisted modelling workflow</h2><p>AI is used to accelerate the work around the model, not to replace financial logic, governance or human judgement.</p></div></div>
-<div class="ai">
-<div class="card"><h4>Scenario generation</h4><p>Generate alternative assumptions and edge cases to test before a recommendation is finalised.</p></div>
-<div class="card"><h4>Model review</h4><p>Use AI to challenge formula logic, identify missing assumptions and surface possible inconsistencies for human checking.</p></div>
-<div class="card"><h4>Documentation</h4><p>Draft model notes, assumptions, business-case narratives and executive summaries from reviewed outputs.</p></div>
-<div class="card"><h4>Iteration</h4><p>Speed up changes to analysis, formulas or prototypes while preserving version control and final review.</p></div>
-</div>
-<div class="card hero" style="margin-top:10px"><div class="eye">Working principle</div><h3>Use the fastest suitable method, then retain control over the decision.</h3><p>Some problems need a process change, some need deterministic formulas or automation, and some benefit from AI. The judgement is in choosing the right method, validating the output and keeping the recommendation explainable.</p></div>
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card feature"><div class="chart-title"><h3>NPV bridge</h3><span class="info hoverable" data-tip="Present value of cost, present value of benefit and resulting NPV.">i</span></div><div class="waterfall" id="waterfall"></div></section>
+    <section class="card feature"><div class="chart-title"><h3>Annual cash flow and payback</h3><span class="info hoverable" data-tip="Annual net cash flow with cumulative cash flow. The marker shows the first year cumulative cash flow becomes positive.">i</span></div><svg class="chart-sm chart" id="cashflowChart"></svg></section>
+  </div>
+
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card"><div class="chart-title"><h3>NPV against benefit realisation</h3><span class="info hoverable" data-tip="Sensitivity curve from 60% to 120% benefit realisation, with the zero-NPV crossing marked.">i</span></div><svg class="chart-sm chart" id="realisationChart"></svg></section>
+    <section class="card"><div class="chart-title"><h3>Options: cost against benefit</h3><span class="info hoverable" data-tip="Alternative options are plotted by PV cost and PV benefit using the selected proposal's current assumptions.">i</span></div><svg class="chart-sm chart option-scatter" id="optionChart"></svg></section>
+  </div>
+
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card"><div class="chart-title"><h3>Likelihood by impact</h3><span class="info hoverable" data-tip="Key case assumptions and delivery risks plotted by likelihood and impact.">i</span></div><div class="risk-matrix"><div class="risk-y">Impact</div><div><div class="risk-grid" id="riskGrid"></div><div class="risk-x">Likelihood</div></div></div></section>
+    <section class="card"><div class="chart-title"><h3>NPV sensitivity</h3><span class="info hoverable" data-tip="Tornado test ranges are shown with the stakeholder or function that owns the challenged assumption.">i</span></div><div class="tornado" id="caseTornado"></div></section>
+  </div>
+
+  <section class="card">
+    <div class="chart-title"><h3>Evidence trace</h3><span class="info hoverable" data-tip="A compact example of how conflicting source information is resolved into a model assumption.">i</span></div>
+    <div class="evidence-strip" id="evidenceStrip"></div>
+    
+  </section>
 </section>
-</main></div>
+<div class="footer-note">Fictional data, AI-assisted drafting. <span class="hoverable" style="border-bottom:1px dotted var(--ink-3)" data-tip="All proposals, figures and assumptions are fictional and created solely to demonstrate investment analysis, business-case modelling and scenario testing. AI was used for drafting and checking only; the analyst owns the selected assumptions, validation and recommendation.">Details</span></div>
+</main></div></div>
+<div class="tooltip" id="tooltip"></div>
 <script>
-const items=[
-{name:"Emergency Response Upgrade",cat:"Emergency response",cost:110,run:12,benefit:38,service:5,risk:4,ready:4,fit:5},
-{name:"Digital Clinical Platform",cat:"Digital platforms",cost:150,run:18,benefit:52,service:4,risk:3,ready:3,fit:5},
-{name:"Hospital Infrastructure Renewal",cat:"Hospital modernisation",cost:185,run:10,benefit:46,service:5,risk:3,ready:4,fit:4},
-{name:"Cyber Resilience Program",cat:"Cyber resilience",cost:80,run:14,benefit:24,service:3,risk:5,ready:5,fit:5},
-{name:"Community Care Expansion",cat:"Community services",cost:95,run:9,benefit:34,service:4,risk:4,ready:4,fit:4}
+const $=id=>document.getElementById(id);
+const COLORS={funded:'#2e7d57',part:'#a56f00',deferred:'#d7153a',navy:'var(--navy)',blue:'var(--blue)',red:'var(--red)'};
+const BASE={envelope:280,realisation:100,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}};
+const bids=[
+ {id:'ambulance',name:'Ambulance capacity',short:'Ambulance',ask:74,impl:[32,26,12,0,0,0],run:8,annualBenefit:39.6963,ramp:[.25,.55,.8,1,1],delay:2,service:92,risk:78,delivery:86,problem:'Capacity constraints create response pressure and uneven service performance.',trace:['Operational demand model','Capital estimate from delivery team','Scope reconciled to common cost basis','$74m funding ask'],risks:[['Demand growth',4.3,4.2],['Workforce ramp',3.8,4.0],['Fleet delivery',3.1,3.4]],options:[['Hold current model',.55,.45],['Targeted uplift',.78,.72],['Capacity expansion',1,1]]},
+ {id:'clinical',name:'Digital clinical platform',short:'Clinical platform',ask:84,impl:[36,30,14,0,0,0],run:10,annualBenefit:50.3678,ramp:[.15,.45,.75,1,1],delay:3,service:88,risk:70,delivery:82,problem:'Fragmented clinical workflows limit consistency, interoperability and scale.',trace:['Program estimate','$92m initial estimate','$84m after scope challenge','$84m funding ask'],risks:[['Adoption rate',4.1,4.4],['Integration',3.7,4.2],['Data migration',3.0,3.7]],options:[['Extend current stack',.62,.52],['Phased platform',.84,.80],['Full platform',1,1]]},
+ {id:'hospital',name:'Hospital infrastructure renewal',short:'Hospital renewal',ask:92,impl:[40,34,16,0,0,0],run:9,annualBenefit:52.6255,ramp:[.15,.4,.7,.9,1],delay:4,service:82,risk:62,delivery:68,problem:'Ageing infrastructure increases service disruption and lifecycle risk.',trace:['Asset condition assessment','$101m engineering estimate','$92m prioritised scope','$92m funding ask'],risks:[['Site disruption',3.5,4.5],['Scope growth',3.9,4.1],['Supplier capacity',3.1,3.6]],options:[['Patch and defer',.48,.40],['Priority sites',.75,.68],['Renewal program',1,1]]},
+ {id:'cyber',name:'Cyber resilience',short:'Cyber resilience',ask:64,impl:[30,22,12,0,0,0],run:12,annualBenefit:27.5306,ramp:[.35,.65,.9,1,1],delay:0,service:76,risk:98,delivery:88,problem:'Critical controls require uplift despite benefits being dominated by avoided loss and resilience.',trace:['Security uplift estimate','$71m supplier view','$64m internal scope after challenge','$64m funding ask'],risks:[['Threat uplift',4.6,4.9],['Control adoption',3.8,4.4],['Supplier timing',3.0,3.8]],options:[['Minimum controls',.56,.48],['Priority controls',.78,.72],['Resilience uplift',1,1]]},
+ {id:'community',name:'Community care',short:'Community care',ask:58,impl:[24,18,8,0,0,0],run:6,annualBenefit:29.0713,ramp:[.3,.6,.85,1,1],delay:1,service:90,risk:66,delivery:84,problem:'Care demand can be shifted earlier and closer to the community when referral pathways are reliable.',trace:['Service forecast','$63m initial business estimate','$58m after demand reconciliation','$58m funding ask'],risks:[['Referral uptake',4.0,4.0],['Provider capacity',3.5,3.8],['Benefits lag',3.9,3.6]],options:[['Current pathway',.52,.42],['Targeted expansion',.76,.70],['Scaled community model',1,1]]}
 ];
-const discount=.07;
-function npv(x){let v=-x.cost;for(let y=1;y<=5;y++)v+=(x.benefit-x.run)/Math.pow(1+discount,y);return v}
-function bcr(x){return (x.benefit*5)/(x.cost+x.run*5)}
-function money(x){return "$"+Math.round(x)+"m"}
-function calc(){
- const budget=+document.getElementById("budget").value;
- const sw=+document.getElementById("service").value/100, fw=+document.getElementById("financial").value/100, rw=+document.getElementById("risk").value/100, dw=+document.getElementById("ready").value/100;
- const fitw=Math.max(.05,1-sw-fw-rw-dw);
- const scored=items.map(x=>{const value=Math.min(5,(x.benefit/x.cost)*5);const score=x.service*sw+value*fw+x.risk*rw+x.ready*dw+x.fit*fitw;return {...x,value,score,npv:npv(x),bcr:bcr(x)}})
- const totalScore=scored.reduce((a,x)=>a+x.score,0);
- scored.forEach(x=>x.funding=Math.min(x.cost,budget*x.score/totalScore));
- const funded=scored.reduce((a,x)=>a+x.funding,0);
- const pnpv=scored.reduce((a,x)=>a+x.npv,0);
- document.getElementById("kBudget").textContent=money(budget);document.getElementById("kFunded").textContent=money(funded);document.getElementById("kNpv").textContent=money(pnpv);
- document.getElementById("budgetVal").textContent=budget;document.getElementById("serviceVal").textContent=Math.round(sw*100)+"%";document.getElementById("financialVal").textContent=Math.round(fw*100)+"%";document.getElementById("riskVal").textContent=Math.round(rw*100)+"%";document.getElementById("readyVal").textContent=Math.round(dw*100)+"%";
- document.getElementById("budgetUsed").textContent=Math.round(funded/budget*100)+"%";
- const top=[...scored].sort((a,b)=>b.funding-a.funding)[0], topn=[...scored].sort((a,b)=>b.npv-a.npv)[0];
- document.getElementById("topFunded").textContent=top.name;document.getElementById("topNpv").textContent=topn.name;
- document.getElementById("overviewRows").innerHTML=scored.map(x=>`<tr><td><strong>${x.name}</strong></td><td>${x.cat}</td><td>${money(x.cost)}</td><td>${money(x.funding)}</td><td class="${x.npv>=0?'good':'bad'}">${money(x.npv)}</td><td>${x.bcr.toFixed(2)}x</td><td><div class="bar"><i style="width:${Math.min(100,x.funding/x.cost*100)}%"></i></div></td></tr>`).join("");
- document.getElementById("scenarioRows").innerHTML=scored.sort((a,b)=>b.score-a.score).map(x=>`<tr><td><strong>${x.name}</strong></td><td>${x.score.toFixed(2)}</td><td>${money(x.cost)}</td><td>${money(x.funding)}</td><td>${Math.round(x.funding/x.cost*100)}%</td><td>${x.service.toFixed(1)}</td><td>${x.risk.toFixed(1)}</td><td>${x.value.toFixed(2)}</td></tr>`).join("");
- document.getElementById("businessRows").innerHTML=items.map(x=>{const n=npv(x), r=bcr(x);return `<tr><td><strong>${x.name}</strong></td><td>${money(x.cost)}</td><td>${money(x.run)}</td><td>${money(x.benefit)}</td><td>${money(x.benefit*5)}</td><td class="${n>=0?'good':'bad'}">${money(n)}</td><td>${r.toFixed(2)}x</td><td>${n>=0?'Positive quantified value':'Requires stronger non-financial case'}</td></tr>`}).join("");
- document.getElementById("sensBars").innerHTML=[300,360,420,480,540].map(b=>{const coverage=Math.min(100,Math.round((b/items.reduce((a,x)=>a+x.cost,0))*100));return `<div style="display:grid;grid-template-columns:75px 1fr 42px;gap:8px;align-items:center;margin:10px 0;font-size:.6rem"><span>${money(b)}</span><div class="bar"><i style="width:${coverage}%"></i></div><strong>${coverage}%</strong></div>`}).join("");
+const modifiers=Object.fromEntries(bids.map(b=>[b.id,{cost:100,delay:0}]));
+let selected='cyber',activeScenario='base',lastControl='Base scenario';
+function money(v){const s=Math.abs(v).toFixed(Math.abs(v)>=100?0:1);return `${v<0?'−':''}$${s}m`}
+function pct(v,d=0){return `${(+v).toFixed(d)}%`}
+function cloneState(){return{envelope:+$('envelope').value,realisation:+$('realisation').value,discount:+$('discount').value,weights:{financial:+$('financialW').value,service:+$('serviceW').value,risk:+$('riskW').value,delivery:+$('deliveryW').value}}}
+function normWeights(st=cloneState()){const w=st.weights,total=w.financial+w.service+w.risk+w.delivery||1;return{financial:w.financial/total,service:w.service/total,risk:w.risk/total,delivery:w.delivery/total}}
+function rampAt(arr,x){if(x<=0)return 0;if(x>=5)return arr[4];const lo=Math.floor(x),hi=Math.ceil(x);if(lo===hi)return arr[lo-1];const lv=lo===0?0:arr[lo-1],hv=arr[hi-1];return lv+(hv-lv)*(x-lo)}
+function bidCalc(b,st=cloneState(),override={}){
+ const disc=(override.discount??st.discount)/100,real=(override.realisation??st.realisation)/100;
+ const mod=modifiers[b.id]||{cost:100,delay:0},costMult=(override.cost??mod.cost)/100,delay=(override.delay??(b.delay+mod.delay));
+ const years=[];let pvCost=0,pvBenefit=0;
+ for(let y=0;y<=5;y++){
+   const impl=(b.impl[y]||0)*costMult,run=y===0?0:b.run;
+   const benefit=y===0?0:b.annualBenefit*rampAt(b.ramp,y-delay/12)*real;
+   const df=1/Math.pow(1+disc,y),cost=(impl+run),net=benefit-cost;
+   pvCost+=cost*df;pvBenefit+=benefit*df;years.push({y,impl,run,cost,benefit,net,pvCost:cost*df,pvBenefit:benefit*df});
+ }
+ const npv=pvBenefit-pvCost,bcr=pvCost?pvBenefit/pvCost:0;
+ return{pvCost,pvBenefit,npv,bcr,years,discount:disc,realisation:real,delay,costMult};
 }
-const presets={
-"Balanced":[420,30,25,20,15,"Balanced weighting keeps financial value, service outcomes, risk and delivery readiness visible together."],
-"Service First":[440,45,20,15,10,"Service First increases the weight on service impact, favouring options with stronger capacity or access outcomes."],
-"Digital First":[430,25,40,15,10,"Digital First places more emphasis on quantified value and scalable digital investment while retaining service and risk considerations."],
-"Resilience":[420,25,20,40,10,"Resilience increases the weight on risk reduction and operational continuity, changing the preferred funding mix."],
-"Constrained Budget":[320,30,35,20,10,"Constrained Budget reduces available funding and increases the pressure to sequence or defer initiatives with weaker quantified value."]
-};
-document.getElementById("scenarioSelect").addEventListener("change",e=>{const p=presets[e.target.value];["budget","service","financial","risk","ready"].forEach((id,i)=>document.getElementById(id).value=p[i]);document.getElementById("scenarioLabel").textContent=e.target.value;document.getElementById("kScenario").textContent=e.target.value;document.getElementById("scenarioNarrative").textContent=p[5];calc()});
-["budget","service","financial","risk","ready"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
-document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav,.view").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.view).classList.add("active")});
-document.getElementById("scenarioNarrative").textContent=presets.Balanced[5];calc();
+function financialScore(calc){return Math.max(0,Math.min(100,calc.bcr/1.3*100))}
+function scoreBid(b,st=cloneState()){const c=bidCalc(b,st),w=normWeights(st);return financialScore(c)*w.financial+b.service*w.service+b.risk*w.risk+b.delivery*w.delivery}
+function portfolio(st=cloneState()){
+ const rows=bids.map(b=>({b,calc:bidCalc(b,st),score:scoreBid(b,st)})).sort((a,b)=>b.score-a.score);
+ let remaining=st.envelope,alloc={};for(const r of rows){const a=Math.max(0,Math.min(r.b.ask,remaining));alloc[r.b.id]=a;remaining=Math.max(0,remaining-a)}
+ let pvCost=0,pvBenefit=0;for(const r of rows){const share=r.b.ask?alloc[r.b.id]/r.b.ask:0;pvCost+=r.calc.pvCost*share;pvBenefit+=r.calc.pvBenefit*share}
+ return{rows,alloc,remaining,pvCost,pvBenefit,npv:pvBenefit-pvCost,bcr:pvCost?pvBenefit/pvCost:0,envelope:st.envelope};
+}
+function status(b,allocation){if(allocation<=.001)return['Deferred','bad'];if(allocation+0.001>=b.ask)return['Funded','good'];return['Part-funded','warn']}
+function setPreset(name){activeScenario=name;const p={base:{envelope:280,realisation:100,discount:5,w:[25,25,30,20]},constrained:{envelope:220,realisation:95,discount:5,w:[25,25,30,20]},risk:{envelope:280,realisation:100,discount:5,w:[15,15,50,20]},service:{envelope:280,realisation:100,discount:5,w:[20,45,20,15]}}[name];$('envelope').value=p.envelope;$('realisation').value=p.realisation;$('discount').value=p.discount;[$('financialW').value,$('serviceW').value,$('riskW').value,$('deliveryW').value]=p.w;lastControl=`${name[0].toUpperCase()+name.slice(1)} scenario`;syncCaseMirrors()}
+function withState(st,fn){const ids=['envelope','realisation','discount','financialW','serviceW','riskW','deliveryW'];const old=ids.map(id=>$(id).value);$("envelope").value=st.envelope;$("realisation").value=st.realisation;$("discount").value=st.discount;$("financialW").value=st.weights.financial;$("serviceW").value=st.weights.service;$("riskW").value=st.weights.risk;$("deliveryW").value=st.weights.delivery;const out=fn();ids.forEach((id,i)=>$(id).value=old[i]);return out}
+function baseState(){return{envelope:BASE.envelope,realisation:BASE.realisation,discount:BASE.discount,weights:{...BASE.weights}}}
+function findCyberThreshold(){const st=cloneState(),orig=st.weights.risk;let found=null;for(let r=5;r<=60;r+=.5){const test={...st,weights:{...st.weights,risk:r}};const p=withState(test,()=>portfolio(test));if((p.alloc.cyber||0)>0){found=r;break}}return found}
+function changeSentence(){const cur=portfolio(),base=withState(baseState(),()=>portfolio(baseState()));const entered=[],dropped=[];for(const b of bids){const c=(cur.alloc[b.id]||0)>0,bs=(base.alloc[b.id]||0)>0;if(c&&!bs)entered.push(`${b.short} at ${money(cur.alloc[b.id])}`);if(!c&&bs)dropped.push(`${b.short} to $0m`)}let sentence;if(entered.length||dropped.length){sentence=`${lastControl}: ${entered.length?entered.join(', ')+' enters':''}${entered.length&&dropped.length?' and ':''}${dropped.length?dropped.join(', ')+' drops':''}.`;}else{const cy=bids.find(b=>b.id==='cyber'),h=bids.find(b=>b.id==='hospital');sentence=`${lastControl}: funds ${cy.short} at ${money(cur.alloc.cyber||0)} despite BCR ${bidCalc(cy).bcr.toFixed(2)}; ${h.short} is ${status(h,cur.alloc.hospital||0)[0].toLowerCase()} under the ${money(cur.envelope)} envelope.`}const th=findCyberThreshold();$('changeSentence').textContent=sentence;$('readoutInfo').dataset.tip=`Cyber enters the funded mix above roughly ${th===null?'the tested range':th.toFixed(1)+'% raw risk weight'} with other current inputs held constant.`}
+function syncLabels(){const vals={envelope:money(+$('envelope').value),realisation:pct($('realisation').value),discount:pct($('discount').value,1),financial:pct($('financialW').value),service:pct($('serviceW').value),risk:pct($('riskW').value),delivery:pct($('deliveryW').value)};Object.entries(vals).forEach(([k,v])=>{$(k+'Val').textContent=v});$('caseRealisation').value=$('realisation').value;$('caseRealisationVal').textContent=pct($('realisation').value);$('caseDiscount').value=$('discount').value;$('caseDiscountVal').textContent=pct($('discount').value,1);const mod=modifiers[selected];$('caseCost').value=mod.cost;$('caseCostVal').textContent=pct(mod.cost);$('caseDelay').value=mod.delay;$('caseDelayVal').textContent=`${mod.delay}m`;const nw=normWeights();const sum=(nw.financial+nw.service+nw.risk+nw.delivery)*100;$('weightCheck').textContent=`Weights normalised to ${sum.toFixed(0)}%`;$('weightCheck').className='check ok'}
+function renderChecks(p){const allocated=Object.values(p.alloc).reduce((a,b)=>a+b,0);const ok=allocated<=p.envelope+0.001;$('allocationCheck').textContent=ok?`Allocation ${money(allocated)} ≤ envelope ${money(p.envelope)}`:'Allocation exceeds envelope';$('allocationCheck').className='check '+(ok?'ok':'bad')}
+function renderDecision(){const p=portfolio();$('kEnvelope').textContent=money(p.envelope);$('kTco').textContent=money(p.pvCost);$('kNpv').textContent=money(p.npv);$('kBcr').textContent=p.bcr.toFixed(2);changeSentence();renderBubble(p);renderEnvelope(p);renderTable(p);renderChecks(p)}
+function renderBubble(p){const svg=$('bubbleChart'),w=720,h=300,pl=58,pr=26,pt=18,pb=42,xMin=.65,xMax=1.3,yMin=60,yMax=90,x=v=>pl+(v-xMin)/(xMax-xMin)*(w-pl-pr),y=v=>h-pb-(v-yMin)/(yMax-yMin)*(h-pt-pb);let html=`<rect x="${pl}" y="${pt}" width="${x(1)-pl}" height="${h-pb-pt}" fill="var(--red-dim)" opacity=".55"/><line class="axis" x1="${pl}" y1="${h-pb}" x2="${w-pr}" y2="${h-pb}"/><line class="axis" x1="${pl}" y1="${pt}" x2="${pl}" y2="${h-pb}"/>`;for(const t of [.8,1,1.2])html+=`<line class="gridline" x1="${x(t)}" y1="${pt}" x2="${x(t)}" y2="${h-pb}"/><text class="tick" x="${x(t)}" y="${h-25}" text-anchor="middle">${t.toFixed(1)}</text>`;for(const t of [65,75,85])html+=`<line class="gridline" x1="${pl}" y1="${y(t)}" x2="${w-pr}" y2="${y(t)}"/><text class="tick" x="${pl-10}" y="${y(t)+4}" text-anchor="end">${t}</text>`;html+=`<line class="threshold" x1="${x(1)}" y1="${pt}" x2="${x(1)}" y2="${h-pb}"/><text class="label" x="${x(1)+6}" y="${pt+13}">BCR 1.0</text><text class="label" x="${(pl+w-pr)/2}" y="${h-6}" text-anchor="middle">Benefit-cost ratio</text><text class="label" transform="translate(14 ${(pt+h-pb)/2}) rotate(-90)" text-anchor="middle">Weighted score</text>`;for(const r of p.rows){const a=p.alloc[r.b.id]||0,[st]=status(r.b,a),fill=st==='Funded'?COLORS.funded:st==='Part-funded'?COLORS.part:COLORS.deferred,rad=11+Math.sqrt(r.b.ask)*1.35,cx=x(r.calc.bcr),cy=y(r.score);html+=`<circle class="bubble hoverable" data-id="${r.b.id}" data-tip="<strong>${r.b.name}</strong>${r.b.problem}<br>Ask ${money(r.b.ask)} · Allocation ${money(a)} · BCR ${r.calc.bcr.toFixed(2)}" cx="${cx}" cy="${cy}" r="${rad}" fill="${fill}" fill-opacity=".88" stroke="${fill}"/><text class="bubble-label" x="${cx}" y="${cy+rad+13}" text-anchor="middle">${r.b.short==='Clinical platform'?'Clinical':r.b.short==='Hospital renewal'?'Hospital':r.b.short==='Community care'?'Community':r.b.short==='Cyber resilience'?'Cyber':'Ambulance'}</text>`}svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html;svg.querySelectorAll('.bubble').forEach(c=>c.addEventListener('click',()=>{selected=c.dataset.id;renderAll();switchView('case')}));bindTooltips()}
+function renderEnvelope(p){const totalAsk=bids.reduce((s,b)=>s+b.ask,0),max=Math.max(totalAsk,360),bar=$('envelopeBar');bar.querySelectorAll('.env-seg,.env-gap').forEach(x=>x.remove());let left=0;const palette=['var(--seg1)','var(--seg2)','var(--seg3)','var(--seg4)','var(--seg5)'];for(const [i,r] of p.rows.entries()){const a=p.alloc[r.b.id]||0;if(!a)continue;const seg=document.createElement('div');seg.className='env-seg';seg.style.left=`${left/max*100}%`;seg.style.width=`${a/max*100}%`;seg.style.background=palette[i%palette.length];seg.dataset.tip=`<strong>${r.b.name}</strong>${money(a)} funded`;bar.insertBefore(seg,$('envelopeMarker'));left+=a}if(totalAsk>p.envelope){const gap=document.createElement('div');gap.className='env-gap';gap.style.left=`${p.envelope/max*100}%`;gap.style.width=`${(totalAsk-p.envelope)/max*100}%`;bar.insertBefore(gap,$('envelopeMarker'))}$('envelopeMarker').style.left=`${p.envelope/max*100}%`;$('envelopeLabel').style.left=`${p.envelope/max*100}%`;$('envelopeLabel').textContent=money(p.envelope);$('envelopeLegend').innerHTML=p.rows.map((r,i)=>`<span><i class="swatch" style="background:${palette[i%palette.length]}"></i>${r.b.short}: ${money(p.alloc[r.b.id]||0)}</span>`).join('');bindTooltips()}
+function renderTable(p){$('proposalBody').innerHTML=p.rows.map((r,i)=>{const a=p.alloc[r.b.id]||0,[st,cl]=status(r.b,a);return`<tr><td>#${i+1}</td><td class="hoverable" data-tip="${r.b.problem}"><b>${r.b.name}</b></td><td class="num">${money(r.b.ask)}</td><td class="num">${money(r.calc.pvCost)}</td><td class="num">${money(r.calc.pvBenefit)}</td><td class="num">${money(r.calc.npv)}</td><td class="num">${r.calc.bcr.toFixed(2)}</td><td class="num">${r.score.toFixed(1)}</td><td class="num">${money(a)}</td><td><span class="badge ${cl}">${st}</span></td><td><button class="open-case" data-case="${r.b.id}">Open case</button></td></tr>`}).join('');document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>{selected=b.dataset.case;renderAll();switchView('case')});bindTooltips()}
+function scenarioState(name){const map={base:{envelope:280,realisation:100,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}},constrained:{envelope:220,realisation:95,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}},risk:{envelope:280,realisation:100,discount:5,weights:{financial:15,service:15,risk:50,delivery:20}},service:{envelope:280,realisation:100,discount:5,weights:{financial:20,service:45,risk:20,delivery:15}}};return map[name]}
+function scenarioForBid(name,b){const st=scenarioState(name),p=withState(st,()=>portfolio(st)),c=withState(st,()=>bidCalc(b,st)),a=p.alloc[b.id]||0,[statusText,cl]=status(b,a),share=b.ask?a/b.ask:0;return{name,label:{base:'Base',constrained:'Constrained',risk:'Risk priority',service:'Service priority'}[name],a,statusText,cl,npv:c.npv*share}}
+function renderCase(){const b=bids.find(x=>x.id===selected),st=cloneState(),p=portfolio(st),c=bidCalc(b,st),a=p.alloc[b.id]||0,[stText,cl]=status(b,a);$('caseTitle').textContent=b.name;$('caseProblem').textContent=b.problem;$('caseStatus').textContent=stText;$('caseStatus').className=`badge ${cl}`;$('caseAlloc').textContent=`${money(a)} of ${money(b.ask)}`;$('caseAllocFill').style.width=`${Math.min(100,a/b.ask*100)}%`;$('casePvCost').textContent=money(c.pvCost);$('caseNpv').textContent=money(c.npv);$('caseBcr').textContent=c.bcr.toFixed(2);$('caseScenarioStrip').innerHTML=['base','constrained','risk','service'].map(n=>{const s=scenarioForBid(n,b);return`<div class="case-scenario ${activeScenario===n?'active':''}"><div class="name">${s.label}</div><div style="margin-top:6px"><span class="badge ${s.cl}">${s.statusText.replace('Part-funded','Part')}</span></div><div class="alloc">${money(s.a)}</div><div class="allocation"><div style="width:${Math.min(100,s.a/b.ask*100)}%"></div></div><div class="npv">Funded NPV ${money(s.npv)}</div></div>`}).join('');renderWorking(b,c);renderWaterfall(c);renderCashflow(c);renderRealisationCurve(b);renderOptions(b,c);renderRiskMatrix(b);renderTornado(b);renderEvidence(b);syncLabels()}
+function renderWorking(b,c){$('npvFormula').textContent=`NPV = PV benefits − PV costs = ${money(c.pvBenefit)} − ${money(c.pvCost)}`;$('npvResult').textContent=`NPV ${money(c.npv)}`;$('bcrFormula').textContent=`BCR = PV benefits ÷ PV costs = ${money(c.pvBenefit)} ÷ ${money(c.pvCost)}`;$('bcrResult').textContent=`BCR ${c.bcr.toFixed(2)}`;$('workingLines').innerHTML=c.years.map(y=>`<div class="working-line"><span>Year ${y.y}</span><span>Cost <b>${money(y.cost)}</b> · Benefit <b>${money(y.benefit)}</b> · Discounted net <b>${money((y.benefit-y.cost)/Math.pow(1+c.discount,y.y))}</b></span></div>`).join('')}
+function renderWaterfall(c){const max=Math.max(c.pvCost,c.pvBenefit,Math.abs(c.npv),1);const items=[['PV cost',c.pvCost,'cost'],['PV benefit',c.pvBenefit,'benefit'],['NPV',Math.abs(c.npv),`npv ${c.npv>=0?'pos':'neg'}`]];$('waterfall').innerHTML=items.map(([l,v,cls])=>`<div class="wf-col"><div class="wf-val">${money(l==='NPV'?c.npv:v)}</div><div class="wf-bar ${cls}" style="height:${Math.max(8,v/max*160)}px"></div><div class="wf-label">${l}</div></div>`).join('')}
+function renderCashflow(c){const svg=$('cashflowChart'),w=650,h=235,pl=46,pr=20,pt=18,pb=36,years=c.years.map(x=>x.y),nets=c.years.map(x=>x.net),cum=[];let run=0;nets.forEach(v=>{run+=v;cum.push(run)});const vals=[...nets,...cum,0],min=Math.min(...vals),max=Math.max(...vals),x=i=>pl+i/(years.length-1)*(w-pl-pr),y=v=>pt+(max-v)/(max-min||1)*(h-pt-pb),zero=y(0),barW=36;let html=`<line class="axis" x1="${pl}" y1="${zero}" x2="${w-pr}" y2="${zero}"/>`;for(let i=0;i<years.length;i++){const yy=y(nets[i]),top=Math.min(yy,zero),height=Math.max(2,Math.abs(zero-yy));html+=`<rect x="${x(i)-barW/2}" y="${top}" width="${barW}" height="${height}" rx="3" fill="${nets[i]>=0?COLORS.blue:COLORS.red}" opacity=".78"/><text class="tick" x="${x(i)}" y="${h-12}" text-anchor="middle">Y${years[i]}</text>`}const pts=cum.map((v,i)=>`${x(i)},${y(v)}`).join(' ');html+=`<polyline points="${pts}" fill="none" stroke="${COLORS.navy}" stroke-width="2.5"/>`;let pay=null;for(let i=1;i<cum.length;i++)if(cum[i]>=0&&cum[i-1]<0){pay=i;break}if(pay!==null)html+=`<line class="threshold" x1="${x(pay)}" y1="${pt}" x2="${x(pay)}" y2="${h-pb}"/><text class="label" x="${x(pay)+5}" y="${pt+13}">Payback Y${pay}</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderRealisationCurve(b){const svg=$('realisationChart'),w=650,h=235,pl=52,pr=20,pt=18,pb=38,st=cloneState(),vals=[];for(let r=60;r<=120;r+=5)vals.push([r,bidCalc(b,st,{realisation:r}).npv]);const min=Math.min(0,...vals.map(v=>v[1])),max=Math.max(0,...vals.map(v=>v[1])),x=v=>pl+(v-60)/60*(w-pl-pr),y=v=>pt+(max-v)/(max-min||1)*(h-pt-pb),zero=y(0),pts=vals.map(v=>`${x(v[0])},${y(v[1])}`).join(' ');let html=`<line class="axis" x1="${pl}" y1="${zero}" x2="${w-pr}" y2="${zero}"/><polyline points="${pts}" fill="none" stroke="${COLORS.blue}" stroke-width="2.7"/>`;for(const t of [60,80,100,120])html+=`<text class="tick" x="${x(t)}" y="${h-12}" text-anchor="middle">${t}%</text>`;let crossing=null;for(let i=1;i<vals.length;i++){if((vals[i-1][1]<=0&&vals[i][1]>=0)||(vals[i-1][1]>=0&&vals[i][1]<=0)){const [x1,y1v]=vals[i-1],[x2,y2v]=vals[i];crossing=x1+(0-y1v)*(x2-x1)/(y2v-y1v);break}}if(crossing!==null)html+=`<line class="threshold" x1="${x(crossing)}" y1="${pt}" x2="${x(crossing)}" y2="${h-pb}"/><text class="label" x="${x(crossing)+5}" y="${pt+13}">Zero NPV ${crossing.toFixed(0)}%</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderOptions(b,c){const svg=$('optionChart'),w=650,h=235,pl=58,pr=22,pt=20,pb=38,pts=b.options.map(o=>({name:o[0],cost:c.pvCost*o[1],benefit:c.pvBenefit*o[2]})),maxX=Math.max(...pts.map(x=>x.cost))*1.12,maxY=Math.max(...pts.map(x=>x.benefit))*1.12,x=v=>pl+v/maxX*(w-pl-pr),y=v=>h-pb-v/maxY*(h-pt-pb);let html=`<line class="axis" x1="${pl}" y1="${h-pb}" x2="${w-pr}" y2="${h-pb}"/><line class="axis" x1="${pl}" y1="${pt}" x2="${pl}" y2="${h-pb}"/>`;pts.forEach((p,i)=>{html+=`<circle cx="${x(p.cost)}" cy="${y(p.benefit)}" r="9" fill="${i===pts.length-1?COLORS.navy:COLORS.blue}"/><text class="label" x="${x(p.cost)+12}" y="${y(p.benefit)+4}">${p.name}</text>`});html+=`<text class="label" x="${(pl+w-pr)/2}" y="${h-3}" text-anchor="middle">PV cost</text><text class="label" transform="translate(14 ${(pt+h-pb)/2}) rotate(-90)" text-anchor="middle">PV benefit</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderRiskMatrix(b){const grid=$('riskGrid');grid.innerHTML='';for(let row=5;row>=1;row--)for(let col=1;col<=5;col++){const s=row*col,cls=s>=16?'high':s>=9?'med':'low';const cell=document.createElement('div');cell.className=`risk-cell ${cls}`;grid.appendChild(cell)}for(const [name,lik,impact] of b.risks){const pt=document.createElement('div');pt.className='risk-point';pt.textContent=name;pt.style.left=`${(lik-.5)/5*100}%`;pt.style.top=`${100-(impact-.5)/5*100}%`;grid.appendChild(pt)}}
+function sensitivityRows(b){const st=cloneState(),base=bidCalc(b,st),tests=[
+ ['Benefit realisation','Clinical / operational','60–120%',()=>[bidCalc(b,st,{realisation:60}).npv,bidCalc(b,st,{realisation:120}).npv]],
+ ['Implementation cost','Delivery / finance','80–130%',()=>[bidCalc(b,st,{cost:80}).npv,bidCalc(b,st,{cost:130}).npv]],
+ ['Delay','Program delivery','0–6 months',()=>[bidCalc(b,st,{delay:0}).npv,bidCalc(b,st,{delay:6}).npv]],
+ ['Discount rate','Finance','2–10%',()=>[bidCalc(b,st,{discount:2}).npv,bidCalc(b,st,{discount:10}).npv]]
+ ];return tests.map(([name,owner,range,fn])=>{const [a,z]=fn();return{name,owner,range,neg:Math.min(a-base.npv,z-base.npv),pos:Math.max(a-base.npv,z-base.npv)}})}
+function renderTornado(b){const rows=sensitivityRows(b),max=Math.max(1,...rows.flatMap(r=>[Math.abs(r.neg),Math.abs(r.pos)]));$('caseTornado').innerHTML=`<div class="tor-head"><span>Assumption</span><span>Owner</span><span>Test range</span><span>NPV movement</span><span>Swing</span></div>`+rows.map(r=>`<div class="tor-row"><div>${r.name}</div><div>${r.owner}</div><div class="num">${r.range}</div><div class="tor-track"><div class="tor-zero"></div><div class="tor-neg" style="width:${Math.abs(Math.min(0,r.neg))/max*49}%"></div><div class="tor-pos" style="width:${Math.max(0,r.pos)/max*49}%"></div></div><div class="tor-val">${money(Math.max(Math.abs(r.neg),Math.abs(r.pos)))}</div></div>`).join('')+`<div class="legend"><span><i style="background:var(--red)"></i>NPV downside</span><span><i style="background:var(--blue)"></i>NPV upside</span></div>`}
+function renderEvidence(b){$('evidenceStrip').innerHTML=`<div class="trace"><span>Source 1</span><b>${b.trace[0]}</b></div><div class="trace"><span>Source 2 / conflict</span><b>${b.trace[1]}</b></div><div class="trace"><span>Assumption used</span><b>${b.trace[2]}</b></div><div class="trace"><span>Figure in model</span><b>${b.trace[3]}</b></div>`}
+function bindTooltips(){const tip=$('tooltip');document.querySelectorAll('[data-tip]').forEach(el=>{el.onmouseenter=()=>{tip.innerHTML=el.dataset.tip;tip.style.display='block'};el.onmousemove=e=>{const pad=12,gap=14,r=tip.getBoundingClientRect();let l=e.clientX+gap,t=e.clientY+gap;if(l+r.width+pad>innerWidth)l=e.clientX-r.width-gap;if(t+r.height+pad>innerHeight)t=e.clientY-r.height-gap;tip.style.left=Math.max(pad,l)+'px';tip.style.top=Math.max(pad,t)+'px'};el.onmouseleave=()=>tip.style.display='none'})}
+function syncCaseMirrors(){$('caseRealisation').value=$('realisation').value;$('caseDiscount').value=$('discount').value}
+function renderAll(){syncLabels();renderDecision();renderCase();bindTooltips()}
+function switchView(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===`view-${v}`));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===v))}
+document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>switchView(b.dataset.view));
+document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{setPreset(b.dataset.scenario);document.querySelectorAll('.scenario').forEach(x=>x.classList.toggle('active',x===b));renderAll()});
+['envelope','realisation','discount','financialW','serviceW','riskW','deliveryW'].forEach(id=>$(id).addEventListener('input',()=>{activeScenario='custom';document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));lastControl={envelope:'Funding envelope',realisation:'Benefit realisation',discount:'Discount rate',financialW:'Financial weight',serviceW:'Service weight',riskW:'Risk weight',deliveryW:'Delivery weight'}[id]+` moved to ${id==='envelope'?money(+$('envelope').value):id==='discount'?pct($('discount').value,1):pct($(id).value)}`;renderAll()}));
+$('caseRealisation').addEventListener('input',()=>{$('realisation').value=$('caseRealisation').value;activeScenario='custom';lastControl=`Benefit realisation moved to ${pct($('caseRealisation').value)}`;renderAll()});
+$('caseDiscount').addEventListener('input',()=>{$('discount').value=$('caseDiscount').value;activeScenario='custom';lastControl=`Discount rate moved to ${pct($('caseDiscount').value,1)}`;renderAll()});
+$('caseCost').addEventListener('input',()=>{modifiers[selected].cost=+$('caseCost').value;lastControl=`${bids.find(b=>b.id===selected).short} implementation cost moved to ${pct($('caseCost').value)}`;renderAll()});
+$('caseDelay').addEventListener('input',()=>{modifiers[selected].delay=+$('caseDelay').value;lastControl=`${bids.find(b=>b.id===selected).short} delay moved by ${$('caseDelay').value} months`;renderAll()});
+$('detailToggle').onclick=()=>{const open=$('detailPanel').style.display!=='none';$('detailPanel').style.display=open?'none':'block';$('detailToggle').textContent=open?'Show detailed prioritisation table':'Hide detailed prioritisation table'};
+$('workToggle').onclick=()=>{const o=$('workingLines').style.display!=='none';$('workingLines').style.display=o?'none':'block';$('workToggle').textContent=o?'Show yearly working':'Hide yearly working'};
+$('themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';$('themeText').textContent=dark?'Dark':'Light'};
+const envBar=$('envelopeBar');let dragging=false;
+function setEnvelopeFromX(clientX){const max=Math.max(bids.reduce((s,b)=>s+b.ask,0),360),r=envBar.getBoundingClientRect(),ratio=Math.max(0,Math.min(1,(clientX-r.left)/r.width)),value=Math.max(180,Math.min(360,Math.round(ratio*max)));$('envelope').value=value;activeScenario='custom';document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));lastControl=`Funding envelope moved to ${money(value)}`;renderAll()}
+envBar.addEventListener('pointerdown',e=>{dragging=true;envBar.setPointerCapture(e.pointerId);setEnvelopeFromX(e.clientX)});envBar.addEventListener('pointermove',e=>{if(dragging)setEnvelopeFromX(e.clientX)});envBar.addEventListener('pointerup',()=>dragging=false);
+document.querySelector('.side-controls').open=innerWidth>860;
+setPreset('base');switchView('decision');renderAll();
 </script>
 </body></html>
