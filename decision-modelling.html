@@ -5,58 +5,69 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Strategic Decision Modelling | Khaled Sanad</title>
 <meta name="description" content="Illustrative strategic decision model covering diagnosis, option design, investment trade-offs, implementation and performance tracking.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
  --paper:#f3f5f9;--surface:#fff;--surface2:#f7f9fc;--deep:#e9edf4;--border:#d9dee8;--border2:#b9c3d3;
- --ink:#17243a;--ink2:#53627a;--ink3:#7a879a;--navy:#002664;--blue:#4b73a7;--navyd:#eaf1fb;
+ --ink:#17243a;--ink2:#53627a;--ink3:#6e7b8e;--navy:#002664;--blue:#4b73a7;--navyd:#eaf1fb;
  --green:#2e7d57;--greend:#e8f4ee;--gold:#a56f00;--goldd:#fff5d9;--red:#d7153a;--redd:#fdecef;
  --shadow:0 7px 22px rgba(0,38,100,.08);--shadow-sm:0 2px 8px rgba(0,38,100,.06);
  --ser:'Cormorant Garamond',Georgia,serif;--mono:'DM Mono',monospace;
+ --dot-a:#4b73a7;--dot-b:#002664;--dot-c:#a56f00;
 }
 :root[data-theme="dark"]{
  --paper:#0c1424;--surface:#131e35;--surface2:#192843;--deep:#22345a;--border:#2a3d5e;--border2:#41577f;
- --ink:#eaf0fa;--ink2:#a9b7cf;--ink3:#7f90ad;--navy:#8db4f0;--blue:#7ba3d6;--navyd:#172c52;
+ --ink:#eaf0fa;--ink2:#b7c3d6;--ink3:#93a2bb;--navy:#8db4f0;--blue:#7ba3d6;--navyd:#172c52;
  --green:#6fcf9c;--greend:#173427;--gold:#e0ad4c;--goldd:#3a2e15;--red:#f0607a;--redd:#3a1a26;
- --shadow:0 9px 26px rgba(0,0,0,.3);--shadow-sm:0 2px 10px rgba(0,0,0,.25)
+ --shadow:0 9px 26px rgba(0,0,0,.3);--shadow-sm:0 2px 10px rgba(0,0,0,.25);
+ --dot-a:#7ba3d6;--dot-b:#8db4f0;--dot-c:#e0ad4c;
 }
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:13px/1.45 Inter,system-ui,sans-serif;overflow-x:hidden}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:14px/1.55 Inter,system-ui,sans-serif;overflow-x:hidden}
 button,input{font:inherit}button{cursor:pointer}.mono{font-family:var(--mono)}
-.header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
-.brand{display:flex;align-items:center;gap:11px}.mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#004c97,#002664);position:relative;box-shadow:var(--shadow-sm)}.mark:before,.mark:after{content:"";position:absolute;left:8px;right:8px;height:2px;background:#fff;border-radius:2px}.mark:before{top:11px}.mark:after{top:20px}
-.brand h1{font:600 1.18rem/1 var(--ser);margin:0}.brand p{font:400 .54rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:5px 0 0}
-.top-right{display:flex;gap:10px;align-items:center}.demo{font:500 .53rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
-.theme{border:1px solid var(--border);background:var(--surface2);color:var(--ink);border-radius:8px;padding:7px 10px}
-.app{display:grid;grid-template-columns:228px 1fr}.side{position:sticky;top:55px;height:calc(100vh - 55px);overflow:auto;background:var(--surface);border-right:1px solid var(--border);padding:14px 10px}
-.side-title{font:500 .53rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 8px 8px}
-.nav{width:100%;border:0;background:transparent;color:var(--ink2);padding:10px 9px;text-align:left;border-left:3px solid transparent;border-radius:7px;margin:2px 0;font-weight:600;font-size:.72rem}.nav.active{background:var(--navyd);color:var(--navy);border-left-color:var(--navy)}
-.readout{margin:14px 0 10px;padding:11px;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:8px;background:linear-gradient(135deg,var(--surface),var(--surface2))}.readout span{font:500 .52rem var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}.readout b{display:block;font:600 .92rem/1.35 var(--ser);margin-top:6px}
-.block{padding:12px 0;border-top:1px solid var(--border)}.control+.control{margin-top:11px}.control label{display:flex;justify-content:space-between;font-size:.63rem;color:var(--ink2);margin-bottom:5px}.val{font-family:var(--mono);color:var(--navy)}input[type=range]{width:100%;accent-color:var(--navy)}
-.scenarios{display:grid;grid-template-columns:1fr 1fr;gap:6px}.scenario{border:1px solid var(--border);background:var(--surface2);color:var(--ink2);padding:8px;border-radius:7px;text-align:left;font-size:.6rem}.scenario.active{border-color:var(--navy);background:var(--navyd);color:var(--navy)}
-.main{padding:18px 22px 42px}.view{display:none}.view.active{display:block}.note{font-size:.69rem;color:var(--ink3);margin-bottom:11px}.note b{color:var(--ink2)}
-.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}.head h2{font:600 1.65rem var(--ser);margin:0}.head p{margin:4px 0 0;font-size:.71rem;color:var(--ink2)}.pill{font:500 .51rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--navy);background:var(--navyd);border-radius:999px;padding:5px 8px}
-.grid{display:grid;gap:10px}.k4{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:1.25fr .85fr}.equal{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:13px;box-shadow:var(--shadow-sm)}.feature{box-shadow:var(--shadow)}
-.eye{font:500 .5rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}.kpi{font:600 1.55rem var(--ser);margin-top:5px}.sub{font-size:.58rem;color:var(--ink2);margin-top:1px}
-.chart-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}.chart-title h3{font-size:.77rem;margin:0}.chart-title p{font-size:.57rem;color:var(--ink3);margin:3px 0 0}
-.decision{border-left:4px solid var(--navy)}.decision h3{font:600 1.08rem var(--ser);margin:6px 0}.decision p{font-size:.62rem;color:var(--ink2);margin:0;line-height:1.55}
-.stack{display:grid;gap:8px}.option{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:10px}.option.rec{border-color:var(--navy);background:var(--navyd)}.option-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.option strong{font-size:.68rem}.badge{font-size:.5rem;font-weight:700;border-radius:999px;padding:3px 6px}.g{background:var(--greend);color:var(--green)}.w{background:var(--goldd);color:var(--gold)}.r{background:var(--redd);color:var(--red)}
-.bar-row{display:grid;grid-template-columns:110px 1fr 42px;gap:8px;align-items:center;margin-top:8px}.bar-row span{font-size:.57rem;color:var(--ink2)}.track{height:7px;background:var(--deep);border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--navy),var(--blue))}.score{text-align:right;font:400 .52rem var(--mono);color:var(--ink2)}
-.chart{width:100%;height:auto;aspect-ratio:700/230;min-height:220px}.chart svg{display:block;width:100%;height:100%;overflow:visible}.gridline{stroke:var(--border);stroke-dasharray:3 5}.axis{fill:var(--ink3);font:8px var(--mono)}.line{fill:none;stroke:var(--navy);stroke-width:3}.line2{fill:none;stroke:var(--blue);stroke-width:2.5}
-.issue-tree{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.issue{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px}.issue b{display:block;font:500 .49rem var(--mono);text-transform:uppercase;color:var(--ink3);margin-bottom:5px}.issue span{font-size:.59rem;color:var(--ink2)}
-.matrix{position:relative;height:255px;border-left:1px solid var(--border2);border-bottom:1px solid var(--border2);background:linear-gradient(to right,transparent 49.8%,var(--border) 50%,transparent 50.2%),linear-gradient(to bottom,transparent 49.8%,var(--border) 50%,transparent 50.2%)}.dot{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font:600 .52rem var(--mono);box-shadow:0 3px 9px rgba(0,0,0,.16)}.matrix-label{position:absolute;font:500 .5rem var(--mono);text-transform:uppercase;color:var(--ink3)}
-.reverse{display:grid;grid-template-columns:1fr 1fr;gap:8px}.reverse div{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px}.reverse span{display:block;font:500 .5rem var(--mono);text-transform:uppercase;color:var(--ink3)}.reverse b{display:block;font-size:.72rem;margin-top:5px}
-.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.phase{border-top:4px solid var(--navy);background:var(--surface2);border-radius:8px;padding:10px}.phase span{font:500 .49rem var(--mono);text-transform:uppercase;color:var(--ink3)}.phase b{display:block;margin:4px 0;font-size:.7rem}.phase p{margin:0;font-size:.57rem;color:var(--ink2)}
-table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px;border-bottom:1px solid var(--border);text-align:left}th{font:500 .48rem var(--mono);text-transform:uppercase;color:var(--ink3);background:var(--surface2)}
-.footer{margin-top:14px;font-size:.67rem;color:var(--ink3)}
+.header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:11px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:11px}.mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(145deg,#004c97,#002664);position:relative;box-shadow:var(--shadow-sm)}
+.mark i{position:absolute;border-radius:50%;background:#fff;width:5px;height:5px}.mark i:nth-child(1){left:8px;top:22px}.mark i:nth-child(2){left:17px;top:11px}.mark i:nth-child(3){right:8px;top:17px}.mark:before,.mark:after{content:"";position:absolute;height:2px;background:#fff;transform-origin:left center;opacity:.9}.mark:before{left:11px;top:23px;width:15px;transform:rotate(-39deg)}.mark:after{left:20px;top:13px;width:10px;transform:rotate(25deg)}
+.brand h1{font:600 1.24rem/1 var(--ser);margin:0}.brand p{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin:5px 0 0}
+.top-right{display:flex;gap:10px;align-items:center}.demo{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
+.theme{border:1px solid var(--border);background:var(--surface2);color:var(--ink);border-radius:8px;padding:8px 11px}
+.app{display:grid;grid-template-columns:244px 1fr}.side{position:sticky;top:61px;height:calc(100vh - 61px);overflow:auto;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px}
+.side-title{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 8px 9px}
+.nav{width:100%;border:0;background:transparent;color:var(--ink2);padding:11px 10px;text-align:left;border-left:3px solid transparent;border-radius:7px;margin:2px 0;font-weight:600;font-size:13px}.nav.active{background:var(--navyd);color:var(--navy);border-left-color:var(--navy)}
+.readout{margin:16px 0 12px;padding:14px;border:1px solid var(--border2);border-left:5px solid var(--navy);border-radius:10px;background:linear-gradient(135deg,var(--surface),var(--navyd));box-shadow:var(--shadow-sm)}.readout span{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}.readout b{display:block;font:600 1.05rem/1.35 var(--ser);margin-top:7px}
+.readout .delta{display:block;margin-top:7px;font:500 10px var(--mono);color:var(--ink2)}
+.block{padding:14px 0;border-top:1px solid var(--border)}.control+.control{margin-top:14px}.control label{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-bottom:6px}.val{font-family:var(--mono);color:var(--navy)}
+.range-wrap{position:relative;padding:3px 0}.range-wrap input[type=range]{width:100%;accent-color:var(--navy)}.threshold{position:absolute;top:0;bottom:0;width:2px;background:var(--red);opacity:.55;pointer-events:none}.threshold:after{content:"";position:absolute;top:-2px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.scenarios{display:grid;grid-template-columns:1fr 1fr;gap:7px}.scenario{border:1px solid var(--border);background:var(--surface2);color:var(--ink2);padding:9px;border-radius:7px;text-align:left;font-size:11px}.scenario.active{border-color:var(--navy);background:var(--navyd);color:var(--navy)}
+.weights-note{font-size:11px;line-height:1.5;color:var(--ink3);margin:8px 0 0}
+.main{padding:24px 28px 48px}.view{display:none}.view.active{display:block}.note{font-size:12px;color:var(--ink3);margin-bottom:14px}.note b{color:var(--ink2)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}.head h2{font:600 1.78rem var(--ser);margin:0}.head p{margin:5px 0 0;font-size:13px;color:var(--ink2)}.pill{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--navy);background:var(--navyd);border-radius:999px;padding:6px 9px}
+.grid{display:grid;gap:16px}.k4{grid-template-columns:1.18fr repeat(3,1fr)}.two{grid-template-columns:1.28fr .82fr}.equal{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow-sm)}.feature{box-shadow:var(--shadow)}
+.hero{padding:20px 22px;border:1px solid var(--border2);border-left:6px solid var(--navy);background:linear-gradient(135deg,var(--surface),var(--navyd));margin-bottom:16px;transition:.25s}.hero.a{border-left-color:var(--blue)}.hero.b{border-left-color:var(--navy)}.hero.c{border-left-color:var(--gold)}.hero .eye{margin-bottom:6px}.hero h3{font:600 1.35rem/1.2 var(--ser);margin:0 0 7px}.hero p{font-size:13px;color:var(--ink2);margin:0}.hero-state{display:inline-flex;margin-top:10px;padding:5px 8px;border-radius:999px;font:500 10px var(--mono);background:var(--navyd);color:var(--navy)}
+.eye{font:500 10px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}.kpi{font:600 1.75rem var(--ser);margin-top:6px}.sub{font-size:12px;color:var(--ink2);margin-top:2px}.preferred-kpi{background:linear-gradient(135deg,var(--surface),var(--navyd));border-color:var(--navy);transform:translateY(-2px)}.preferred-kpi .kpi{font-size:2.2rem;color:var(--navy)}
+.delta-tag{display:inline-block;margin-top:7px;font:500 10px var(--mono);padding:3px 6px;border-radius:999px;background:var(--surface2);color:var(--ink2)}
+.chart-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}.chart-title h3{font-size:14px;margin:0}.chart-title p{font-size:12px;color:var(--ink3);margin:4px 0 0}
+.stack{display:grid;gap:10px}.option{border:1px solid var(--border);background:var(--surface2);border-radius:9px;padding:12px}.option.rec{border-color:var(--navy);background:var(--navyd)}.option-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.option strong{font-size:13px}.badge{font-size:10px;font-weight:700;border-radius:999px;padding:4px 7px}.g{background:var(--greend);color:var(--green)}.w{background:var(--goldd);color:var(--gold)}.r{background:var(--redd);color:var(--red)}
+.bar-row{display:grid;grid-template-columns:122px 1fr 48px;gap:9px;align-items:center;margin-top:10px}.bar-row span{font-size:12px;color:var(--ink2)}.track{height:9px;background:var(--deep);border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--navy),var(--blue));transition:width .28s}.fill.good{background:linear-gradient(90deg,var(--green),#65a97c)}.fill.reduce{background:linear-gradient(90deg,var(--blue),#7fa5d1)}.score{text-align:right;font:500 10px var(--mono);color:var(--ink2)}
+.chart{width:100%;height:auto;aspect-ratio:700/250;min-height:250px}.chart svg{display:block;width:100%;height:100%;overflow:visible}.gridline{stroke:var(--border);stroke-dasharray:3 5}.axis{fill:var(--ink3);font:10px var(--mono)}.line{fill:none;stroke:var(--navy);stroke-width:3}.line2{fill:none;stroke:var(--blue);stroke-width:2.5}.gap-fill{fill:var(--navyd);opacity:.8}.line-label{font:600 11px Inter;fill:var(--ink)}
+.issue-tree{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.issue{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px}.issue b{display:block;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3);margin-bottom:6px}.issue span{font-size:13px;color:var(--ink2)}.issue.conclusion{background:var(--navyd);border-color:var(--navy)}.issue.conclusion b,.issue.conclusion span{color:var(--navy)}
+.matrix{position:relative;height:360px;border-left:1px solid var(--border2);border-bottom:1px solid var(--border2);background:
+ linear-gradient(to right,transparent 49.8%,var(--border) 50%,transparent 50.2%),
+ linear-gradient(to bottom,transparent 49.8%,var(--border) 50%,transparent 50.2%)}.dot{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font:600 10px/1.15 var(--mono);box-shadow:0 3px 9px rgba(0,0,0,.16);padding:6px}.dot.a{background:var(--dot-a)}.dot.b{background:var(--dot-b)}.dot.c{background:var(--dot-c);color:var(--paper)}
+.matrix-label{position:absolute;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.quad{position:absolute;font:600 11px Inter;color:var(--ink3);opacity:.75}.quad.q1{right:12px;top:10px}.quad.q2{left:12px;top:10px}.quad.q3{left:12px;bottom:10px}.quad.q4{right:12px;bottom:10px}
+.reverse{display:grid;grid-template-columns:1fr 1fr;gap:10px}.reverse div{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px}.reverse span{display:block;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.reverse b{display:block;font-size:13px;margin-top:6px}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.phase{border-top:4px solid var(--navy);background:var(--surface2);border-radius:9px;padding:12px}.phase span{font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.phase b{display:block;margin:5px 0;font-size:13px}.phase p{margin:0;font-size:12px;color:var(--ink2)}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 10px;border-bottom:1px solid var(--border);text-align:left}th{font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3);background:var(--surface2)}
+.footer{margin-top:18px;font-size:12px;color:var(--ink3)}
+.flash{animation:flash .55s ease}@keyframes flash{0%{box-shadow:0 0 0 0 rgba(0,76,151,.22)}50%{box-shadow:0 0 0 6px rgba(0,76,151,.09)}100%{box-shadow:var(--shadow-sm)}}
 @media(max-width:1100px){.two,.equal{grid-template-columns:1fr}.k4{grid-template-columns:repeat(2,1fr)}.issue-tree,.timeline,.three{grid-template-columns:1fr 1fr}}
-@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}.nav-wrap{display:flex;gap:6px;overflow:auto}.nav{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}.nav.active{border-left:0;border-bottom-color:var(--navy)}.main{padding:14px 12px 34px}.readout,.block{margin-top:10px}.scenarios{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:560px){.demo{display:none}.k4,.issue-tree,.timeline,.three,.reverse,.scenarios{grid-template-columns:1fr}.header{position:static}.brand p{display:none}.bar-row{grid-template-columns:90px 1fr 38px}.chart{aspect-ratio:1.35/1;min-height:250px}.chart .axis{font-size:10px}}
+@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}.nav-wrap{display:flex;gap:6px;overflow:auto}.nav{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}.nav.active{border-left:0;border-bottom-color:var(--navy)}.main{padding:18px 14px 36px}.readout,.block{margin-top:12px}.scenarios{grid-template-columns:repeat(4,1fr)}.matrix{height:320px}}
+@media(max-width:560px){html,body{font-size:14px}.demo{display:none}.k4,.issue-tree,.timeline,.three,.reverse,.scenarios{grid-template-columns:1fr}.header{position:static}.brand p{display:none}.bar-row{grid-template-columns:105px 1fr 44px}.chart{aspect-ratio:1.28/1;min-height:285px}.chart .axis{font-size:11px}.matrix{height:340px}.main{padding:16px 12px 32px}.card{padding:14px}.hero{padding:18px}}
 </style>
 </head>
 <body>
 <header class="header">
- <div class="brand"><div class="mark"></div><div><h1>Strategic Decision Modelling</h1><p>diagnose · frame · test · recommend · deliver</p></div></div>
+ <div class="brand"><div class="mark"><i></i><i></i><i></i></div><div><h1>Strategic Decision Modelling</h1><p>diagnose · frame · test · recommend · deliver</p></div></div>
  <div class="top-right"><span class="demo">Illustrative data</span><button class="theme" id="themeBtn">Dark</button></div>
 </header>
 <div class="app">
@@ -66,30 +77,52 @@ table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px
   <button class="nav" data-view="options">02 Options</button>
   <button class="nav" data-view="delivery">03 Delivery</button>
  </div>
- <div class="readout"><span>Current readout</span><b id="readout">Option B remains preferred under the base case.</b></div>
+
+ <div class="readout">
+  <span>Current readout</span>
+  <b id="readout">Option B remains preferred under the base case.</b>
+  <span class="delta" id="readoutDelta">No change from base case</span>
+ </div>
+
  <div class="block"><div class="side-title">Scenario</div><div class="scenarios">
   <button class="scenario active" data-s="base">Base</button><button class="scenario" data-s="constraint">Constraint</button>
   <button class="scenario" data-s="growth">Growth</button><button class="scenario" data-s="risk">Risk</button>
  </div></div>
+
  <div class="block"><div class="side-title">Assumptions</div>
-  <div class="control"><label><span>Funding available</span><span class="val" id="fundVal">$120m</span></label><input id="fund" type="range" min="70" max="170" value="120"></div>
-  <div class="control"><label><span>Benefit confidence</span><span class="val" id="benefitVal">80%</span></label><input id="benefit" type="range" min="50" max="100" value="80"></div>
-  <div class="control"><label><span>Delivery capacity</span><span class="val" id="capacityVal">75%</span></label><input id="capacity" type="range" min="45" max="100" value="75"></div>
+  <div class="control"><label><span>Funding available</span><span class="val" id="fundVal">$120m</span></label><div class="range-wrap"><input id="fund" type="range" min="70" max="170" value="120"><span class="threshold" style="left:22%"></span></div></div>
+  <div class="control"><label><span>Benefit confidence</span><span class="val" id="benefitVal">80%</span></label><div class="range-wrap"><input id="benefit" type="range" min="50" max="100" value="80"><span class="threshold" style="left:22%"></span></div></div>
+  <div class="control"><label><span>Delivery capacity</span><span class="val" id="capacityVal">75%</span></label><div class="range-wrap"><input id="capacity" type="range" min="45" max="100" value="75"><span class="threshold" style="left:16.4%"></span></div></div>
+  <p class="weights-note">Red markers show the illustrative reverse-test thresholds: $92m funding, 61% benefit confidence and 54% delivery capacity.</p>
+ </div>
+
+ <div class="block">
+  <div class="side-title">Scoring weights</div>
+  <p class="weights-note">Illustrative decision score: value 42%, feasibility 28%, delivery 18%, risk 12%. The weights are deliberately exposed so they can be challenged rather than treated as objective truth.</p>
  </div>
 </aside>
+
 <main class="main">
- <div class="note"><b>Interactive model.</b> Change scenario assumptions to see what changes the recommendation and what would reverse it.</div>
+ <div class="note"><b>Interactive model.</b> Change the scenario or assumptions to see what moves, what changes the recommendation and where the tipping points sit.</div>
 
  <section class="view active" id="view-decision">
-  <div class="head"><div><h2>Strategic decision</h2><p>Diagnosis, options and recommendation in one executive view.</p></div><span class="pill">Decision view</span></div>
-  <div class="grid k4">
-   <div class="card"><div class="eye">Preferred option</div><div class="kpi" id="kOption">B</div><div class="sub">Targeted redesign</div></div>
-   <div class="card"><div class="eye">Public value index</div><div class="kpi" id="kValue">82</div><div class="sub">Outcome, service and financial value</div></div>
-   <div class="card"><div class="eye">Funding required</div><div class="kpi" id="kCost">$104m</div><div class="sub">Illustrative implementation ask</div></div>
-   <div class="card"><div class="eye">Confidence</div><div class="kpi" id="kConfidence">84%</div><div class="sub">Evidence and assumption quality</div></div>
+  <div class="head"><div><h2>Strategic decision</h2><p>Answer first, then the evidence behind it.</p></div><span class="pill">Decision view</span></div>
+
+  <div class="card hero b" id="heroDecision">
+   <div class="eye">Recommendation</div>
+   <h3 id="decisionTitle">Proceed with a targeted redesign rather than a full operating-model replacement.</h3>
+   <p id="decisionText">The base case gives the best balance of value, cost and delivery risk. The recommendation changes only if benefit confidence falls materially or delivery capacity tightens below the tested threshold.</p>
+   <span class="hero-state" id="heroState">Option B · Base case</span>
   </div>
 
-  <div class="grid two" style="margin-top:10px">
+  <div class="grid k4">
+   <div class="card preferred-kpi" id="cardOption"><div class="eye">Preferred option</div><div class="kpi" id="kOption">B</div><div class="sub" id="kOptionName">Targeted redesign</div><span class="delta-tag" id="dOption">Base case</span></div>
+   <div class="card" id="cardValue"><div class="eye">Public value index</div><div class="kpi" id="kValue">86</div><div class="sub">Outcome, service and financial value</div><span class="delta-tag" id="dValue">0 vs base</span></div>
+   <div class="card" id="cardCost"><div class="eye">Funding required</div><div class="kpi" id="kCost">$104m</div><div class="sub">Illustrative implementation ask</div><span class="delta-tag" id="dCost">0 vs base</span></div>
+   <div class="card" id="cardConfidence"><div class="eye">Confidence</div><div class="kpi" id="kConfidence">78%</div><div class="sub">Evidence and assumption quality</div><span class="delta-tag" id="dConfidence">0pp vs base</span></div>
+  </div>
+
+  <div class="grid two" style="margin-top:16px">
    <div class="card feature">
     <div class="chart-title"><div><h3>Diagnosis to recommendation</h3><p>What is driving the problem and where intervention changes the outcome.</p></div></div>
     <div class="issue-tree">
@@ -98,11 +131,11 @@ table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px
      <div class="issue"><b>Capacity</b><span>Specialist capacity is the binding constraint in peak periods, not total headcount.</span></div>
      <div class="issue"><b>Data</b><span>Measures use inconsistent definitions across teams, obscuring the true source of movement.</span></div>
      <div class="issue"><b>Cost</b><span>Current cost growth is driven by rework and escalation rather than base demand alone.</span></div>
-     <div class="issue"><b>Conclusion</b><span>Targeted redesign addresses the binding constraints without paying for a full operating-model reset.</span></div>
+     <div class="issue conclusion"><b>Conclusion</b><span>Targeted redesign addresses the binding constraints without paying for a full operating-model reset.</span></div>
     </div>
    </div>
-   <div class="card">
-    <div class="chart-title"><div><h3>Recommendation strength</h3><p>Option B against the current decision criteria.</p></div></div>
+   <div class="card" id="strengthCard">
+    <div class="chart-title"><div><h3>Recommendation strength</h3><p>Current preferred option against the decision criteria.</p></div></div>
     <div class="bar-row"><span>Outcome impact</span><div class="track"><div class="fill" id="barOutcome"></div></div><div class="score" id="sOutcome">88</div></div>
     <div class="bar-row"><span>Financial value</span><div class="track"><div class="fill" id="barFinancial"></div></div><div class="score" id="sFinancial">79</div></div>
     <div class="bar-row"><span>Deliverability</span><div class="track"><div class="fill" id="barDelivery"></div></div><div class="score" id="sDelivery">81</div></div>
@@ -110,8 +143,6 @@ table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px
     <div class="bar-row"><span>Evidence quality</span><div class="track"><div class="fill" id="barEvidence"></div></div><div class="score" id="sEvidence">86</div></div>
    </div>
   </div>
-
-  <div class="card decision" style="margin-top:10px"><div class="eye">Recommendation</div><h3 id="decisionTitle">Proceed with a targeted redesign rather than a full operating-model replacement.</h3><p id="decisionText">The base case gives the best balance of value, cost and delivery risk. The recommendation changes only if benefit confidence falls materially or delivery capacity tightens below the tested threshold.</p></div>
  </section>
 
  <section class="view" id="view-options">
@@ -119,16 +150,21 @@ table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px
   <div class="grid equal">
    <div class="card feature">
     <div class="chart-title"><div><h3>Strategic option map</h3><p>Public value against implementation feasibility. Bubble size represents funding ask.</p></div></div>
-    <div class="matrix" id="matrix"><span class="matrix-label" style="left:4px;top:-18px">High value</span><span class="matrix-label" style="right:0;bottom:-20px">High feasibility</span></div>
+    <div class="matrix" id="matrix">
+      <span class="matrix-label" style="left:4px;top:-19px">High value</span>
+      <span class="matrix-label" style="right:0;bottom:-22px">High feasibility</span>
+      <span class="quad q1">Quick wins</span><span class="quad q2">Big bets</span><span class="quad q3">Low priority</span><span class="quad q4">Easy but limited</span>
+    </div>
    </div>
    <div class="card"><div class="chart-title"><div><h3>Option comparison</h3><p>One recommendation, with the alternatives retained for challenge.</p></div></div><div class="stack" id="optionStack"></div></div>
   </div>
-  <div class="grid equal" style="margin-top:10px">
+
+  <div class="grid equal" style="margin-top:16px">
    <div class="card"><div class="chart-title"><div><h3>Reverse test</h3><p>The assumptions that would change the recommendation.</p></div></div><div class="reverse">
-    <div><span>Benefit confidence</span><b id="reverseBenefit">Below 61%</b></div>
-    <div><span>Delivery capacity</span><b id="reverseCapacity">Below 54%</b></div>
-    <div><span>Funding envelope</span><b id="reverseFunding">Below $92m</b></div>
-    <div><span>Risk exposure</span><b id="reverseRisk">Above 90/100</b></div>
+    <div><span>Benefit confidence</span><b>Below 61%</b></div>
+    <div><span>Delivery capacity</span><b>Below 54%</b></div>
+    <div><span>Funding envelope</span><b>Below $92m</b></div>
+    <div><span>Risk exposure</span><b>Above 90/100</b></div>
    </div></div>
    <div class="card"><div class="chart-title"><div><h3>Evidence trace</h3><p>How conflicting inputs become a decision assumption.</p></div></div>
     <table><thead><tr><th>Input</th><th>Conflict</th><th>Resolution</th></tr></thead><tbody>
@@ -143,28 +179,46 @@ table{width:100%;border-collapse:collapse;font-size:.59rem}th,td{padding:8px 9px
 
  <section class="view" id="view-delivery">
   <div class="head"><div><h2>From recommendation to delivery</h2><p>Translate the decision into initiatives, measures and an executive review rhythm.</p></div><span class="pill">Delivery view</span></div>
+
   <div class="timeline">
    <div class="phase"><span>0–30 days</span><b>Confirm baseline</b><p>Lock definitions, assumptions, owners and the implementation boundary.</p></div>
    <div class="phase"><span>30–90 days</span><b>Mobilise priority changes</b><p>Sequence the highest-value interventions and protect specialist capacity.</p></div>
    <div class="phase"><span>3–6 months</span><b>Measure outcomes</b><p>Track service, cost, capacity and risk against the decision baseline.</p></div>
    <div class="phase"><span>6–12 months</span><b>Review and adapt</b><p>Re-test assumptions, redirect investment and retire measures that no longer help decisions.</p></div>
   </div>
-  <div class="grid equal" style="margin-top:10px">
-   <div class="card feature"><div class="chart-title"><div><h3>Performance trajectory</h3><p>Illustrative baseline and recommended path.</p></div></div><div class="chart"><svg viewBox="0 0 700 230" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative performance trajectory comparing baseline and recommended paths"><line class="gridline" x1="45" y1="40" x2="675" y2="40"/><line class="gridline" x1="45" y1="90" x2="675" y2="90"/><line class="gridline" x1="45" y1="140" x2="675" y2="140"/><line class="gridline" x1="45" y1="190" x2="675" y2="190"/><polyline class="line2" points="45,165 135,160 225,154 315,151 405,146 495,143 585,140 675,137"/><polyline class="line" points="45,165 135,150 225,131 315,112 405,94 495,81 585,68 675,58"/><text class="axis" x="45" y="217">Q1</text><text class="axis" x="220" y="217">Q3</text><text class="axis" x="400" y="217">Q5</text><text class="axis" x="575" y="217">Q7</text></svg></div></div>
+
+  <div class="grid equal" style="margin-top:16px">
+   <div class="card feature">
+    <div class="chart-title"><div><h3>Performance trajectory</h3><p>Illustrative baseline and recommended path.</p></div></div>
+    <div class="chart">
+      <svg viewBox="0 0 700 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative performance trajectory comparing baseline and recommended paths">
+        <line class="gridline" x1="55" y1="38" x2="650" y2="38"/><line class="gridline" x1="55" y1="90" x2="650" y2="90"/><line class="gridline" x1="55" y1="142" x2="650" y2="142"/><line class="gridline" x1="55" y1="194" x2="650" y2="194"/>
+        <text class="axis" x="18" y="42">100</text><text class="axis" x="24" y="94">75</text><text class="axis" x="24" y="146">50</text><text class="axis" x="24" y="198">25</text>
+        <polygon class="gap-fill" points="55,168 140,153 225,135 310,115 395,96 480,82 565,70 650,60 650,140 565,143 480,146 395,150 310,154 225,157 140,162 55,168"/>
+        <polyline class="line2" points="55,168 140,162 225,157 310,154 395,150 480,146 565,143 650,140"/>
+        <polyline class="line" points="55,168 140,153 225,135 310,115 395,96 480,82 565,70 650,60"/>
+        <text class="axis" x="55" y="226">Q1</text><text class="axis" x="225" y="226">Q3</text><text class="axis" x="395" y="226">Q5</text><text class="axis" x="565" y="226">Q7</text>
+        <text class="line-label" x="590" y="52">Recommended</text><text class="line-label" x="602" y="158">Baseline</text>
+      </svg>
+    </div>
+   </div>
+
    <div class="card"><div class="chart-title"><div><h3>Success measures</h3><p>Measures tied directly to the recommendation.</p></div></div>
-    <div class="bar-row"><span>Cycle time</span><div class="track"><div class="fill" style="width:82%"></div></div><div class="score">−18%</div></div>
-    <div class="bar-row"><span>Rework</span><div class="track"><div class="fill" style="width:76%"></div></div><div class="score">−24%</div></div>
-    <div class="bar-row"><span>Service outcome</span><div class="track"><div class="fill" style="width:88%"></div></div><div class="score">+14%</div></div>
-    <div class="bar-row"><span>Capacity use</span><div class="track"><div class="fill" style="width:84%"></div></div><div class="score">+11%</div></div>
-    <div class="bar-row"><span>Cost to serve</span><div class="track"><div class="fill" style="width:73%"></div></div><div class="score">−9%</div></div>
+    <div class="bar-row"><span>Cycle time</span><div class="track"><div class="fill reduce" style="width:82%"></div></div><div class="score">−18%</div></div>
+    <div class="bar-row"><span>Rework</span><div class="track"><div class="fill reduce" style="width:76%"></div></div><div class="score">−24%</div></div>
+    <div class="bar-row"><span>Service outcome</span><div class="track"><div class="fill good" style="width:88%"></div></div><div class="score">+14%</div></div>
+    <div class="bar-row"><span>Capacity use</span><div class="track"><div class="fill good" style="width:84%"></div></div><div class="score">+11%</div></div>
+    <div class="bar-row"><span>Cost to serve</span><div class="track"><div class="fill reduce" style="width:73%"></div></div><div class="score">−9%</div></div>
    </div>
   </div>
-  <div class="card decision" style="margin-top:10px"><div class="eye">Executive review standard</div><h3>Track whether the assumptions behind the decision remain true, not only whether milestones were completed.</h3><p>Each review should distinguish delivery progress from outcome movement and identify whether the original recommendation still holds under the latest evidence.</p></div>
+
+  <div class="card hero" style="margin-top:16px"><div class="eye">Executive review standard</div><h3>Track whether the assumptions behind the decision remain true, not only whether milestones were completed.</h3><p>Each review should distinguish delivery progress from outcome movement and identify whether the original recommendation still holds under the latest evidence.</p></div>
  </section>
 
  <div class="footer">Fictional data and illustrative assumptions. AI-assisted drafting and prototyping; analytical judgement, assumption selection and validation remain human-owned.</div>
 </main>
 </div>
+
 <script>
 const $=id=>document.getElementById(id);
 const options=[
@@ -172,42 +226,53 @@ const options=[
  {id:'B',name:'Targeted redesign',cost:104,value:86,feas:82,delivery:84,risk:78},
  {id:'C',name:'Full operating-model reset',cost:152,value:94,feas:55,delivery:58,risk:88}
 ];
-let state={scenario:'base',fund:120,benefit:80,capacity:75};
+const base={scenario:'base',fund:120,benefit:80,capacity:75};
+let state={...base};
 const presets={base:{fund:120,benefit:80,capacity:75},constraint:{fund:88,benefit:72,capacity:58},growth:{fund:135,benefit:91,capacity:82},risk:{fund:125,benefit:76,capacity:69}};
-function score(o){
- const benefitAdj=state.benefit/80, capAdj=state.capacity/75;
+function score(o,s=state){
+ const benefitAdj=s.benefit/80, capAdj=s.capacity/75;
  const value=Math.max(0,Math.min(100,o.value*benefitAdj));
- const feas=Math.max(0,Math.min(100,o.feas*capAdj*(state.fund>=o.cost?1:.72)));
- const risk=Math.max(0,Math.min(100,o.risk*(state.scenario==='risk'?1.14:1)));
+ const feas=Math.max(0,Math.min(100,o.feas*capAdj*(s.fund>=o.cost?1:.72)));
+ const risk=Math.max(0,Math.min(100,o.risk*(s.scenario==='risk'?1.14:1)));
  const total=.42*value+.28*feas+.18*o.delivery+.12*risk;
  return {value,feas,risk,total};
 }
-function best(){
- return options.map(o=>({o,s:score(o)})).sort((a,b)=>b.s.total-a.s.total)[0];
+function best(s=state){return options.map(o=>({o,s:score(o,s)})).sort((a,b)=>b.s.total-a.s.total)[0]}
+const baseBest=best(base);
+function flash(){
+ ['cardOption','cardValue','cardCost','cardConfidence','strengthCard'].forEach(id=>{const el=$(id);el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')});
 }
 function renderMatrix(){
  const el=$('matrix');el.querySelectorAll('.dot').forEach(x=>x.remove());
- options.forEach((o,i)=>{const s=score(o);const d=document.createElement('div');d.className='dot';d.textContent=o.id;d.title=o.name;const size=38+o.cost/6;d.style.width=d.style.height=size+'px';d.style.left=(8+s.feas*.84)+'%';d.style.top=(94-s.value*.86)+'%';d.style.background=i===1?'#002664':i===0?'#4b73a7':'#a56f00';el.appendChild(d)});
+ options.forEach(o=>{const s=score(o);const d=document.createElement('div');d.className='dot '+o.id.toLowerCase();d.textContent='Option '+o.id+'\n'+o.name;d.title=o.name;const size=58+o.cost/5.5;d.style.width=d.style.height=size+'px';d.style.left=(8+s.feas*.84)+'%';d.style.top=(94-s.value*.86)+'%';el.appendChild(d)});
 }
 function renderOptions(){
- const b=best().o.id;
- $('optionStack').innerHTML=options.map(o=>{const s=score(o);return '<div class="option '+(o.id===b?'rec':'')+'"><div class="option-head"><strong>Option '+o.id+' · '+o.name+'</strong><span class="badge '+(o.id===b?'g':'w')+'">'+(o.id===b?'Preferred':'Alternative')+'</span></div><div class="bar-row"><span>Decision score</span><div class="track"><div class="fill" style="width:'+s.total.toFixed(0)+'%"></div></div><div class="score">'+s.total.toFixed(0)+'</div></div><div class="sub" style="margin-top:6px">$'+o.cost+'m ask · value '+s.value.toFixed(0)+' · feasibility '+s.feas.toFixed(0)+'</div></div>'}).join('');
+ const winner=best().o.id;
+ $('optionStack').innerHTML=options.map(o=>{const s=score(o);return '<div class="option '+(o.id===winner?'rec':'')+'"><div class="option-head"><strong>Option '+o.id+' · '+o.name+'</strong><span class="badge '+(o.id===winner?'g':'w')+'">'+(o.id===winner?'Preferred':'Alternative')+'</span></div><div class="bar-row"><span>Decision score</span><div class="track"><div class="fill '+(o.id===winner?'good':'')+'" style="width:'+s.total.toFixed(0)+'%"></div></div><div class="score">'+s.total.toFixed(0)+'</div></div><div class="sub" style="margin-top:7px">$'+o.cost+'m ask · value '+s.value.toFixed(0)+' · feasibility '+s.feas.toFixed(0)+'</div></div>'}).join('');
 }
-function render(){
+function signed(n,suffix=''){const r=Math.round(n);return (r>0?'+':'')+r+suffix}
+function render(doFlash=false){
  $('fundVal').textContent='$'+state.fund+'m';$('benefitVal').textContent=state.benefit+'%';$('capacityVal').textContent=state.capacity+'%';
  const b=best(),o=b.o,s=b.s;
- $('kOption').textContent=o.id;$('kValue').textContent=s.value.toFixed(0);$('kCost').textContent='$'+o.cost+'m';$('kConfidence').textContent=Math.round((state.benefit+state.capacity)/2)+'%';
+ $('kOption').textContent=o.id;$('kOptionName').textContent=o.name;$('kValue').textContent=s.value.toFixed(0);$('kCost').textContent='$'+o.cost+'m';$('kConfidence').textContent=Math.round((state.benefit+state.capacity)/2)+'%';
+ $('dOption').textContent=o.id===baseBest.o.id?'Same as base':'Changed from '+baseBest.o.id;
+ $('dValue').textContent=signed(s.value-baseBest.s.value)+' vs base';
+ $('dCost').textContent='$'+signed(o.cost-baseBest.o.cost)+'m vs base';
+ $('dConfidence').textContent=signed(((state.benefit+state.capacity)/2)-((base.benefit+base.capacity)/2),'pp')+' vs base';
  const vals={Outcome:s.value,Financial:Math.max(45,100-o.cost/2.2+state.fund/3),Delivery:Math.min(100,o.delivery*state.capacity/75),Risk:s.risk,Evidence:(state.benefit+88)/2};
  Object.entries(vals).forEach(([k,v])=>{const n=Math.max(0,Math.min(100,v));$('bar'+k).style.width=n+'%';$('s'+k).textContent=Math.round(n)});
  const msg=o.id==='B'?'Proceed with a targeted redesign rather than a full operating-model replacement.':o.id==='A'?'Optimise the current model while preserving the option to scale later.':'A full operating-model reset now produces the strongest tested result.';
  $('decisionTitle').textContent=msg;
  $('decisionText').textContent='The recommendation reflects the current balance of value, funding, deliverability and risk. The reverse test remains visible so the decision can be revisited when assumptions move.';
+ $('heroState').textContent='Option '+o.id+' · '+state.scenario+' case';
+ const hero=$('heroDecision');hero.classList.remove('a','b','c');hero.classList.add(o.id.toLowerCase());
  $('readout').textContent='Option '+o.id+' is preferred under the '+state.scenario+' case. '+(state.fund<o.cost?'Funding is constraining feasibility.':'Funding remains sufficient for the preferred option.');
- renderMatrix();renderOptions();
+ $('readoutDelta').textContent=o.id===baseBest.o.id?'Recommendation unchanged from base case':'Recommendation changed from base Option '+baseBest.o.id;
+ renderMatrix();renderOptions();if(doFlash)flash();
 }
 document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));n.classList.add('active');$('view-'+n.dataset.view).classList.add('active')});
-document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));b.classList.add('active');state={scenario:b.dataset.s,...presets[b.dataset.s]};$('fund').value=state.fund;$('benefit').value=state.benefit;$('capacity').value=state.capacity;render()});
-['fund','benefit','capacity'].forEach(id=>$(id).oninput=e=>{state[id]=+e.target.value;render()});
+document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));b.classList.add('active');state={scenario:b.dataset.s,...presets[b.dataset.s]};$('fund').value=state.fund;$('benefit').value=state.benefit;$('capacity').value=state.capacity;render(true)});
+['fund','benefit','capacity'].forEach(id=>$(id).oninput=e=>{state[id]=+e.target.value;render(true)});
 $('themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';$('themeBtn').textContent=dark?'Dark':'Light'};
 render();
 </script>
