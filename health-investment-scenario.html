@@ -54,6 +54,8 @@ button,input,select{font:inherit}button{cursor:pointer}svg{max-width:100%}.mono,
 .nav.active{background:var(--navy-dim);border-left-color:var(--navy);color:var(--navy)}
 .nav-num{font:400 .62rem/1.2 var(--mono);color:var(--ink-3)}.nav-label{font-size:.8rem;font-weight:600}
 .main{min-width:0;padding:20px 24px 44px}
+.interactive-note{margin:0 0 12px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:7px;background:var(--surface);color:var(--ink-2);font-size:.74rem}
+.interactive-note strong{color:var(--ink);font-weight:650}
 .view{display:none}.view.active{display:block}
 .demo{font:400 .55rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--navy-dim);border:1px solid var(--navy-mid);padding:6px 9px;border-radius:999px;white-space:nowrap}
 
@@ -216,6 +218,7 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover td{background:var(--surfac
   </details>
 </nav>
 <main class="main">
+<div class="interactive-note"><strong>Interactive model.</strong> Adjust the scenarios and assumptions to see how funding, NPV and BCR change.</div>
 <section class="view active" id="view-decision">
     <div class="grid kpis" style="margin-bottom:12px">
     <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Total capital available to allocate across proposals.">Funding envelope</div><div class="kpi-value" id="kEnvelope">$280m</div></div><div class="kpi-icon">EN</div></div></div>
