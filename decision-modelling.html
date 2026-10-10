@@ -1,279 +1,394 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Strategic Decision Modelling | Khaled Sanad</title>
-<meta name="description" content="Illustrative strategic decision model covering diagnosis, option design, investment trade-offs, implementation and performance tracking.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Decision Modelling | Options & Scenarios</title>
+<meta name="description" content="Interactive strategic decision model comparing alternative delivery, service and transformation responses through financial assessment and scenario tests.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
- --paper:#f3f5f9;--surface:#fff;--surface2:#f7f9fc;--deep:#e9edf4;--border:#d9dee8;--border2:#b9c3d3;
- --ink:#17243a;--ink2:#53627a;--ink3:#6e7b8e;--navy:#002664;--blue:#4b73a7;--navyd:#eaf1fb;
- --green:#2e7d57;--greend:#e8f4ee;--gold:#a56f00;--goldd:#fff5d9;--red:#d7153a;--redd:#fdecef;
- --shadow:0 7px 22px rgba(0,38,100,.08);--shadow-sm:0 2px 8px rgba(0,38,100,.06);
- --ser:'Cormorant Garamond',Georgia,serif;--mono:'DM Mono',monospace;
- --dot-a:#4b73a7;--dot-b:#002664;--dot-c:#a56f00;
+  --paper:#f3f5f9;--surface:#ffffff;--surface-alt:#f7f9fc;--surface-deep:#e9edf4;
+  --border:#d9dee8;--border-2:#b9c3d3;--ink:#17243a;--ink-2:#53627a;--ink-3:#7a879a;
+  --navy:#002664;--navy-2:#004c97;--navy-dim:#eaf1fb;--navy-mid:#b9cbe3;
+  --blue:#4b73a7;--blue-dim:#eaf0f7;
+  --red:#d7153a;--red-dim:#fdecef;--gold:#a56f00;--gold-dim:#fff5d9;--green:#2e7d57;--green-dim:#e8f4ee;
+  --seg1:#002664;--seg2:#2f5f9a;--seg3:#4b73a7;--seg4:#7795bb;--seg5:#a7b7ce;
+  --risk-low:#e8f3eb;--risk-med:#fbf1dc;--risk-high:#f8e8e5;
+  --shadow:0 7px 22px rgba(0,38,100,.08);--shadow-sm:0 2px 8px rgba(0,38,100,.06);
+  --radius:11px;--serif:'Cormorant Garamond',Georgia,serif;--mono:'DM Mono','Courier New',monospace;
 }
 :root[data-theme="dark"]{
- --paper:#0c1424;--surface:#131e35;--surface2:#192843;--deep:#22345a;--border:#2a3d5e;--border2:#41577f;
- --ink:#eaf0fa;--ink2:#b7c3d6;--ink3:#93a2bb;--navy:#8db4f0;--blue:#7ba3d6;--navyd:#172c52;
- --green:#6fcf9c;--greend:#173427;--gold:#e0ad4c;--goldd:#3a2e15;--red:#f0607a;--redd:#3a1a26;
- --shadow:0 9px 26px rgba(0,0,0,.3);--shadow-sm:0 2px 10px rgba(0,0,0,.25);
- --dot-a:#7ba3d6;--dot-b:#8db4f0;--dot-c:#e0ad4c;
+  --paper:#0c1424;--surface:#131e35;--surface-alt:#192843;--surface-deep:#22345a;
+  --border:#2a3d5e;--border-2:#41577f;--ink:#eaf0fa;--ink-2:#a9b7cf;--ink-3:#7f90ad;
+  --navy:#8db4f0;--navy-2:#6aa0e8;--navy-dim:#172c52;--navy-mid:#2c4a7c;
+  --blue:#7ba3d6;--blue-dim:#1a2d4d;
+  --red:#f0607a;--red-dim:#3a1a26;--gold:#e0ad4c;--gold-dim:#3a2e15;--green:#6fcf9c;--green-dim:#173427;
+  --seg1:#8db4f0;--seg2:#6a98d8;--seg3:#4f7fc0;--seg4:#3a68a8;--seg5:#2c5088;
+  --risk-low:#183226;--risk-med:#35291a;--risk-high:#3a2024;
+  --shadow:0 9px 26px rgba(0,0,0,.3);--shadow-sm:0 2px 10px rgba(0,0,0,.25);
 }
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:14px/1.55 Inter,system-ui,sans-serif;overflow-x:hidden}
-button,input{font:inherit}button{cursor:pointer}.mono{font-family:var(--mono)}
-.header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:11px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
-.brand{display:flex;align-items:center;gap:11px}.mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(145deg,#004c97,#002664);position:relative;box-shadow:var(--shadow-sm)}
-.mark i{position:absolute;border-radius:50%;background:#fff;width:5px;height:5px}.mark i:nth-child(1){left:8px;top:22px}.mark i:nth-child(2){left:17px;top:11px}.mark i:nth-child(3){right:8px;top:17px}.mark:before,.mark:after{content:"";position:absolute;height:2px;background:#fff;transform-origin:left center;opacity:.9}.mark:before{left:11px;top:23px;width:15px;transform:rotate(-39deg)}.mark:after{left:20px;top:13px;width:10px;transform:rotate(25deg)}
-.brand h1{font:600 1.24rem/1 var(--ser);margin:0}.brand p{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin:5px 0 0}
-.top-right{display:flex;gap:10px;align-items:center}.demo{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
-.theme{border:1px solid var(--border);background:var(--surface2);color:var(--ink);border-radius:8px;padding:8px 11px}
-.app{display:grid;grid-template-columns:244px 1fr}.side{position:sticky;top:61px;height:calc(100vh - 61px);overflow:auto;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px}
-.side-title{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 8px 9px}
-.nav{width:100%;border:0;background:transparent;color:var(--ink2);padding:11px 10px;text-align:left;border-left:3px solid transparent;border-radius:7px;margin:2px 0;font-weight:600;font-size:13px}.nav.active{background:var(--navyd);color:var(--navy);border-left-color:var(--navy)}
-.readout{margin:16px 0 12px;padding:14px;border:1px solid var(--border2);border-left:5px solid var(--navy);border-radius:10px;background:linear-gradient(135deg,var(--surface),var(--navyd));box-shadow:var(--shadow-sm)}.readout span{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}.readout b{display:block;font:600 1.05rem/1.35 var(--ser);margin-top:7px}
-.readout .delta{display:block;margin-top:7px;font:500 10px var(--mono);color:var(--ink2)}
-.block{padding:14px 0;border-top:1px solid var(--border)}.control+.control{margin-top:14px}.control label{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-bottom:6px}.val{font-family:var(--mono);color:var(--navy)}
-.range-wrap{position:relative;padding:3px 0}.range-wrap input[type=range]{width:100%;accent-color:var(--navy)}.threshold{position:absolute;top:0;bottom:0;width:2px;background:var(--red);opacity:.55;pointer-events:none}.threshold:after{content:"";position:absolute;top:-2px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--red)}
-.scenarios{display:grid;grid-template-columns:1fr 1fr;gap:7px}.scenario{border:1px solid var(--border);background:var(--surface2);color:var(--ink2);padding:9px;border-radius:7px;text-align:left;font-size:11px}.scenario.active{border-color:var(--navy);background:var(--navyd);color:var(--navy)}
-.weights-note{font-size:11px;line-height:1.5;color:var(--ink3);margin:8px 0 0}
-.main{padding:24px 28px 48px}.view{display:none}.view.active{display:block}.note{font-size:12px;color:var(--ink3);margin-bottom:14px}.note b{color:var(--ink2)}
-.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}.head h2{font:600 1.78rem var(--ser);margin:0}.head p{margin:5px 0 0;font-size:13px;color:var(--ink2)}.pill{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--navy);background:var(--navyd);border-radius:999px;padding:6px 9px}
-.grid{display:grid;gap:16px}.k4{grid-template-columns:1.18fr repeat(3,1fr)}.two{grid-template-columns:1.28fr .82fr}.equal{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow-sm)}.feature{box-shadow:var(--shadow)}
-.hero{padding:20px 22px;border:1px solid var(--border2);border-left:6px solid var(--navy);background:linear-gradient(135deg,var(--surface),var(--navyd));margin-bottom:16px;transition:.25s}.hero.a{border-left-color:var(--blue)}.hero.b{border-left-color:var(--navy)}.hero.c{border-left-color:var(--gold)}.hero .eye{margin-bottom:6px}.hero h3{font:600 1.35rem/1.2 var(--ser);margin:0 0 7px}.hero p{font-size:13px;color:var(--ink2);margin:0;max-width:720px}.hero-state{display:inline-flex;margin-top:10px;padding:5px 8px;border-radius:999px;font:500 10px var(--mono);background:var(--navyd);color:var(--navy)}
-.eye{font:500 10px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}.kpi{font:600 1.75rem var(--ser);margin-top:6px}.sub{font-size:12px;color:var(--ink2);margin-top:2px}.preferred-kpi{background:linear-gradient(135deg,var(--surface),var(--navyd));border-color:var(--navy);transform:translateY(-2px)}.preferred-kpi .kpi{font-size:2.2rem;color:var(--navy)}
-.delta-tag{display:inline-block;margin-top:7px;font:500 10px var(--mono);padding:3px 6px;border-radius:999px;background:var(--surface2);color:var(--ink2)}
-.chart-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}.chart-title h3{font-size:14px;margin:0}.chart-title p{font-size:12px;color:var(--ink3);margin:4px 0 0}
-.stack{display:grid;gap:10px}.option{border:1px solid var(--border);background:var(--surface2);border-radius:9px;padding:12px}.option.rec{border-color:var(--navy);background:var(--navyd)}.option-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.option strong{font-size:13px}.badge{font-size:10px;font-weight:700;border-radius:999px;padding:4px 7px}.g{background:var(--greend);color:var(--green)}.w{background:var(--goldd);color:var(--gold)}.r{background:var(--redd);color:var(--red)}
-.bar-row{display:grid;grid-template-columns:122px 1fr 48px;gap:9px;align-items:center;margin-top:10px}.bar-row span{font-size:12px;color:var(--ink2)}.track{height:9px;background:var(--deep);border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--navy),var(--blue));transition:width .28s}.fill.good{background:linear-gradient(90deg,var(--green),#65a97c)}.fill.reduce{background:linear-gradient(90deg,var(--blue),#7fa5d1)}.score{text-align:right;font:500 10px var(--mono);color:var(--ink2)}
-.chart{width:100%;height:auto;aspect-ratio:700/250;min-height:250px}.chart svg{display:block;width:100%;height:100%;overflow:visible}.gridline{stroke:var(--border);stroke-dasharray:3 5}.axis{fill:var(--ink3);font:10px var(--mono)}.line{fill:none;stroke:var(--navy);stroke-width:3}.line2{fill:none;stroke:var(--blue);stroke-width:2.5}.gap-fill{fill:var(--navyd);opacity:.8}.line-label{font:600 11px Inter;fill:var(--ink)}
-.issue-tree{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.issue{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px}.issue b{display:block;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3);margin-bottom:6px}.issue span{font-size:13px;color:var(--ink2);font-weight:600}.issue{min-height:92px;display:flex;flex-direction:column;justify-content:center}.issue.conclusion{background:var(--navyd);border-color:var(--navy)}.issue.conclusion b,.issue.conclusion span{color:var(--navy)}
-.matrix{position:relative;height:390px;border-left:1px solid var(--border2);border-bottom:1px solid var(--border2);background:
- linear-gradient(to right,transparent 49.8%,var(--border) 50%,transparent 50.2%),
- linear-gradient(to bottom,transparent 49.8%,var(--border) 50%,transparent 50.2%)}.dot{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font:600 10px/1.15 var(--mono);box-shadow:0 3px 9px rgba(0,0,0,.16);padding:6px}.dot.a{background:var(--dot-a)}.dot.b{background:var(--dot-b)}.dot.c{background:var(--dot-c);color:var(--paper)}
-.matrix-label{position:absolute;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.quad{position:absolute;font:600 11px Inter;color:var(--ink3);opacity:.75}.quad.q1{right:12px;top:10px}.quad.q2{left:12px;top:10px}.quad.q3{left:12px;bottom:10px}.quad.q4{right:12px;bottom:10px}
-.reverse{display:grid;grid-template-columns:1fr 1fr;gap:10px}.reverse div{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px}.reverse span{display:block;font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.reverse b{display:block;font-size:13px;margin-top:6px}
-.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.phase{border-top:4px solid var(--navy);background:var(--surface2);border-radius:9px;padding:12px}.phase span{font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3)}.phase b{display:block;margin:5px 0;font-size:13px}.phase p{margin:0;font-size:12px;color:var(--ink2)}.phase{min-height:118px;display:flex;flex-direction:column;justify-content:center}
-table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 10px;border-bottom:1px solid var(--border);text-align:left}th{font:500 10px var(--mono);text-transform:uppercase;color:var(--ink3);background:var(--surface2)}
-.footer{margin-top:18px;font-size:12px;color:var(--ink3)}
-.flash{animation:flash .55s ease}@keyframes flash{0%{box-shadow:0 0 0 0 rgba(0,76,151,.22)}50%{box-shadow:0 0 0 6px rgba(0,76,151,.09)}100%{box-shadow:var(--shadow-sm)}}
-@media(max-width:1100px){.two,.equal{grid-template-columns:1fr}.k4{grid-template-columns:repeat(2,1fr)}.issue-tree,.timeline,.three{grid-template-columns:1fr 1fr}}
-@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}.nav-wrap{display:flex;gap:6px;overflow:auto}.nav{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}.nav.active{border-left:0;border-bottom-color:var(--navy)}.main{padding:18px 14px 36px}.readout,.block{margin-top:12px}.scenarios{grid-template-columns:repeat(4,1fr)}.matrix{height:320px}}
-@media(max-width:560px){html,body{font-size:14px}.demo{display:none}.k4,.issue-tree,.timeline,.three,.reverse,.scenarios{grid-template-columns:1fr}.header{position:static}.brand p{display:none}.bar-row{grid-template-columns:105px 1fr 44px}.chart{aspect-ratio:1.28/1;min-height:285px}.chart .axis{font-size:11px}.matrix{height:340px}.main{padding:16px 12px 32px}.card{padding:14px}.hero{padding:18px}}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:13px/1.45 Inter,system-ui,Arial,sans-serif;overflow-x:hidden;font-variant-numeric:lining-nums}
+body,.card,.header,.sidebar,.nav,.scenario,.theme-btn,.ghost-btn{transition:background-color .18s,color .18s,border-color .18s}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+button,input,select{font:inherit}button{cursor:pointer}svg{max-width:100%}.mono,.num{font-family:var(--mono)}
+
+/* shell */
+.shell{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+.header{position:sticky;top:0;z-index:70;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.brand{display:flex;gap:11px;align-items:center;min-width:0}
+.brand-mark{width:34px;height:34px;flex:none;border-radius:9px;background:linear-gradient(145deg,#004c97,#002664);position:relative;box-shadow:var(--shadow-sm)}
+.brand-mark:before,.brand-mark:after{content:"";position:absolute;left:8px;right:8px;height:2px;background:#fff;border-radius:2px}
+.brand-mark:before{top:11px}.brand-mark:after{top:20px}
+.brand h1{font:600 1.18rem/1 var(--serif);margin:0;color:var(--ink)}
+.brand p{margin:4px 0 0;font:400 .58rem/1.15 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.theme-btn{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--surface-alt);color:var(--ink);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600}
+.theme-orb{width:10px;height:10px;border-radius:50%;background:#e0a72f;box-shadow:0 0 0 4px rgba(224,167,47,.14)}
+:root[data-theme="dark"] .theme-orb{background:#8bc5ec;box-shadow:0 0 0 4px rgba(139,197,236,.12)}
+.app{display:grid;grid-template-columns:288px minmax(0,1fr)}
+.sidebar{position:sticky;top:55px;height:calc(100vh - 55px);overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:14px 16px 20px}
+.side-title{font:400 .55rem/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding:0 9px 9px}
+.nav{width:100%;display:grid;grid-template-columns:24px 1fr;gap:7px;align-items:center;text-align:left;border:0;border-left:3px solid transparent;background:transparent;color:var(--ink-2);padding:9px;border-radius:7px;margin:2px 0}
+.nav:hover{background:var(--surface-alt);color:var(--ink)}
+.nav.active{background:var(--navy-dim);border-left-color:var(--navy);color:var(--navy)}
+.nav-num{font:400 .62rem/1.2 var(--mono);color:var(--ink-3)}.nav-label{font-size:.8rem;font-weight:600}
+.main{min-width:0;padding:20px 24px 44px}
+.interactive-note{margin:0 0 12px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:7px;background:var(--surface);color:var(--ink-2);font-size:.74rem}
+.interactive-note strong{color:var(--ink);font-weight:650}
+.view{display:none}.view.active{display:block}
+.demo{font:400 .55rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--navy-dim);border:1px solid var(--navy-mid);padding:6px 9px;border-radius:999px;white-space:nowrap}
+
+/* primitives */
+.grid{display:grid;gap:12px}.two{grid-template-columns:1.1fr .9fr}.equal{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px;min-width:0}
+.card.feature{box-shadow:var(--shadow)}
+.eyebrow{font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.chart-title{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.chart-title h3{font-size:.84rem;margin:0;color:var(--ink);font-weight:650}
+.chart-title p{font-size:.68rem;color:var(--ink-3);margin:3px 0 0}
+.info{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border);color:var(--ink-3);font:500 .66rem/1 var(--mono);background:var(--surface-alt)}
+.hoverable{cursor:help}.eyebrow.hoverable{text-decoration:underline dotted var(--border-2);text-underline-offset:3px}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;font-size:.66rem;font-weight:700}
+.badge:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.good{background:var(--green-dim);color:var(--green)}.warn{background:var(--gold-dim);color:var(--gold)}.bad{background:var(--red-dim);color:var(--red)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:.68rem;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:5px}.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.tooltip{position:fixed;z-index:1000;pointer-events:none;max-width:280px;padding:9px 10px;border-radius:7px;background:var(--ink);color:var(--surface);font-size:.72rem;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none}
+.tooltip strong{display:block;margin-bottom:3px}
+
+/* controls */
+.scenario-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.scenario{border:1px solid var(--border);border-radius:7px;background:var(--surface-alt);padding:8px 10px;text-align:left;color:var(--ink-2);font-size:.76rem;font-weight:600}
+.scenario:hover{border-color:var(--navy-mid)}
+.scenario.active{background:var(--navy-dim);border-color:var(--navy);color:var(--navy)}
+.adv-grid{display:grid;gap:12px 14px}.adv-grid.c2{grid-template-columns:repeat(2,1fr)}
+.control label{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--ink-2);margin-bottom:2px}
+.control .val{font-family:var(--mono);color:var(--navy);font-size:.72rem;font-weight:500}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:9px 0 3px;border-radius:99px;background:var(--surface-deep);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--navy),var(--shadow-sm)}
+input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--navy);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--navy)}
+input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:var(--surface-deep)}
+.check{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 9px;font-size:.66rem;font-weight:700}
+.check:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.check.ok{background:var(--green-dim);color:var(--green)}.check.bad{background:var(--red-dim);color:var(--red)}
+
+/* decision view */
+.kpi{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.kpi-value{font:600 1.7rem/1 var(--serif);color:var(--ink);margin-top:2px}
+.kpi-sub{font-size:.68rem;color:var(--ink-3);margin-top:6px}
+.kpi-icon{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--navy-dim);color:var(--navy);font:500 .6rem/1 var(--mono)}
+.chart{width:100%;height:300px;display:block}.chart-sm{height:235px}
+.axis{stroke:var(--border-2);stroke-width:1}.gridline{stroke:var(--border);stroke-width:1;stroke-dasharray:3 5}
+.tick{fill:var(--ink-3);font:11px var(--mono)}.label{fill:var(--ink-2);font:11.5px Inter,Arial,sans-serif}
+.threshold{stroke:var(--red);stroke-width:1.6;stroke-dasharray:5 5}
+.bubble{cursor:pointer;stroke-width:2}.bubble-label{font:600 11px Inter,Arial,sans-serif;pointer-events:none;fill:var(--ink)}
+.envelope-wrap{padding-top:36px}
+.envelope{position:relative;height:36px;border:1px solid var(--border);border-radius:8px;background:var(--surface-deep);overflow:visible;touch-action:none}
+.env-seg{position:absolute;top:0;bottom:0;border-right:1px solid var(--surface)}
+.env-seg:first-child{border-radius:7px 0 0 7px}
+.env-marker{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--navy);cursor:ew-resize}
+.env-marker:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--navy);top:-5px;left:-4px}
+.env-label{position:absolute;top:-34px;transform:translateX(-50%);font:500 .7rem var(--mono);color:var(--navy);background:var(--surface);border:1px solid var(--navy-mid);border-radius:5px;padding:4px 7px;white-space:nowrap}
+.env-gap{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,var(--red-dim),var(--red-dim) 5px,transparent 5px,transparent 10px);border-radius:0 7px 7px 0}
+.env-legend{display:grid;gap:6px;margin-top:14px;font-size:.72rem;color:var(--ink-2)}
+.env-legend span{display:flex;align-items:center;gap:7px}.swatch{width:9px;height:9px;border-radius:2px;flex:none}
+.details-toggle{margin-top:12px;width:100%;text-align:left;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:10px 12px;color:var(--navy);font-weight:650;font-size:.78rem}
+.details-toggle:hover{background:var(--navy-dim)}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:8px;margin-top:8px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:860px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:.76rem;text-align:left;vertical-align:middle}
+th{background:var(--surface-alt);color:var(--ink-3);font:400 .56rem/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:0}tbody tr:hover td{background:var(--surface-alt)}
+.open-case{border:1px solid var(--navy-mid);background:var(--navy-dim);color:var(--navy);border-radius:6px;padding:5px 9px;font-weight:700;font-size:.7rem}
+
+/* case view */
+.case-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 10px}
+.case-title{font:600 1.55rem/1.05 var(--serif);color:var(--ink);margin:0}
+.touch-problem{display:none}
+.hero-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.case-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.case-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px;min-width:0}
+.case-kpi span{display:block;font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.case-kpi b{display:block;font:600 1.55rem/1 var(--serif);color:var(--ink);margin-top:7px}
+.allocation{height:6px;border-radius:999px;background:var(--surface-deep);overflow:hidden;margin-top:8px}
+.allocation>div{height:100%;background:var(--navy);border-radius:999px}
+.case-top-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:12px;margin-bottom:12px}
+.case-scenarios{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.case-scenario{border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--surface-alt)}
+.case-scenario.active{border-color:var(--navy);background:var(--navy-dim)}
+.case-scenario .name{font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.case-scenario .alloc{font:600 1.1rem/1 var(--serif);color:var(--ink);margin-top:8px}
+.case-scenario .npv{font:400 .66rem var(--mono);color:var(--ink-2);margin-top:6px}
+.case-controls{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.working{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.formula{background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;padding:12px}
+.formula .eq{font:400 .76rem/1.5 var(--mono);color:var(--navy)}
+.formula .result{font:600 1.5rem/1 var(--serif);color:var(--ink);margin-top:8px}
+.working-line{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding:6px 0;font-size:.74rem;color:var(--ink-2)}
+.working-line:last-child{border-bottom:0}.working-line b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.waterfall{display:flex;align-items:flex-end;gap:14px;height:220px;padding:15px 16px 30px;border-bottom:1px solid var(--border)}
+.wf-col{flex:1;text-align:center;position:relative}
+.wf-bar{margin:auto;width:min(70px,70%);border-radius:6px 6px 0 0;min-height:8px}
+.wf-bar.cost{background:var(--red)}.wf-bar.benefit{background:var(--blue)}.wf-bar.npv.pos{background:var(--green)}.wf-bar.npv.neg{background:var(--gold)}
+.wf-val{font:500 .76rem var(--mono);margin-bottom:6px;color:var(--ink)}
+.wf-label{font:500 .56rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:8px;position:absolute;left:0;right:0}
+.tornado{display:grid;gap:9px}
+.tor-head,.tor-row{display:grid;grid-template-columns:1.15fr .95fr .95fr 2fr 62px;gap:8px;align-items:center}
+.tor-head{font:400 .54rem/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.tor-row{font-size:.74rem;color:var(--ink-2)}
+.tor-track{height:16px;background:var(--surface-deep);border-radius:5px;position:relative;overflow:hidden}
+.tor-zero{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border-2)}
+.tor-neg{position:absolute;right:50%;top:2px;bottom:2px;background:var(--red);border-radius:4px 0 0 4px}
+.tor-pos{position:absolute;left:50%;top:2px;bottom:2px;background:var(--blue);border-radius:0 4px 4px 0}
+.tor-val{font-family:var(--mono);text-align:right;color:var(--ink)}
+.evidence-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.trace{border:1px solid var(--border);border-radius:8px;background:var(--surface-alt);padding:10px}
+.trace span{display:block;font:500 .56rem/1.2 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.trace b{display:block;font-size:.8rem;margin-top:6px;color:var(--ink)}
+.ai-note{margin-top:10px;font-size:.72rem;color:var(--ink-3)}
+.risk-matrix{display:grid;grid-template-columns:30px 1fr;gap:8px}
+.risk-y{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font:500 .56rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.risk-grid{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,42px);gap:3px;position:relative}
+.risk-cell{border-radius:4px;border:1px solid rgba(128,128,128,.08)}
+.risk-cell.low{background:var(--risk-low)}.risk-cell.med{background:var(--risk-med)}.risk-cell.high{background:var(--risk-high)}
+.risk-point{position:absolute;transform:translate(-50%,-50%);min-width:78px;max-width:110px;background:var(--surface);border:1px solid var(--navy);border-radius:6px;padding:4px 6px;font-size:.68rem;color:var(--navy);box-shadow:var(--shadow-sm);text-align:center}
+.risk-x{text-align:center;font:500 .56rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.footer-note{margin-top:14px;font-size:.68rem;color:var(--ink-3)}
+
+/* sidebar */
+.head-right{display:flex;gap:10px;align-items:center}
+.nav-group{margin-bottom:10px}.nav-group .side-title{padding:0 9px 8px}
+.side-block{padding:12px 0;border-top:1px solid var(--border)}
+.side-block .side-title{padding:0;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.side-block .control+.control{margin-top:10px}.adv-grid .control+.control{margin-top:0}
+.side-controls summary{display:none;cursor:pointer;font:500 .66rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding:8px 0}
+.side-checks{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-top:12px;border-top:1px solid var(--border)}
+.readout{margin:4px 0 12px;padding:11px 12px;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:8px;background:linear-gradient(135deg,var(--surface),var(--surface-alt))}
+.readout-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.readout-head .side-title{padding:0}
+.readout-text{font:600 .98rem/1.3 var(--serif);color:var(--ink)}
+@media(max-width:1280px){.two,.equal{grid-template-columns:1fr}}
+@media(max-width:1150px){.case-kpis{grid-template-columns:repeat(2,1fr)}.case-top-grid{grid-template-columns:1fr}.evidence-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto;overflow:visible;border-right:0;border-bottom:1px solid var(--border);padding:10px 12px}.nav-group{display:flex;gap:6px;overflow:auto;margin-bottom:6px}.nav-group .side-title{display:none}.nav{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}.nav.active{border-left:0;border-bottom-color:var(--navy)}.side-controls summary{display:block}.main{padding:14px 12px 34px}.header{position:static}.kpis{grid-template-columns:repeat(2,1fr)}.case-kpis{grid-template-columns:repeat(2,1fr)}.case-controls{grid-template-columns:repeat(2,1fr)}.case-scenarios{grid-template-columns:repeat(2,1fr)}.working{grid-template-columns:1fr}.tor-head,.tor-row{grid-template-columns:1fr .8fr .8fr 1.5fr 56px}}
+@media(max-width:520px){.brand p{display:none}.demo{display:none}.scenario-strip{grid-template-columns:repeat(2,1fr)}.adv-grid.c2,.kpis,.case-kpis,.case-controls,.case-scenarios,.evidence-strip{grid-template-columns:1fr}.main{padding:12px 10px 28px}.case-top{display:block}.hero-right{justify-content:flex-start;margin-top:10px}.chart{height:260px}.chart-sm{height:220px}.tor-head{display:none}.tor-row{grid-template-columns:1fr 1fr}.tor-track{grid-column:1 / -1}.tor-val{text-align:left}}
 </style>
 </head>
 <body>
+<div class="shell">
 <header class="header">
- <div class="brand"><div class="mark"><i></i><i></i><i></i></div><div><h1>Strategic Decision Modelling</h1><p>diagnose · test · decide · deliver</p></div></div>
- <div class="top-right"><span class="demo">Illustrative data</span><button class="theme" id="themeBtn">Dark</button></div>
+  <div class="brand"><div class="brand-mark"></div><div><h1>Strategic Decision Modelling</h1><p>options · scenarios · trade-offs</p></div></div>
+  <div class="head-right"><span class="demo">Illustrative data</span><button class="theme-btn" id="themeBtn"><span class="theme-orb"></span><span id="themeText">Dark</span></button></div>
 </header>
 <div class="app">
-<aside class="side">
- <div class="nav-wrap">
-  <button class="nav active" data-view="decision">01 Decision</button>
-  <button class="nav" data-view="options">02 Options</button>
-  <button class="nav" data-view="delivery">03 Delivery</button>
- </div>
-
- <div class="readout">
-  <span>Current readout</span>
-  <b id="readout">Option B remains preferred under the base case.</b>
-  <span class="delta" id="readoutDelta">Base case</span>
- </div>
-
- <div class="block"><div class="side-title">Scenario</div><div class="scenarios">
-  <button class="scenario active" data-s="base">Base</button><button class="scenario" data-s="constraint">Constraint</button>
-  <button class="scenario" data-s="growth">Growth</button><button class="scenario" data-s="risk">Risk</button>
- </div></div>
-
- <div class="block"><div class="side-title">Assumptions</div>
-  <div class="control"><label><span>Funding available</span><span class="val" id="fundVal">$120m</span></label><div class="range-wrap"><input id="fund" type="range" min="70" max="170" value="120"><span class="threshold" style="left:22%"></span></div></div>
-  <div class="control"><label><span>Benefit confidence</span><span class="val" id="benefitVal">80%</span></label><div class="range-wrap"><input id="benefit" type="range" min="50" max="100" value="80"><span class="threshold" style="left:22%"></span></div></div>
-  <div class="control"><label><span>Delivery capacity</span><span class="val" id="capacityVal">75%</span></label><div class="range-wrap"><input id="capacity" type="range" min="45" max="100" value="75"><span class="threshold" style="left:16.4%"></span></div></div>
-  <p class="weights-note">Red marker = reverse-test threshold.</p>
- </div>
-
- <div class="block">
-  <div class="side-title">Scoring weights</div>
-  <p class="weights-note">Value 42% · feasibility 28% · delivery 18% · risk 12%</p>
- </div>
-</aside>
-
+<nav class="sidebar">
+  <div class="nav-group">
+    <div class="side-title">Views</div>
+    <button class="nav active" data-view="decision"><span class="nav-num">01</span><span class="nav-label">Option assessment</span></button>
+    <button class="nav" data-view="case"><span class="nav-num">02</span><span class="nav-label">Option case</span></button>
+  </div>
+  <div class="readout" aria-live="polite"><div class="readout-head"><span class="side-title">Readout</span><span class="info hoverable" id="readoutInfo" data-tip="">i</span></div><div class="readout-text" id="changeSentence"></div></div>
+  <details class="side-controls" open>
+    <summary>Scenario controls</summary>
+    <div class="side-block"><div class="side-title">Scenario <span class="info hoverable" data-tip="Presets change the funding envelope and prioritisation weights. All outputs are recalculated from cash flows.">i</span></div>
+      <div class="scenario-strip"><button class="scenario active" data-scenario="base">Base</button><button class="scenario" data-scenario="constrained">Constrained</button><button class="scenario" data-scenario="risk">Risk priority</button><button class="scenario" data-scenario="service">Service priority</button></div>
+      <div style="margin-top:12px"><div class="control"><label><span>Investment envelope</span><span class="val" id="envelopeVal">$280m</span></label><input id="envelope" type="range" min="180" max="360" step="1" value="280"></div></div></div>
+    <div class="side-block"><div class="side-title">Assumptions</div><div class="control"><label><span>Benefit realisation</span><span class="val" id="realisationVal">100%</span></label><input id="realisation" type="range" min="60" max="120" step="1" value="100"></div><div class="control"><label><span>Discount rate</span><span class="val" id="discountVal">5.0%</span></label><input id="discount" type="range" min="2" max="10" step="0.5" value="5"></div></div>
+    <div class="side-block"><div class="side-title">Weights</div><div class="adv-grid c2"><div class="control"><label><span>Financial</span><span class="val" id="financialVal">25%</span></label><input id="financialW" type="range" min="5" max="60" step="1" value="25"></div><div class="control"><label><span>Strategic outcomes</span><span class="val" id="serviceVal">25%</span></label><input id="serviceW" type="range" min="5" max="60" step="1" value="25"></div><div class="control"><label><span>Risk</span><span class="val" id="riskVal">30%</span></label><input id="riskW" type="range" min="5" max="60" step="1" value="30"></div><div class="control"><label><span>Delivery</span><span class="val" id="deliveryVal">20%</span></label><input id="deliveryW" type="range" min="5" max="60" step="1" value="20"></div></div></div>
+    <div class="side-checks"><span class="check ok" id="weightCheck">Weights normalised to 100%</span><span class="check ok" id="allocationCheck">Allocation within envelope</span></div>
+  </details>
+</nav>
 <main class="main">
-
- <section class="view active" id="view-decision">
-  <div class="head"><div><h2>Strategic decision</h2></div><span class="pill">Decision view</span></div>
-
-  <div class="card hero b" id="heroDecision">
-   <div class="eye">Recommendation</div>
-   <h3 id="decisionTitle">Proceed with a targeted redesign rather than a full operating-model replacement.</h3>
-   <p id="decisionText">Best balance of value, cost and delivery risk.</p>
-   <span class="hero-state" id="heroState">Option B · Base case</span>
+<div class="interactive-note"><strong>Adjust the funding limit, benefit realisation and scoring weights. Rankings and project cases recalculate immediately.</div>
+<section class="view active" id="view-decision">
+    <div class="grid kpis" style="margin-bottom:12px">
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Total funding available across strategic options.">Investment envelope</div><div class="kpi-value" id="kEnvelope">$280m</div></div><div class="kpi-icon">EN</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Discounted cost across funded initiatives.">Funded TCO</div><div class="kpi-value" id="kTco">$0m</div></div><div class="kpi-icon">TC</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Present value of benefits less present value of costs, funded share only.">Portfolio NPV</div><div class="kpi-value" id="kNpv">$0m</div></div><div class="kpi-icon">NV</div></div></div>
+    <div class="card"><div class="kpi"><div><div class="eyebrow hoverable" data-tip="Present value of benefits divided by present value of costs, funded share only.">Portfolio BCR</div><div class="kpi-value" id="kBcr">0.00</div></div><div class="kpi-icon">BC</div></div></div>
   </div>
-
-  <div class="grid k4">
-   <div class="card preferred-kpi" id="cardOption"><div class="eye">Preferred option</div><div class="kpi" id="kOption">B</div><div class="sub" id="kOptionName">Targeted redesign</div><span class="delta-tag" id="dOption">Base case</span></div>
-   <div class="card" id="cardValue"><div class="eye">Public value index</div><div class="kpi" id="kValue">86</div><div class="sub">Composite value</div><span class="delta-tag" id="dValue">0 vs base</span></div>
-   <div class="card" id="cardCost"><div class="eye">Funding required</div><div class="kpi" id="kCost">$104m</div><div class="sub">Implementation ask</div><span class="delta-tag" id="dCost">0 vs base</span></div>
-   <div class="card" id="cardConfidence"><div class="eye">Confidence</div><div class="kpi" id="kConfidence">78%</div><div class="sub">Evidence quality</div><span class="delta-tag" id="dConfidence">0pp vs base</span></div>
-  </div>
-
-  <div class="grid two" style="margin-top:16px">
-   <div class="card feature">
-    <div class="chart-title"><div><h3>Diagnosis to recommendation</h3></div></div>
-    <div class="issue-tree">
-     <div class="issue"><b>Demand</b><span>Complex journeys drive growth.</span></div>
-     <div class="issue"><b>Process</b><span>Handoffs create delay.</span></div>
-     <div class="issue"><b>Capacity</b><span>Specialist capacity constrains output.</span></div>
-     <div class="issue"><b>Data</b><span>Definitions are inconsistent.</span></div>
-     <div class="issue"><b>Cost</b><span>Rework drives cost growth.</span></div>
-     <div class="issue conclusion"><b>Conclusion</b><span>Targeted redesign addresses the binding constraints.</span></div>
+  <div class="grid two" style="margin-bottom:12px">
+    <div class="card feature">
+      <div class="chart-title"><h3>Option prioritisation</h3><span class="info hoverable" data-tip="BCR (horizontal), strategic score (vertical), funding ask (size), allocation status (colour). Select an initiative to inspect its assumptions.">i</span></div>
+      <svg class="chart" id="bubbleChart" role="img" aria-label="BCR versus weighted score bubble chart"></svg>
+      <div class="legend"><span><i style="background:#2e7d57"></i>Funded</span><span><i style="background:#a56f00"></i>Part-funded</span><span><i style="background:#d7153a"></i>Deferred</span><span>Size = funding ask</span></div>
     </div>
-   </div>
-   <div class="card" id="strengthCard">
-    <div class="chart-title"><div><h3>Recommendation strength</h3></div></div>
-    <div class="bar-row"><span>Outcome impact</span><div class="track"><div class="fill" id="barOutcome"></div></div><div class="score" id="sOutcome">88</div></div>
-    <div class="bar-row"><span>Financial value</span><div class="track"><div class="fill" id="barFinancial"></div></div><div class="score" id="sFinancial">79</div></div>
-    <div class="bar-row"><span>Deliverability</span><div class="track"><div class="fill" id="barDelivery"></div></div><div class="score" id="sDelivery">81</div></div>
-    <div class="bar-row"><span>Risk reduction</span><div class="track"><div class="fill" id="barRisk"></div></div><div class="score" id="sRisk">76</div></div>
-    <div class="bar-row"><span>Evidence quality</span><div class="track"><div class="fill" id="barEvidence"></div></div><div class="score" id="sEvidence">86</div></div>
-   </div>
-  </div>
- </section>
-
- <section class="view" id="view-options">
-  <div class="head"><div><h2>Option design and challenge</h2></div><span class="pill">Options view</span></div>
-  <div class="grid equal">
-   <div class="card feature">
-    <div class="chart-title"><div><h3>Strategic option map</h3><p>Value × feasibility · bubble = funding ask</p></div></div>
-    <div class="matrix" id="matrix">
-      <span class="matrix-label" style="left:4px;top:-19px">High value</span>
-      <span class="matrix-label" style="right:0;bottom:-22px">High feasibility</span>
-      <span class="quad q1">Quick wins</span><span class="quad q2">Big bets</span><span class="quad q3">Low priority</span><span class="quad q4">Easy but limited</span>
+    <div class="card">
+      <div class="chart-title"><h3>Investment envelope</h3><span class="info hoverable" data-tip="Funded allocations are stacked against the current envelope. Drag the marker to test a different envelope.">i</span></div>
+      <div class="envelope-wrap"><div class="envelope" id="envelopeBar"><div class="env-marker" id="envelopeMarker"></div><div class="env-label" id="envelopeLabel">$280m</div></div><div class="env-legend" id="envelopeLegend"></div></div>
     </div>
-   </div>
-   <div class="card"><div class="chart-title"><div><h3>Option comparison</h3></div></div><div class="stack" id="optionStack"></div></div>
+  </div>
+  <button class="details-toggle" id="detailToggle">Show detailed prioritisation table</button>
+  <div id="detailPanel" style="display:none"><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Investment proposal</th><th>Ask</th><th>PV cost</th><th>PV benefit</th><th>NPV</th><th>BCR</th><th>Score</th><th>Allocation</th><th>Status</th><th></th></tr></thead><tbody id="proposalBody"></tbody></table></div></div>
+</section>
+
+<section class="view" id="view-case">
+  <div class="case-head">
+    <div><div class="eyebrow">Selected initiative</div><h1 class="case-title" id="caseTitle">Risk reduction programme</h1><div class="touch-problem" id="caseProblem"></div></div>
+    <div class="hero-right"><span class="badge good" id="caseStatus">Funded</span></div>
   </div>
 
-  <div class="grid equal" style="margin-top:16px">
-   <div class="card"><div class="chart-title"><div><h3>Reverse test</h3></div></div><div class="reverse">
-    <div><span>Benefit confidence</span><b>Below 61%</b></div>
-    <div><span>Delivery capacity</span><b>Below 54%</b></div>
-    <div><span>Funding envelope</span><b>Below $92m</b></div>
-    <div><span>Risk exposure</span><b>Above 90/100</b></div>
-   </div></div>
-   <div class="card"><div class="chart-title"><div><h3>Evidence trace</h3></div></div>
-    <table><thead><tr><th>Input</th><th>Conflict</th><th>Resolution</th></tr></thead><tbody>
-     <tr><td>Demand forecast</td><td>Two growth baselines</td><td>Common baseline</td></tr>
-     <tr><td>Cost estimate</td><td>Scope differs by team</td><td>Common scope</td></tr>
-     <tr><td>Benefit estimate</td><td>Different realisation timing</td><td>Yearly phasing</td></tr>
-     <tr><td>Capacity</td><td>Nominal vs usable capacity</td><td>Usable capacity</td></tr>
-    </tbody></table>
-   </div>
-  </div>
- </section>
-
- <section class="view" id="view-delivery">
-  <div class="head"><div><h2>From recommendation to delivery</h2></div><span class="pill">Delivery view</span></div>
-
-  <div class="timeline">
-   <div class="phase"><span>0–30 days</span><b>Confirm baseline</b><p>Lock baseline and owners.</p></div>
-   <div class="phase"><span>30–90 days</span><b>Mobilise priority changes</b><p>Sequence priority actions.</p></div>
-   <div class="phase"><span>3–6 months</span><b>Measure outcomes</b><p>Track outcomes vs baseline.</p></div>
-   <div class="phase"><span>6–12 months</span><b>Review and adapt</b><p>Re-test and redirect.</p></div>
+  <div class="case-kpis">
+    <div class="case-kpi"><span>Allocation</span><b id="caseAlloc">$0m</b><div class="allocation"><div id="caseAllocFill"></div></div></div>
+    <div class="case-kpi"><span>Five-year PV cost</span><b id="casePvCost">$0m</b></div>
+    <div class="case-kpi"><span>NPV</span><b id="caseNpv">$0m</b></div>
+    <div class="case-kpi"><span>BCR</span><b id="caseBcr">0.00</b></div>
   </div>
 
-  <div class="grid equal" style="margin-top:16px">
-   <div class="card feature">
-    <div class="chart-title"><div><h3>Performance trajectory</h3></div></div>
-    <div class="chart">
-      <svg viewBox="0 0 700 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative performance trajectory comparing baseline and recommended paths">
-        <line class="gridline" x1="55" y1="38" x2="650" y2="38"/><line class="gridline" x1="55" y1="90" x2="650" y2="90"/><line class="gridline" x1="55" y1="142" x2="650" y2="142"/><line class="gridline" x1="55" y1="194" x2="650" y2="194"/>
-        <text class="axis" x="18" y="42">100</text><text class="axis" x="24" y="94">75</text><text class="axis" x="24" y="146">50</text><text class="axis" x="24" y="198">25</text>
-        <polygon class="gap-fill" points="55,168 140,153 225,135 310,115 395,96 480,82 565,70 650,60 650,140 565,143 480,146 395,150 310,154 225,157 140,162 55,168"/>
-        <polyline class="line2" points="55,168 140,162 225,157 310,154 395,150 480,146 565,143 650,140"/>
-        <polyline class="line" points="55,168 140,153 225,135 310,115 395,96 480,82 565,70 650,60"/>
-        <text class="axis" x="55" y="226">Q1</text><text class="axis" x="225" y="226">Q3</text><text class="axis" x="395" y="226">Q5</text><text class="axis" x="565" y="226">Q7</text>
-        <text class="line-label" x="590" y="52">Recommended</text><text class="line-label" x="602" y="158">Baseline</text>
-      </svg>
+  <div class="case-top-grid">
+    <section class="card">
+      <div class="chart-title"><h3>Option assumptions</h3><span class="info hoverable" data-tip="These controls alter the selected proposal and feed every chart below. Realisation and discount rate are shared with the portfolio model.">i</span></div>
+      <div class="case-controls">
+        <div class="control"><label><span>Benefit realisation</span><span class="val" id="caseRealisationVal">100%</span></label><input id="caseRealisation" type="range" min="60" max="120" step="1" value="100"></div>
+        <div class="control"><label><span>Implementation cost</span><span class="val" id="caseCostVal">100%</span></label><input id="caseCost" type="range" min="80" max="130" step="1" value="100"></div>
+        <div class="control"><label><span>Delay</span><span class="val" id="caseDelayVal">0m</span></label><input id="caseDelay" type="range" min="0" max="6" step="1" value="0"></div>
+        <div class="control"><label><span>Discount rate</span><span class="val" id="caseDiscountVal">5.0%</span></label><input id="caseDiscount" type="range" min="2" max="10" step="0.5" value="5"></div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="chart-title"><h3>Option assessment</h3><span class="info hoverable" data-tip="Shows how the selected proposal is treated under the four portfolio scenarios.">i</span></div>
+      <div class="case-scenarios" id="caseScenarioStrip"></div>
+    </section>
+  </div>
+
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card feature"><div class="chart-title"><h3>NPV bridge</h3><span class="info hoverable" data-tip="Present value of cost, present value of benefit and resulting NPV.">i</span></div><div class="waterfall" id="waterfall"></div></section>
+    <section class="card feature"><div class="chart-title"><h3>Annual cash flow and payback</h3><span class="info hoverable" data-tip="Annual net cash flow with cumulative cash flow. The marker shows the first year cumulative cash flow becomes positive.">i</span></div><svg class="chart-sm chart" id="cashflowChart"></svg></section>
+  </div>
+
+  <section class="card" style="margin-bottom:12px">
+    <div class="chart-title"><h3>Show the working</h3><span class="info hoverable" data-tip="Headline figures are calculated from discounted five-year cash flows. BCR is never stored as an input.">i</span></div>
+    <div class="working">
+      <div class="formula"><div class="eq" id="npvFormula"></div><div class="result" id="npvResult"></div></div>
+      <div class="formula"><div class="eq" id="bcrFormula"></div><div class="result" id="bcrResult"></div></div>
     </div>
-   </div>
+    <button class="details-toggle" id="workToggle">Show yearly working</button><div id="workingLines" style="display:none;margin-top:8px"></div>
+  </section>
 
-   <div class="card"><div class="chart-title"><div><h3>Success measures</h3></div></div>
-    <div class="bar-row"><span>Cycle time</span><div class="track"><div class="fill reduce" style="width:82%"></div></div><div class="score">−18%</div></div>
-    <div class="bar-row"><span>Rework</span><div class="track"><div class="fill reduce" style="width:76%"></div></div><div class="score">−24%</div></div>
-    <div class="bar-row"><span>Service outcome</span><div class="track"><div class="fill good" style="width:88%"></div></div><div class="score">+14%</div></div>
-    <div class="bar-row"><span>Capacity use</span><div class="track"><div class="fill good" style="width:84%"></div></div><div class="score">+11%</div></div>
-    <div class="bar-row"><span>Cost to serve</span><div class="track"><div class="fill reduce" style="width:73%"></div></div><div class="score">−9%</div></div>
-   </div>
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card"><div class="chart-title"><h3>NPV against benefit realisation</h3><span class="info hoverable" data-tip="Sensitivity curve from 60% to 120% benefit realisation, with the zero-NPV crossing marked.">i</span></div><svg class="chart-sm chart" id="realisationChart"></svg></section>
+    <section class="card"><div class="chart-title"><h3>Options: cost against benefit</h3><span class="info hoverable" data-tip="Alternative options are plotted by PV cost and PV benefit using the selected proposal's current assumptions.">i</span></div><svg class="chart-sm chart option-scatter" id="optionChart"></svg></section>
   </div>
 
-  <div class="card hero" style="margin-top:16px"><div class="eye">Executive review standard</div><h3>Re-test the assumptions, not just the milestones.</h3><p>Separate delivery progress from outcome movement.</p></div>
- </section>
+  <div class="grid equal" style="margin-bottom:12px">
+    <section class="card"><div class="chart-title"><h3>Likelihood by impact</h3><span class="info hoverable" data-tip="Key case assumptions and delivery risks plotted by likelihood and impact.">i</span></div><div class="risk-matrix"><div class="risk-y">Impact</div><div><div class="risk-grid" id="riskGrid"></div><div class="risk-x">Likelihood</div></div></div></section>
+    <section class="card"><div class="chart-title"><h3>NPV sensitivity</h3><span class="info hoverable" data-tip="Tornado test ranges are shown with the stakeholder or function that owns the challenged assumption.">i</span></div><div class="tornado" id="caseTornado"></div></section>
+  </div>
 
- <div class="footer">Fictional data · illustrative assumptions · AI-assisted drafting</div>
-</main>
-</div>
-
+  <section class="card">
+    <div class="chart-title"><h3>Evidence trace</h3><span class="info hoverable" data-tip="A compact example of how conflicting source information is resolved into a model assumption.">i</span></div>
+    <div class="evidence-strip" id="evidenceStrip"></div>
+    
+  </section>
+</section>
+<div class="footer-note">Fictional data, AI-assisted drafting. <span class="hoverable" style="border-bottom:1px dotted var(--ink-3)" data-tip="All initiatives, figures and assumptions are fictional and created solely to demonstrate investment analysis, business-case modelling and scenario testing. AI was used for drafting and checking only; the analyst owns the selected assumptions, validation and recommendation.">Details</span></div>
+</main></div></div>
+<div class="tooltip" id="tooltip"></div>
 <script>
 const $=id=>document.getElementById(id);
-const options=[
- {id:'A',name:'Optimise current model',cost:72,value:66,feas:91,delivery:92,risk:58},
- {id:'B',name:'Targeted redesign',cost:104,value:86,feas:82,delivery:84,risk:78},
- {id:'C',name:'Full operating-model reset',cost:152,value:94,feas:55,delivery:58,risk:88}
+const COLORS={funded:'#2e7d57',part:'#a56f00',deferred:'#d7153a',navy:'var(--navy)',blue:'var(--blue)',red:'var(--red)'};
+const BASE={envelope:280,realisation:100,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}};
+const bids=[
+ {id:'growth',name:'Targeted service redesign',short:'Service redesign',ask:74,impl:[32,26,12,0,0,0],run:8,annualBenefit:39.6963,ramp:[.25,.55,.8,1,1],delay:2,service:92,risk:62,delivery:86,problem:'Service bottlenecks cause inconsistent customer outcomes. The choice is between incremental improvements and a targeted redesign.',trace:['Service demand and waiting time baseline','Forecast outcomes at three intervention levels','Cost estimate challenged against delivery capacity','$74m funding ask'],risks:[['Adoption and uptake',4.3,4.2],['Delivery disruption',3.8,4.0],['Benefits verification',3.1,3.4]],options:[['Maintain current service',.55,.45],['Targeted redesign',.78,.72],['Broad service overhaul',1,1]]},
+ {id:'product',name:'Digital channel expansion',short:'Digital channels',ask:84,impl:[36,30,14,0,0,0],run:10,annualBenefit:50.3678,ramp:[.15,.45,.75,1,1],delay:3,service:88,risk:70,delivery:82,problem:'Digital adoption falls below forecast. A staged channel programme competes with a broader transformation for funding.',trace:['Channel volume and abandonment data','Estimated customer uptake and conversion','Delivery dependency review','$84m prioritised request'],risks:[['Channel adoption',4.1,4.4],['Integration dependencies',3.7,4.2],['Source data quality',3.0,3.7]],options:[['Improve existing journeys',.62,.52],['Staged channel expansion',.84,.80],['End to end redesign',1,1]]},
+ {id:'operations',name:'Operating model transformation',short:'Operating model',ask:92,impl:[40,34,16,0,0,0],run:9,annualBenefit:52.6255,ramp:[.15,.4,.7,.9,1],delay:4,service:76,risk:58,delivery:68,problem:'Overlapping responsibilities and manual handoffs increase cost and reduce throughput; implementation risk rises with scope.',trace:['Current and target operating models','Workforce and workload analysis','$101m original estimate','$92m phased implementation'],risks:[['Transition disruption',3.5,4.5],['Scope escalation',3.9,4.1],['Resource contention',3.1,3.6]],options:[['Remove handoffs',.48,.40],['Targeted operating model',.75,.68],['Full operating model reset',1,1]]},
+ {id:'controls',name:'Risk reduction programme',short:'Risk reduction',ask:64,impl:[30,22,12,0,0,0],run:12,annualBenefit:27.5306,ramp:[.35,.65,.9,1,1],delay:0,service:66,risk:98,delivery:88,problem:'Known operational exposures require attention despite relatively modest direct financial benefits; avoided loss and continuity matter.',trace:['Risk and control assessment','Avoided-loss assumptions','$71m original risk treatment estimate','$64m prioritised scope'],risks:[['Residual exposure',4.6,4.9],['Control effectiveness',3.8,4.4],['Delivery confidence',3.0,3.8]],options:[['Accept residual risk',.56,.48],['Priority risk treatment',.78,.72],['Comprehensive control uplift',1,1]]},
+ {id:'capability',name:'Workforce capacity uplift',short:'Capacity uplift',ask:58,impl:[24,18,8,0,0,0],run:6,annualBenefit:29.0713,ramp:[.3,.6,.85,1,1],delay:1,service:88,risk:66,delivery:84,problem:'Demand has outgrown current analytical and delivery capacity, increasing lead times and threatening programme commitments.',trace:['Capacity and utilisation baseline','Forecast demand and backlog','$63m initial capacity estimate','$58m revised investment ask'],risks:[['Skills availability',4.0,4.0],['Recruitment lead times',3.5,3.8],['Benefit ramp',3.9,3.6]],options:[['Reallocate existing teams',.52,.42],['Selective capacity uplift',.76,.70],['Scaled delivery capability',1,1]]}
 ];
-const base={scenario:'base',fund:120,benefit:80,capacity:75};
-let state={...base};
-const presets={base:{fund:120,benefit:80,capacity:75},constraint:{fund:88,benefit:72,capacity:58},growth:{fund:135,benefit:91,capacity:82},risk:{fund:125,benefit:76,capacity:69}};
-function score(o,s=state){
- const benefitAdj=s.benefit/80, capAdj=s.capacity/75;
- const value=Math.max(0,Math.min(100,o.value*benefitAdj));
- const feas=Math.max(0,Math.min(100,o.feas*capAdj*(s.fund>=o.cost?1:.72)));
- const risk=Math.max(0,Math.min(100,o.risk*(s.scenario==='risk'?1.14:1)));
- const total=.42*value+.28*feas+.18*o.delivery+.12*risk;
- return {value,feas,risk,total};
+const modifiers=Object.fromEntries(bids.map(b=>[b.id,{cost:100,delay:0}]));
+let selected='controls',activeScenario='base',lastControl='Base scenario';
+function money(v){const s=Math.abs(v).toFixed(Math.abs(v)>=100?0:1);return `${v<0?'−':''}$${s}m`}
+function pct(v,d=0){return `${(+v).toFixed(d)}%`}
+function cloneState(){return{envelope:+$('envelope').value,realisation:+$('realisation').value,discount:+$('discount').value,weights:{financial:+$('financialW').value,service:+$('serviceW').value,risk:+$('riskW').value,delivery:+$('deliveryW').value}}}
+function normWeights(st=cloneState()){const w=st.weights,total=w.financial+w.service+w.risk+w.delivery||1;return{financial:w.financial/total,service:w.service/total,risk:w.risk/total,delivery:w.delivery/total}}
+function rampAt(arr,x){if(x<=0)return 0;if(x>=5)return arr[4];const lo=Math.floor(x),hi=Math.ceil(x);if(lo===hi)return arr[lo-1];const lv=lo===0?0:arr[lo-1],hv=arr[hi-1];return lv+(hv-lv)*(x-lo)}
+function bidCalc(b,st=cloneState(),override={}){
+ const disc=(override.discount??st.discount)/100,real=(override.realisation??st.realisation)/100;
+ const mod=modifiers[b.id]||{cost:100,delay:0},costMult=(override.cost??mod.cost)/100,delay=(override.delay??(b.delay+mod.delay));
+ const years=[];let pvCost=0,pvBenefit=0;
+ for(let y=0;y<=5;y++){
+   const impl=(b.impl[y]||0)*costMult,run=y===0?0:b.run;
+   const benefit=y===0?0:b.annualBenefit*rampAt(b.ramp,y-delay/12)*real;
+   const df=1/Math.pow(1+disc,y),cost=(impl+run),net=benefit-cost;
+   pvCost+=cost*df;pvBenefit+=benefit*df;years.push({y,impl,run,cost,benefit,net,pvCost:cost*df,pvBenefit:benefit*df});
+ }
+ const npv=pvBenefit-pvCost,bcr=pvCost?pvBenefit/pvCost:0;
+ return{pvCost,pvBenefit,npv,bcr,years,discount:disc,realisation:real,delay,costMult};
 }
-function best(s=state){return options.map(o=>({o,s:score(o,s)})).sort((a,b)=>b.s.total-a.s.total)[0]}
-const baseBest=best(base);
-function flash(){
- ['cardOption','cardValue','cardCost','cardConfidence','strengthCard'].forEach(id=>{const el=$(id);el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')});
+function financialScore(calc){return Math.max(0,Math.min(100,calc.bcr/1.3*100))}
+function scoreBid(b,st=cloneState()){const c=bidCalc(b,st),w=normWeights(st);return financialScore(c)*w.financial+b.service*w.service+b.risk*w.risk+b.delivery*w.delivery}
+function portfolio(st=cloneState()){
+ const rows=bids.map(b=>({b,calc:bidCalc(b,st),score:scoreBid(b,st)})).sort((a,b)=>b.score-a.score);
+ let remaining=st.envelope,alloc={};for(const r of rows){const a=Math.max(0,Math.min(r.b.ask,remaining));alloc[r.b.id]=a;remaining=Math.max(0,remaining-a)}
+ let pvCost=0,pvBenefit=0;for(const r of rows){const share=r.b.ask?alloc[r.b.id]/r.b.ask:0;pvCost+=r.calc.pvCost*share;pvBenefit+=r.calc.pvBenefit*share}
+ return{rows,alloc,remaining,pvCost,pvBenefit,npv:pvBenefit-pvCost,bcr:pvCost?pvBenefit/pvCost:0,envelope:st.envelope};
 }
-function renderMatrix(){
- const el=$('matrix');el.querySelectorAll('.dot').forEach(x=>x.remove());
- options.forEach(o=>{const s=score(o);const d=document.createElement('div');d.className='dot '+o.id.toLowerCase();d.textContent='Option '+o.id+'\n'+o.name;d.title=o.name;const size=58+o.cost/5.5;d.style.width=d.style.height=size+'px';d.style.left=(8+s.feas*.84)+'%';d.style.top=(94-s.value*.86)+'%';el.appendChild(d)});
-}
-function renderOptions(){
- const winner=best().o.id;
- $('optionStack').innerHTML=options.map(o=>{const s=score(o);return '<div class="option '+(o.id===winner?'rec':'')+'"><div class="option-head"><strong>Option '+o.id+' · '+o.name+'</strong><span class="badge '+(o.id===winner?'g':'w')+'">'+(o.id===winner?'Preferred':'Alternative')+'</span></div><div class="bar-row"><span>Decision score</span><div class="track"><div class="fill '+(o.id===winner?'good':'')+'" style="width:'+s.total.toFixed(0)+'%"></div></div><div class="score">'+s.total.toFixed(0)+'</div></div><div class="sub" style="margin-top:7px">$'+o.cost+'m ask · value '+s.value.toFixed(0)+' · feasibility '+s.feas.toFixed(0)+'</div></div>'}).join('');
-}
-function signed(n,suffix=''){const r=Math.round(n);return (r>0?'+':'')+r+suffix}
-function render(doFlash=false){
- $('fundVal').textContent='$'+state.fund+'m';$('benefitVal').textContent=state.benefit+'%';$('capacityVal').textContent=state.capacity+'%';
- const b=best(),o=b.o,s=b.s;
- $('kOption').textContent=o.id;$('kOptionName').textContent=o.name;$('kValue').textContent=s.value.toFixed(0);$('kCost').textContent='$'+o.cost+'m';$('kConfidence').textContent=Math.round((state.benefit+state.capacity)/2)+'%';
- $('dOption').textContent=o.id===baseBest.o.id?'Same as base':'Changed from '+baseBest.o.id;
- $('dValue').textContent=signed(s.value-baseBest.s.value)+' vs base';
- $('dCost').textContent='$'+signed(o.cost-baseBest.o.cost)+'m vs base';
- $('dConfidence').textContent=signed(((state.benefit+state.capacity)/2)-((base.benefit+base.capacity)/2),'pp')+' vs base';
- const vals={Outcome:s.value,Financial:Math.max(45,100-o.cost/2.2+state.fund/3),Delivery:Math.min(100,o.delivery*state.capacity/75),Risk:s.risk,Evidence:(state.benefit+88)/2};
- Object.entries(vals).forEach(([k,v])=>{const n=Math.max(0,Math.min(100,v));$('bar'+k).style.width=n+'%';$('s'+k).textContent=Math.round(n)});
- const msg=o.id==='B'?'Proceed with a targeted redesign rather than a full operating-model replacement.':o.id==='A'?'Optimise the current model while preserving the option to scale later.':'A full operating-model reset now produces the strongest tested result.';
- $('decisionTitle').textContent=msg;
- $('decisionText').textContent='Best balance of value, funding, delivery and risk.';
- $('heroState').textContent='Option '+o.id+' · '+state.scenario+' case';
- const hero=$('heroDecision');hero.classList.remove('a','b','c');hero.classList.add(o.id.toLowerCase());
- $('readout').textContent='Option '+o.id+' · '+state.scenario+' case';
- $('readoutDelta').textContent=o.id===baseBest.o.id?'Same recommendation':'Changed from Option '+baseBest.o.id;
- renderMatrix();renderOptions();if(doFlash)flash();
-}
-document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));n.classList.add('active');$('view-'+n.dataset.view).classList.add('active')});
-document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));b.classList.add('active');state={scenario:b.dataset.s,...presets[b.dataset.s]};$('fund').value=state.fund;$('benefit').value=state.benefit;$('capacity').value=state.capacity;render(true)});
-['fund','benefit','capacity'].forEach(id=>$(id).oninput=e=>{state[id]=+e.target.value;render(true)});
-$('themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';$('themeBtn').textContent=dark?'Dark':'Light'};
-render();
+function status(b,allocation){if(allocation<=.001)return['Deferred','bad'];if(allocation+0.001>=b.ask)return['Funded','good'];return['Part-funded','warn']}
+function setPreset(name){activeScenario=name;const p={base:{envelope:280,realisation:100,discount:5,w:[25,25,30,20]},constrained:{envelope:220,realisation:95,discount:5,w:[25,25,30,20]},risk:{envelope:280,realisation:100,discount:5,w:[15,15,50,20]},service:{envelope:280,realisation:100,discount:5,w:[20,45,20,15]}}[name];$('envelope').value=p.envelope;$('realisation').value=p.realisation;$('discount').value=p.discount;[$('financialW').value,$('serviceW').value,$('riskW').value,$('deliveryW').value]=p.w;lastControl=`${name[0].toUpperCase()+name.slice(1)} scenario`;syncCaseMirrors()}
+function withState(st,fn){const ids=['envelope','realisation','discount','financialW','serviceW','riskW','deliveryW'];const old=ids.map(id=>$(id).value);$("envelope").value=st.envelope;$("realisation").value=st.realisation;$("discount").value=st.discount;$("financialW").value=st.weights.financial;$("serviceW").value=st.weights.service;$("riskW").value=st.weights.risk;$("deliveryW").value=st.weights.delivery;const out=fn();ids.forEach((id,i)=>$(id).value=old[i]);return out}
+function baseState(){return{envelope:BASE.envelope,realisation:BASE.realisation,discount:BASE.discount,weights:{...BASE.weights}}}
+function findCyberThreshold(){const st=cloneState(),orig=st.weights.risk;let found=null;for(let r=5;r<=60;r+=.5){const test={...st,weights:{...st.weights,risk:r}};const p=withState(test,()=>portfolio(test));if((p.alloc.controls||0)>0){found=r;break}}return found}
+function changeSentence(){const cur=portfolio(),base=withState(baseState(),()=>portfolio(baseState()));const entered=[],dropped=[];for(const b of bids){const c=(cur.alloc[b.id]||0)>0,bs=(base.alloc[b.id]||0)>0;if(c&&!bs)entered.push(`${b.short} at ${money(cur.alloc[b.id])}`);if(!c&&bs)dropped.push(`${b.short} to $0m`)}let sentence;if(entered.length||dropped.length){sentence=`${lastControl}: ${entered.length?entered.join(', ')+' enters':''}${entered.length&&dropped.length?' and ':''}${dropped.length?dropped.join(', ')+' drops':''}.`;}else{const cy=bids.find(b=>b.id==='controls'),h=bids.find(b=>b.id==='capability');sentence=`${lastControl}: funds ${cy.short} at ${money(cur.alloc.controls||0)} despite BCR ${bidCalc(cy).bcr.toFixed(2)}; ${h.short} is ${status(h,cur.alloc.capability||0)[0].toLowerCase()} under the ${money(cur.envelope)} envelope.`}const th=findCyberThreshold();$('changeSentence').textContent=sentence;$('readoutInfo').dataset.tip=`Controls enter the funded mix above roughly ${th===null?'the tested range':th.toFixed(1)+'% raw risk weight'} with other current inputs held constant.`}
+function syncLabels(){const vals={envelope:money(+$('envelope').value),realisation:pct($('realisation').value),discount:pct($('discount').value,1),financial:pct($('financialW').value),service:pct($('serviceW').value),risk:pct($('riskW').value),delivery:pct($('deliveryW').value)};Object.entries(vals).forEach(([k,v])=>{$(k+'Val').textContent=v});$('caseRealisation').value=$('realisation').value;$('caseRealisationVal').textContent=pct($('realisation').value);$('caseDiscount').value=$('discount').value;$('caseDiscountVal').textContent=pct($('discount').value,1);const mod=modifiers[selected];$('caseCost').value=mod.cost;$('caseCostVal').textContent=pct(mod.cost);$('caseDelay').value=mod.delay;$('caseDelayVal').textContent=`${mod.delay}m`;const nw=normWeights();const sum=(nw.financial+nw.service+nw.risk+nw.delivery)*100;$('weightCheck').textContent=`Weights normalised to ${sum.toFixed(0)}%`;$('weightCheck').className='check ok'}
+function renderChecks(p){const allocated=Object.values(p.alloc).reduce((a,b)=>a+b,0);const ok=allocated<=p.envelope+0.001;$('allocationCheck').textContent=ok?`Allocation ${money(allocated)} ≤ envelope ${money(p.envelope)}`:'Allocation exceeds envelope';$('allocationCheck').className='check '+(ok?'ok':'bad')}
+function renderDecision(){const p=portfolio();$('kEnvelope').textContent=money(p.envelope);$('kTco').textContent=money(p.pvCost);$('kNpv').textContent=money(p.npv);$('kBcr').textContent=p.bcr.toFixed(2);changeSentence();renderBubble(p);renderEnvelope(p);renderTable(p);renderChecks(p)}
+function renderBubble(p){const svg=$('bubbleChart'),w=720,h=300,pl=58,pr=26,pt=18,pb=42,xMin=.65,xMax=1.3,yMin=60,yMax=90,x=v=>pl+(v-xMin)/(xMax-xMin)*(w-pl-pr),y=v=>h-pb-(v-yMin)/(yMax-yMin)*(h-pt-pb);let html=`<rect x="${pl}" y="${pt}" width="${x(1)-pl}" height="${h-pb-pt}" fill="var(--red-dim)" opacity=".55"/><line class="axis" x1="${pl}" y1="${h-pb}" x2="${w-pr}" y2="${h-pb}"/><line class="axis" x1="${pl}" y1="${pt}" x2="${pl}" y2="${h-pb}"/>`;for(const t of [.8,1,1.2])html+=`<line class="gridline" x1="${x(t)}" y1="${pt}" x2="${x(t)}" y2="${h-pb}"/><text class="tick" x="${x(t)}" y="${h-25}" text-anchor="middle">${t.toFixed(1)}</text>`;for(const t of [65,75,85])html+=`<line class="gridline" x1="${pl}" y1="${y(t)}" x2="${w-pr}" y2="${y(t)}"/><text class="tick" x="${pl-10}" y="${y(t)+4}" text-anchor="end">${t}</text>`;html+=`<line class="threshold" x1="${x(1)}" y1="${pt}" x2="${x(1)}" y2="${h-pb}"/><text class="label" x="${x(1)+6}" y="${pt+13}">BCR 1.0</text><text class="label" x="${(pl+w-pr)/2}" y="${h-6}" text-anchor="middle">Benefit-cost ratio</text><text class="label" transform="translate(14 ${(pt+h-pb)/2}) rotate(-90)" text-anchor="middle">Weighted score</text>`;for(const r of p.rows){const a=p.alloc[r.b.id]||0,[st]=status(r.b,a),fill=st==='Funded'?COLORS.funded:st==='Part-funded'?COLORS.part:COLORS.deferred,rad=11+Math.sqrt(r.b.ask)*1.35,cx=x(r.calc.bcr),cy=y(r.score);html+=`<circle class="bubble hoverable" data-id="${r.b.id}" data-tip="<strong>${r.b.name}</strong>${r.b.problem}<br>Ask ${money(r.b.ask)} · Allocation ${money(a)} · BCR ${r.calc.bcr.toFixed(2)}" cx="${cx}" cy="${cy}" r="${rad}" fill="${fill}" fill-opacity=".88" stroke="${fill}"/><text class="bubble-label" x="${cx}" y="${cy+rad+13}" text-anchor="middle">${r.b.short}</text>`}svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html;svg.querySelectorAll('.bubble').forEach(c=>c.addEventListener('click',()=>{selected=c.dataset.id;renderAll();switchView('case')}));bindTooltips()}
+function renderEnvelope(p){const totalAsk=bids.reduce((s,b)=>s+b.ask,0),max=Math.max(totalAsk,360),bar=$('envelopeBar');bar.querySelectorAll('.env-seg,.env-gap').forEach(x=>x.remove());let left=0;const palette=['var(--seg1)','var(--seg2)','var(--seg3)','var(--seg4)','var(--seg5)'];for(const [i,r] of p.rows.entries()){const a=p.alloc[r.b.id]||0;if(!a)continue;const seg=document.createElement('div');seg.className='env-seg';seg.style.left=`${left/max*100}%`;seg.style.width=`${a/max*100}%`;seg.style.background=palette[i%palette.length];seg.dataset.tip=`<strong>${r.b.name}</strong>${money(a)} funded`;bar.insertBefore(seg,$('envelopeMarker'));left+=a}if(totalAsk>p.envelope){const gap=document.createElement('div');gap.className='env-gap';gap.style.left=`${p.envelope/max*100}%`;gap.style.width=`${(totalAsk-p.envelope)/max*100}%`;bar.insertBefore(gap,$('envelopeMarker'))}$('envelopeMarker').style.left=`${p.envelope/max*100}%`;$('envelopeLabel').style.left=`${p.envelope/max*100}%`;$('envelopeLabel').textContent=money(p.envelope);$('envelopeLegend').innerHTML=p.rows.map((r,i)=>`<span><i class="swatch" style="background:${palette[i%palette.length]}"></i>${r.b.short}: ${money(p.alloc[r.b.id]||0)}</span>`).join('');bindTooltips()}
+function renderTable(p){$('proposalBody').innerHTML=p.rows.map((r,i)=>{const a=p.alloc[r.b.id]||0,[st,cl]=status(r.b,a);return`<tr><td>#${i+1}</td><td class="hoverable" data-tip="${r.b.problem}"><b>${r.b.name}</b></td><td class="num">${money(r.b.ask)}</td><td class="num">${money(r.calc.pvCost)}</td><td class="num">${money(r.calc.pvBenefit)}</td><td class="num">${money(r.calc.npv)}</td><td class="num">${r.calc.bcr.toFixed(2)}</td><td class="num">${r.score.toFixed(1)}</td><td class="num">${money(a)}</td><td><span class="badge ${cl}">${st}</span></td><td><button class="open-case" data-case="${r.b.id}">Open case</button></td></tr>`}).join('');document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>{selected=b.dataset.case;renderAll();switchView('case')});bindTooltips()}
+function scenarioState(name){const map={base:{envelope:280,realisation:100,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}},constrained:{envelope:220,realisation:95,discount:5,weights:{financial:25,service:25,risk:30,delivery:20}},risk:{envelope:280,realisation:100,discount:5,weights:{financial:15,service:15,risk:50,delivery:20}},service:{envelope:280,realisation:100,discount:5,weights:{financial:20,service:45,risk:20,delivery:15}}};return map[name]}
+function scenarioForBid(name,b){const st=scenarioState(name),p=withState(st,()=>portfolio(st)),c=withState(st,()=>bidCalc(b,st)),a=p.alloc[b.id]||0,[statusText,cl]=status(b,a),share=b.ask?a/b.ask:0;return{name,label:{base:'Base',constrained:'Constrained',risk:'Risk priority',service:'Service priority'}[name],a,statusText,cl,npv:c.npv*share}}
+function renderCase(){const b=bids.find(x=>x.id===selected),st=cloneState(),p=portfolio(st),c=bidCalc(b,st),a=p.alloc[b.id]||0,[stText,cl]=status(b,a);$('caseTitle').textContent=b.name;$('caseProblem').textContent=b.problem;$('caseStatus').textContent=stText;$('caseStatus').className=`badge ${cl}`;$('caseAlloc').textContent=`${money(a)} of ${money(b.ask)}`;$('caseAllocFill').style.width=`${Math.min(100,a/b.ask*100)}%`;$('casePvCost').textContent=money(c.pvCost);$('caseNpv').textContent=money(c.npv);$('caseBcr').textContent=c.bcr.toFixed(2);$('caseScenarioStrip').innerHTML=['base','constrained','risk','service'].map(n=>{const s=scenarioForBid(n,b);return`<div class="case-scenario ${activeScenario===n?'active':''}"><div class="name">${s.label}</div><div style="margin-top:6px"><span class="badge ${s.cl}">${s.statusText.replace('Part-funded','Part')}</span></div><div class="alloc">${money(s.a)}</div><div class="allocation"><div style="width:${Math.min(100,s.a/b.ask*100)}%"></div></div><div class="npv">Funded NPV ${money(s.npv)}</div></div>`}).join('');renderWorking(b,c);renderWaterfall(c);renderCashflow(c);renderRealisationCurve(b);renderOptions(b,c);renderRiskMatrix(b);renderTornado(b);renderEvidence(b);syncLabels()}
+function renderWorking(b,c){$('npvFormula').textContent=`NPV = PV benefits − PV costs = ${money(c.pvBenefit)} − ${money(c.pvCost)}`;$('npvResult').textContent=`NPV ${money(c.npv)}`;$('bcrFormula').textContent=`BCR = PV benefits ÷ PV costs = ${money(c.pvBenefit)} ÷ ${money(c.pvCost)}`;$('bcrResult').textContent=`BCR ${c.bcr.toFixed(2)}`;$('workingLines').innerHTML=c.years.map(y=>`<div class="working-line"><span>Year ${y.y}</span><span>Cost <b>${money(y.cost)}</b> · Benefit <b>${money(y.benefit)}</b> · Discounted net <b>${money((y.benefit-y.cost)/Math.pow(1+c.discount,y.y))}</b></span></div>`).join('')}
+function renderWaterfall(c){const max=Math.max(c.pvCost,c.pvBenefit,Math.abs(c.npv),1);const items=[['PV cost',c.pvCost,'cost'],['PV benefit',c.pvBenefit,'benefit'],['NPV',Math.abs(c.npv),`npv ${c.npv>=0?'pos':'neg'}`]];$('waterfall').innerHTML=items.map(([l,v,cls])=>`<div class="wf-col"><div class="wf-val">${money(l==='NPV'?c.npv:v)}</div><div class="wf-bar ${cls}" style="height:${Math.max(8,v/max*160)}px"></div><div class="wf-label">${l}</div></div>`).join('')}
+function renderCashflow(c){const svg=$('cashflowChart'),w=650,h=235,pl=46,pr=20,pt=18,pb=36,years=c.years.map(x=>x.y),nets=c.years.map(x=>x.net),cum=[];let run=0;nets.forEach(v=>{run+=v;cum.push(run)});const vals=[...nets,...cum,0],min=Math.min(...vals),max=Math.max(...vals),x=i=>pl+i/(years.length-1)*(w-pl-pr),y=v=>pt+(max-v)/(max-min||1)*(h-pt-pb),zero=y(0),barW=36;let html=`<line class="axis" x1="${pl}" y1="${zero}" x2="${w-pr}" y2="${zero}"/>`;for(let i=0;i<years.length;i++){const yy=y(nets[i]),top=Math.min(yy,zero),height=Math.max(2,Math.abs(zero-yy));html+=`<rect x="${x(i)-barW/2}" y="${top}" width="${barW}" height="${height}" rx="3" fill="${nets[i]>=0?COLORS.blue:COLORS.red}" opacity=".78"/><text class="tick" x="${x(i)}" y="${h-12}" text-anchor="middle">Y${years[i]}</text>`}const pts=cum.map((v,i)=>`${x(i)},${y(v)}`).join(' ');html+=`<polyline points="${pts}" fill="none" stroke="${COLORS.navy}" stroke-width="2.5"/>`;let pay=null;for(let i=1;i<cum.length;i++)if(cum[i]>=0&&cum[i-1]<0){pay=i;break}if(pay!==null)html+=`<line class="threshold" x1="${x(pay)}" y1="${pt}" x2="${x(pay)}" y2="${h-pb}"/><text class="label" x="${x(pay)+5}" y="${pt+13}">Payback Y${pay}</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderRealisationCurve(b){const svg=$('realisationChart'),w=650,h=235,pl=52,pr=20,pt=18,pb=38,st=cloneState(),vals=[];for(let r=60;r<=120;r+=5)vals.push([r,bidCalc(b,st,{realisation:r}).npv]);const min=Math.min(0,...vals.map(v=>v[1])),max=Math.max(0,...vals.map(v=>v[1])),x=v=>pl+(v-60)/60*(w-pl-pr),y=v=>pt+(max-v)/(max-min||1)*(h-pt-pb),zero=y(0),pts=vals.map(v=>`${x(v[0])},${y(v[1])}`).join(' ');let html=`<line class="axis" x1="${pl}" y1="${zero}" x2="${w-pr}" y2="${zero}"/><polyline points="${pts}" fill="none" stroke="${COLORS.blue}" stroke-width="2.7"/>`;for(const t of [60,80,100,120])html+=`<text class="tick" x="${x(t)}" y="${h-12}" text-anchor="middle">${t}%</text>`;let crossing=null;for(let i=1;i<vals.length;i++){if((vals[i-1][1]<=0&&vals[i][1]>=0)||(vals[i-1][1]>=0&&vals[i][1]<=0)){const [x1,y1v]=vals[i-1],[x2,y2v]=vals[i];crossing=x1+(0-y1v)*(x2-x1)/(y2v-y1v);break}}if(crossing!==null)html+=`<line class="threshold" x1="${x(crossing)}" y1="${pt}" x2="${x(crossing)}" y2="${h-pb}"/><text class="label" x="${x(crossing)+5}" y="${pt+13}">Zero NPV ${crossing.toFixed(0)}%</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderOptions(b,c){const svg=$('optionChart'),w=650,h=235,pl=58,pr=22,pt=20,pb=38,pts=b.options.map(o=>({name:o[0],cost:c.pvCost*o[1],benefit:c.pvBenefit*o[2]})),maxX=Math.max(...pts.map(x=>x.cost))*1.12,maxY=Math.max(...pts.map(x=>x.benefit))*1.12,x=v=>pl+v/maxX*(w-pl-pr),y=v=>h-pb-v/maxY*(h-pt-pb);let html=`<line class="axis" x1="${pl}" y1="${h-pb}" x2="${w-pr}" y2="${h-pb}"/><line class="axis" x1="${pl}" y1="${pt}" x2="${pl}" y2="${h-pb}"/>`;pts.forEach((p,i)=>{html+=`<circle cx="${x(p.cost)}" cy="${y(p.benefit)}" r="9" fill="${i===pts.length-1?COLORS.navy:COLORS.blue}"/><text class="label" x="${x(p.cost)+12}" y="${y(p.benefit)+4}">${p.name}</text>`});html+=`<text class="label" x="${(pl+w-pr)/2}" y="${h-3}" text-anchor="middle">PV cost</text><text class="label" transform="translate(14 ${(pt+h-pb)/2}) rotate(-90)" text-anchor="middle">PV benefit</text>`;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=html}
+function renderRiskMatrix(b){const grid=$('riskGrid');grid.innerHTML='';for(let row=5;row>=1;row--)for(let col=1;col<=5;col++){const s=row*col,cls=s>=16?'high':s>=9?'med':'low';const cell=document.createElement('div');cell.className=`risk-cell ${cls}`;grid.appendChild(cell)}for(const [name,lik,impact] of b.risks){const pt=document.createElement('div');pt.className='risk-point';pt.textContent=name;pt.style.left=`${(lik-.5)/5*100}%`;pt.style.top=`${100-(impact-.5)/5*100}%`;grid.appendChild(pt)}}
+function sensitivityRows(b){const st=cloneState(),base=bidCalc(b,st),tests=[
+ ['Benefit realisation','Clinical / operational','60–120%',()=>[bidCalc(b,st,{realisation:60}).npv,bidCalc(b,st,{realisation:120}).npv]],
+ ['Implementation cost','Delivery / finance','80–130%',()=>[bidCalc(b,st,{cost:80}).npv,bidCalc(b,st,{cost:130}).npv]],
+ ['Delay','Program delivery','0–6 months',()=>[bidCalc(b,st,{delay:0}).npv,bidCalc(b,st,{delay:6}).npv]],
+ ['Discount rate','Finance','2–10%',()=>[bidCalc(b,st,{discount:2}).npv,bidCalc(b,st,{discount:10}).npv]]
+ ];return tests.map(([name,owner,range,fn])=>{const [a,z]=fn();return{name,owner,range,neg:Math.min(a-base.npv,z-base.npv),pos:Math.max(a-base.npv,z-base.npv)}})}
+function renderTornado(b){const rows=sensitivityRows(b),max=Math.max(1,...rows.flatMap(r=>[Math.abs(r.neg),Math.abs(r.pos)]));$('caseTornado').innerHTML=`<div class="tor-head"><span>Assumption</span><span>Owner</span><span>Test range</span><span>NPV movement</span><span>Swing</span></div>`+rows.map(r=>`<div class="tor-row"><div>${r.name}</div><div>${r.owner}</div><div class="num">${r.range}</div><div class="tor-track"><div class="tor-zero"></div><div class="tor-neg" style="width:${Math.abs(Math.min(0,r.neg))/max*49}%"></div><div class="tor-pos" style="width:${Math.max(0,r.pos)/max*49}%"></div></div><div class="tor-val">${money(Math.max(Math.abs(r.neg),Math.abs(r.pos)))}</div></div>`).join('')+`<div class="legend"><span><i style="background:var(--red)"></i>NPV downside</span><span><i style="background:var(--blue)"></i>NPV upside</span></div>`}
+function renderEvidence(b){$('evidenceStrip').innerHTML=`<div class="trace"><span>Source 1</span><b>${b.trace[0]}</b></div><div class="trace"><span>Source 2 / conflict</span><b>${b.trace[1]}</b></div><div class="trace"><span>Assumption used</span><b>${b.trace[2]}</b></div><div class="trace"><span>Figure in model</span><b>${b.trace[3]}</b></div>`}
+function bindTooltips(){const tip=$('tooltip');document.querySelectorAll('[data-tip]').forEach(el=>{el.onmouseenter=()=>{tip.innerHTML=el.dataset.tip;tip.style.display='block'};el.onmousemove=e=>{const pad=12,gap=14,r=tip.getBoundingClientRect();let l=e.clientX+gap,t=e.clientY+gap;if(l+r.width+pad>innerWidth)l=e.clientX-r.width-gap;if(t+r.height+pad>innerHeight)t=e.clientY-r.height-gap;tip.style.left=Math.max(pad,l)+'px';tip.style.top=Math.max(pad,t)+'px'};el.onmouseleave=()=>tip.style.display='none'})}
+function syncCaseMirrors(){$('caseRealisation').value=$('realisation').value;$('caseDiscount').value=$('discount').value}
+function renderAll(){syncLabels();renderDecision();renderCase();bindTooltips()}
+function switchView(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===`view-${v}`));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===v))}
+document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>switchView(b.dataset.view));
+document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{setPreset(b.dataset.scenario);document.querySelectorAll('.scenario').forEach(x=>x.classList.toggle('active',x===b));renderAll()});
+['envelope','realisation','discount','financialW','serviceW','riskW','deliveryW'].forEach(id=>$(id).addEventListener('input',()=>{activeScenario='custom';document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));lastControl={envelope:'Investment envelope',realisation:'Benefit realisation',discount:'Discount rate',financialW:'Financial weight',serviceW:'Service weight',riskW:'Risk weight',deliveryW:'Delivery weight'}[id]+` moved to ${id==='envelope'?money(+$('envelope').value):id==='discount'?pct($('discount').value,1):pct($(id).value)}`;renderAll()}));
+$('caseRealisation').addEventListener('input',()=>{$('realisation').value=$('caseRealisation').value;activeScenario='custom';lastControl=`Benefit realisation moved to ${pct($('caseRealisation').value)}`;renderAll()});
+$('caseDiscount').addEventListener('input',()=>{$('discount').value=$('caseDiscount').value;activeScenario='custom';lastControl=`Discount rate moved to ${pct($('caseDiscount').value,1)}`;renderAll()});
+$('caseCost').addEventListener('input',()=>{modifiers[selected].cost=+$('caseCost').value;lastControl=`${bids.find(b=>b.id===selected).short} implementation cost moved to ${pct($('caseCost').value)}`;renderAll()});
+$('caseDelay').addEventListener('input',()=>{modifiers[selected].delay=+$('caseDelay').value;lastControl=`${bids.find(b=>b.id===selected).short} delay moved by ${$('caseDelay').value} months`;renderAll()});
+$('detailToggle').onclick=()=>{const open=$('detailPanel').style.display!=='none';$('detailPanel').style.display=open?'none':'block';$('detailToggle').textContent=open?'Show detailed prioritisation table':'Hide detailed prioritisation table'};
+$('workToggle').onclick=()=>{const o=$('workingLines').style.display!=='none';$('workingLines').style.display=o?'none':'block';$('workToggle').textContent=o?'Show yearly working':'Hide yearly working'};
+$('themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';$('themeText').textContent=dark?'Dark':'Light'};
+const envBar=$('envelopeBar');let dragging=false;
+function setEnvelopeFromX(clientX){const max=Math.max(bids.reduce((s,b)=>s+b.ask,0),360),r=envBar.getBoundingClientRect(),ratio=Math.max(0,Math.min(1,(clientX-r.left)/r.width)),value=Math.max(180,Math.min(360,Math.round(ratio*max)));$('envelope').value=value;activeScenario='custom';document.querySelectorAll('.scenario').forEach(x=>x.classList.remove('active'));lastControl=`Investment envelope moved to ${money(value)}`;renderAll()}
+envBar.addEventListener('pointerdown',e=>{dragging=true;envBar.setPointerCapture(e.pointerId);setEnvelopeFromX(e.clientX)});envBar.addEventListener('pointermove',e=>{if(dragging)setEnvelopeFromX(e.clientX)});envBar.addEventListener('pointerup',()=>dragging=false);
+document.querySelector('.side-controls').open=innerWidth>860;
+setPreset('base');switchView('decision');renderAll();
 </script>
-</body>
-</html>
+</body></html>
