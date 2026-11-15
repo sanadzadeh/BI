@@ -91,4 +91,210 @@ th{font-size:.56rem}
  .chart{height:260px}
  .head{align-items:start;flex-direction:column}
 }
-</style></head><body><div class="shell"><header class="header"><div class="brand"><div class="mark"></div><div><h1>Khaled S. - Business Reporting & Data Quality Portfolio</h1><p>executive reporting · data quality · reconciliation · governance</p></div></div><div class="controls"><span class="header-demo">Illustrative data</span><button class="theme" id="theme"><span class="theme-orb" aria-hidden="true"></span><span id="themeText">Dark</span></button></div></header><div class="app"><nav class="side" id="side"></nav><main class="main" id="main"></main></div></div><script>const C={v:[['Executive overview','Reporting overview','Executive reporting, governed measures and data-quality exceptions in one decision view.'],['Performance','Reporting performance','Timeliness, reconciliation and reporting service performance across key domains.'],['Data assurance','Reporting assurance','Completeness, reconciliation and definition controls behind published reporting.'],['Scenarios','Reporting scenarios','Scenarios for reporting demand, automation and data-quality disruption.'],['Governance','Reporting governance','Lineage from source data and definitions through to published management information.']],k:[['Reports','31','Recurring reporting products','RP'],['Validated rows','98.6%','Rows passing validation','DQ'],['Exceptions','14','Open data/reporting issues','EX'],['Cycle time','2.4d','Average reporting cycle','CT']],h:[['Completeness',97],['Reconciliation',95],['Timeliness',89],['Definition coverage',92],['Refresh reliability',96]],reg:[['Reconciliation','Finance','On track','Close two exceptions'],['Completeness','Operations','Improving','Backfill missing keys'],['Timeliness','Executive','On track','Automate refresh'],['Definitions','Governance','Review','Approve glossary']],perf:[['Finance','Reconciliation','95%','+3pp','On track'],['Operations','Completeness','97%','+4pp','On track'],['Executive','Timeliness','89%','Improving','Review'],['Governance','Definition coverage','92%','+5pp','On track']],q:[['Finance data',[98,97,94,96]],['Operations data',[96,94,90,93]],['Executive measures',[94,95,89,92]],['Governance definitions',[92,94,88,95]]],flow:[['Reporting need','What decision or audience does the report support?'],['Sources','Finance, operations and governed reference data.'],['Transform','Business rules, joins and measure calculations.'],['Assure','Reconcile, validate definitions and investigate exceptions.'],['Publish','Release trusted reporting with known ownership.']],sc:[['Base','Current reporting demand and controls.','Maintain governed reporting','Continue exception-led assurance and controlled publication.'],['Demand surge','More executive and ad hoc reporting demand.','Protect high-value reporting','Prioritise decision-critical outputs and automate repetitive work.'],['Data issue','Completeness or reconciliation deteriorates.','Hold affected measures','Resolve source exceptions before publishing material results.'],['Automation uplift','Manual reporting steps are removed.','Shift effort to analysis','Use saved capacity for interpretation and quality improvement.']],gov:[['Publication QA','Reporting team','Validation evidence','On track'],['Reconciliation','Data owners','Recon log','On track'],['Metric definitions','Governance','Glossary','Review'],['Exception closure','Business owners','Action register','On track']]};let S={v:0,s:0};const bd=x=>`<span class="badge ${/on track|improving/i.test(x)?'good':/review|watch/i.test(x)?'warn':'bad'}">${x}</span>`;function bars(a){return `<div class="ms">${a.map(x=>`<div class="mb"><label>${x[0]}</label><div class="track"><div class="fill" style="width:${x[1]}%"></div></div><div class="score">${x[1]}%</div></div>`).join('')}</div>`}function line(a,b){let w=650,h=210,p=28,m=Math.min(...a,...b)-2,M=Math.max(...a,...b)+2,pts=s=>s.map((v,i)=>[p+i/(s.length-1)*(w-2*p),h-p-(v-m)/(M-m)*(h-2*p)]),pa=pts(a),pb=pts(b),d=q=>'M '+q.map(x=>x.join(' ')).join(' L ');return `<svg class="chart" viewBox="0 0 ${w} ${h}">${[45,95,145,195].map(y=>`<line class="gl" x1="${p}" y1="${y}" x2="${w-p}" y2="${y}"/>`).join('')}<path class="la" d="${d(pa)}"/><path class="lb" d="${d(pb)}"/></svg>`}function combo(){let r=[['Finance',92,95,2],['Ops',93,97,3],['Exec',84,89,5],['Defs',87,92,4],['Refresh',92,96,2],['QA',90,94,3]],w=650,h=210,pL=42,pR=24,pT=18,pB=28,sl=(w-pL-pR)/r.length,pts=[];return `<svg class="chart" viewBox="0 0 ${w} ${h}">${[0,1,2,3].map(i=>`<line class="gl" x1="${pL}" y1="${pT+i*(h-pT-pB)/3}" x2="${w-pR}" y2="${pT+i*(h-pT-pB)/3}"/>`).join('')}${r.map((d,i)=>{let x=pL+i*sl+sl*.14,ah=d[1]/110*(h-pT-pB),bh=d[2]/110*(h-pT-pB);pts.push([pL+i*sl+sl*.42,pT+(7-d[3])/7*(h-pT-pB)]);return `<rect x="${x}" y="${h-pB-ah}" width="${sl*.25}" height="${ah}" rx="3" fill="var(--bl)" opacity=".78"/><rect x="${x+sl*.29}" y="${h-pB-bh}" width="${sl*.25}" height="${bh}" rx="3" fill="var(--g)" opacity=".86"/><text class="tick" x="${x}" y="${h-8}">${d[0]}</text>`}).join('')}<path class="lr" d="M ${pts.map(x=>x.join(' ')).join(' L ')}"/></svg>`}function hd(i,t){return `<div class="head"><div><h2 class="pt">${C.v[i][1]}</h2><p class="pd">${C.v[i][2]}</p></div><span class="demo">${t}</span></div>`}function overview(){return hd(0,'Illustrative demonstration')+`<section class="grid kpis">${C.k.map(x=>`<div class="card"><div class="kpi"><div><div class="eye">${x[0]}</div><div class="kv">${x[1]}</div><div class="ks">${x[2]}</div></div><div class="ki">${x[3]}</div></div></div>`).join('')}</section><section class="grid two" style="margin-bottom:10px"><div class="card feature"><div class="ct"><div><h3>Reporting assurance and exception view</h3><p>Baseline and current position with exception overlay.</p></div></div>${combo()}</div><div class="card"><div class="ct"><div><h3>Reporting health</h3><p>Selected quality and service indicators.</p></div></div>${bars(C.h)}</div></section><section class="grid two"><div class="decision"><div class="eye">Decision focus</div><h3>Make data quality visible inside the reporting workflow</h3><p>Surface exceptions before information reaches executive or governance forums.</p></div><div class="card"><div class="ct"><div><h3>Priority register</h3><p>Current items requiring attention.</p></div></div><div class="tw"><table><thead><tr><th>Item</th><th>Area</th><th>Status</th><th>Action</th></tr></thead><tbody>${C.reg.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${bd(r[2])}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table></div></div></section>`}function perf(){return hd(1,'Performance view')+`<section class="grid two"><div class="card feature"><div class="ct"><div><h3>Reporting assurance trend</h3><p>Illustrative movement across 12 periods.</p></div></div>${line([74,76,78,79,81,82,84,86,87,89,91,92],[77,79,81,83,84,86,88,90,91,93,94,96])}</div><div class="card"><div class="ct"><div><h3>Current coverage</h3><p>Relative performance across reporting controls.</p></div></div>${bars(C.h)}</div></section><section class="card" style="margin-top:10px"><div class="ct"><div><h3>Performance scorecard</h3><p>Selected measures and current position.</p></div></div><div class="tw"><table><thead><tr><th>Domain</th><th>Measure</th><th>Current</th><th>Direction</th><th>Status</th></tr></thead><tbody>${C.perf.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${bd(r[4])}</td></tr>`).join('')}</tbody></table></div></section>`}function assure(){return hd(2,'Assurance view')+`<section class="grid two"><div class="card"><div class="ct"><div><h3>Data-quality heatmap</h3><p>Completeness, accuracy, timeliness and control coverage.</p></div></div><div class="heat"><div></div>${['Complete','Accurate','Timely','Controlled'].map(x=>`<div class="hh">${x}</div>`).join('')}${C.q.map(q=>`<div class="hl">${q[0]}</div>${q[1].map(v=>`<div class="hc ${v>=90?'hi':v>=80?'mid':'lo'}">${v}</div>`).join('')}`).join('')}</div></div><div class="card"><div class="ct"><div><h3>Validation pathway</h3><p>From reporting need to trusted publication.</p></div></div><div class="flow">${C.flow.map((x,i)=>`${i?'<div class="arrow">→</div>':''}<div class="node ${i===0?'active':''}"><div class="nt">${x[0]}</div><div class="nb">${x[1]}</div></div>`).join('')}</div></div></section><section class="grid two" style="margin-top:10px"><div class="card"><div class="ct"><div><h3>Issue ageing</h3><p>Illustrative open-item profile.</p></div></div>${bars([['0-7 days',78],['8-30 days',45],['31-90 days',21],['>90 days',7]])}</div><div class="decision"><div class="eye">Assurance principle</div><h3>Published measures should be reproducible from controlled sources and definitions</h3><p>Every important report should be traceable to its source, transformation, definition and validation evidence.</p></div></section>`}function scenarios(){let s=C.sc[S.s];return hd(3,'Scenario view')+`<div class="scens">${C.sc.map((x,i)=>`<button class="sc ${i===S.s?'active':''}" data-s="${i}"><strong>${x[0]}</strong><span>${x[1]}</span></button>`).join('')}</div><section class="grid kpis">${C.k.map(x=>`<div class="card"><div class="eye">${x[0]}</div><div class="kv">${x[1]}</div><div class="ks">Scenario view</div></div>`).join('')}</section><section class="grid two"><div class="card feature"><div class="ct"><div><h3>Reporting scenario trajectory</h3><p>Baseline compared with selected scenario.</p></div></div>${line([74,77,79,82,84,86,88,90],[74,76,78,80,82,84,86,88].map((v,i)=>v+S.s*(i>3?1:0)))}</div><div class="decision"><div class="eye">Scenario implication</div><h3>${s[2]}</h3><p>${s[3]}</p></div></section>`}function gov(){let t=[['good','Daily refresh controls','Check scheduled refreshes and critical exceptions.'],['good','Weekly quality review','Reconciliation, completeness and timeliness exceptions.'],['warn','Publication QA gate','Material executive reporting requires validation before release.'],['good','Monthly definition review','Confirm measure definitions and ownership remain current.']];return hd(4,'Governance view')+`<section class="grid two"><div class="card"><div class="ct"><div><h3>Measure lineage</h3><p>Trace published measures back to controlled source.</p></div></div><div class="flow">${C.flow.map((x,i)=>`${i?'<div class="arrow">→</div>':''}<div class="node ${i===0?'active':''}"><div class="nt">${x[0]}</div><div class="nb">${x[1]}</div></div>`).join('')}</div></div><div class="card"><div class="ct"><div><h3>Governance timeline</h3><p>Reporting and review rhythm.</p></div></div><div class="timeline">${t.map(x=>`<div class="tl ${x[0]}"><span class="dot"></span><strong>${x[1]}</strong><p>${x[2]}</p></div>`).join('')}</div></div></section><section class="card" style="margin-top:10px"><div class="ct"><div><h3>Governance controls</h3><p>Ownership, evidence and status.</p></div></div><div class="tw"><table><thead><tr><th>Control</th><th>Owner</th><th>Evidence</th><th>Status</th></tr></thead><tbody>${C.gov.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${bd(r[3])}</td></tr>`).join('')}</tbody></table></div></section>`}const R=[overview,perf,assure,scenarios,gov];function render(){main.innerHTML=R[S.v]();side.innerHTML=`<div class="st">Portfolio views</div>${C.v.map((v,i)=>`<button class="nav ${i===S.v?'active':''}" data-v="${i}"><span class="nn">0${i}</span><span class="nl">${v[0]}</span></button>`).join('')}<div class="meta">Organisation-neutral portfolio artefact<br>Illustrative data only<br>Standalone HTML</div>`;document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{S.v=+b.dataset.v;render()});document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.s=+b.dataset.s;render()})}theme.onclick=()=>{let d=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=d?'':'dark';document.getElementById('themeText').textContent=d?'Dark':'Light'};render();</script></body></html>
+
+/* Reporting decision-workbench: shared layout language with decision-modelling */
+.worknote{padding:10px 13px;border:1px solid var(--b);border-left:3px solid var(--a);border-radius:8px;background:var(--s);color:var(--i2);font-size:.75rem;margin-bottom:12px}
+.readout{margin:12px 0;padding:12px;border:1px solid var(--b);border-left:3px solid var(--a);border-radius:8px;background:linear-gradient(135deg,var(--s),var(--sa))}
+.readout strong{font:600 1.05rem/1.25 var(--ser);display:block;margin:8px 0 4px}
+.readout p{font-size:.7rem;color:var(--i2);line-height:1.5;margin:0}
+.side-group{padding:12px 0;border-top:1px solid var(--b)}
+.side-group>h4{font:500 .58rem var(--mon);letter-spacing:.1em;color:var(--i3);text-transform:uppercase;margin:0 0 10px}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.preset{padding:9px;border:1px solid var(--b);border-radius:7px;background:var(--sa);color:var(--i2);font-size:.72rem;text-align:left;font-weight:600}
+.preset.active{color:var(--a);border-color:var(--a);background:var(--ad)}
+.preset:hover,.domain-button:hover{border-color:var(--a)}
+.ctrl{margin-bottom:14px}
+.ctrl label{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--i2)}
+.ctrl output{color:var(--a);font:500 .7rem var(--mon)}
+.ctrl input{width:100%;accent-color:var(--a);margin:9px 0 0}
+.ctrlhint{font-size:.62rem;color:var(--i3);line-height:1.4}
+.clearbtn,.detailbtn{border:1px solid var(--b);border-radius:7px;background:var(--sa);color:var(--i);padding:8px 10px;font-size:.7rem;font-weight:600}
+.clearbtn{width:100%;margin-top:5px}
+.domainselect{width:100%;padding:9px;background:var(--sa);color:var(--i);border:1px solid var(--b);border-radius:7px;font-size:.72rem}
+.sectiontitle{margin:14px 0 10px;font-weight:650;font-size:.82rem;color:var(--i)}
+.kpi .kv{font-size:1.72rem}
+.kpi .ks{font-size:.66rem}
+.change{font:.62rem var(--mon);color:var(--a);margin-top:6px}
+.metric-cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chartarea{min-height:295px}
+.chart-title{margin-bottom:10px}
+.chart-title h3{font-size:.84rem;font-weight:650;margin:0}
+.chart-title p{color:var(--i3);font-size:.68rem;margin:4px 0 0}
+.legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:.66rem;color:var(--i2);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:8px;height:8px;display:inline-block;border-radius:50%}
+.domain-button{cursor:pointer;transition:opacity .15s}
+.domain-button:focus{outline:2px solid var(--a)}
+.domainrow{border:1px solid var(--b);border-radius:8px;background:var(--sa);padding:11px;cursor:pointer;text-align:left;color:var(--i);display:block;width:100%}
+.domainrow.active{border-color:var(--a);background:var(--ad)}
+.domainrow b{font-size:.76rem}.domainrow small{font-size:.65rem;color:var(--i2);display:block;margin-top:5px}
+.domain-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.analysis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bigread{font:600 1.25rem/1.2 var(--ser);margin:8px 0;color:var(--i)}
+.subtle{font-size:.7rem;color:var(--i2);line-height:1.55}
+.progress{height:8px;background:var(--sd);border-radius:6px;overflow:hidden;margin:7px 0}
+.progress>div{height:100%;background:var(--a);border-radius:6px}
+.detailbtn{display:block;margin:13px 0;width:100%;text-align:center}
+.detailwrap[hidden]{display:none}
+.tablewrap{overflow:auto;border:1px solid var(--b);border-radius:9px}
+.tablewrap table{min-width:720px}
+.tablewrap tr[data-domain]{cursor:pointer}
+.tablewrap tr.selected td{background:var(--ad)}
+.tablewrap tr:hover td{background:var(--sa)}
+.evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.evidence{background:var(--sa);padding:12px;border:1px solid var(--b);border-radius:8px}
+.evidence span{display:block;font:.58rem var(--mon);text-transform:uppercase;letter-spacing:.05em;color:var(--i3)}
+.evidence strong{display:block;margin-top:8px;font-size:.83rem;color:var(--i)}
+.side-footer{font-size:.63rem;color:var(--i3);line-height:1.5;margin-top:12px}
+body{font-size:13px}
+@media(max-width:1280px){.analysis{grid-template-columns:1fr}}
+@media(max-width:1000px){.domain-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.side{display:block;overflow:visible}.nav-list{display:flex;overflow:auto;gap:7px}.nav{width:auto;white-space:nowrap}.side-control-wrap{display:none}.side-control-wrap.open{display:block}.mobile-controls{display:block!important;margin:12px 0}.metric-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.metric-cards,.domain-grid,.evidence-grid{grid-template-columns:1fr 1fr}.chartarea{min-height:250px}.brand h1{font-size:.88rem}}
+</style></head><body><div class="shell"><header class="header"><div class="brand"><div class="mark"></div><div><h1>Khaled S. - Business Reporting & Data Quality Portfolio</h1><p>executive reporting · data quality · reconciliation · governance</p></div></div><div class="controls"><span class="header-demo">Illustrative data</span><button class="theme" id="theme"><span class="theme-orb" aria-hidden="true"></span><span id="themeText">Dark</span></button></div></header><div class="app"><nav class="side" id="side"></nav><main class="main" id="main"></main></div></div><script>
+const $=id=>document.getElementById(id);
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const pct=n=>n.toFixed(1)+'%';
+const fmt=n=>Math.round(n).toLocaleString('en-AU');
+const baseline=[
+{id:'finance',name:'Finance',products:9,rows:52000,complete:98.2,recon:96.1,timely:94.3,definition:97.0,cycle:2.1,exceptions:2,manual:40,owner:'Financial reporting',source:'Clarity / finance ledger',action:'Reconcile ledger-to-report variances'},
+{id:'operations',name:'Operations',products:8,rows:68000,complete:96.5,recon:94.2,timely:91.4,definition:91.8,cycle:2.8,exceptions:4,manual:63,owner:'Operational reporting',source:'Operations data',action:'Resolve missing source keys'},
+{id:'delivery',name:'Technology delivery',products:7,rows:46000,complete:97.2,recon:92.7,timely:88.6,definition:93.4,cycle:3.1,exceptions:5,manual:72,owner:'Transformation reporting',source:'Rally / Clarity',action:'Validate epic-to-outcome mapping'},
+{id:'risk',name:'Risk and controls',products:4,rows:27000,complete:98.7,recon:97.1,timely:95.4,definition:96.0,cycle:1.9,exceptions:1,manual:28,owner:'Risk reporting',source:'Control register',action:'Confirm exception closure evidence'},
+{id:'people',name:'People and capacity',products:3,rows:19000,complete:95.1,recon:93.3,timely:87.2,definition:89.5,cycle:3.5,exceptions:2,manual:80,owner:'Workforce analytics',source:'Resource planning',action:'Align capacity and demand definitions'}
+];
+const presets={
+base:{demand:100,automation:25,quality:100,strictness:90},
+surge:{demand:145,automation:25,quality:100,strictness:90},
+disruption:{demand:112,automation:25,quality:78,strictness:95},
+uplift:{demand:118,automation:78,quality:106,strictness:90}
+};
+const state={view:'overview',scenario:'base',domain:'delivery',...presets.base,details:false};
+const viewNames={overview:'Reporting assessment',domain:'Domain case',assurance:'Data assurance',scenarios:'Scenario comparison',governance:'Governance and lineage'};
+function calcOne(d,s=state){
+ const pressure=s.demand/100,automation=s.automation/100,quality=s.quality/100,strictness=s.strictness/100;
+ const completeness=clamp(d.complete+(quality-1)*17-(pressure-1)*1.8,60,99.9);
+ const reconciliation=clamp(d.recon+(quality-1)*22-(pressure-1)*2.9,50,99.9);
+ const timeliness=clamp(d.timely+(automation-.25)*13-(pressure-1)*16+(quality-1)*6,45,99.9);
+ const definition=clamp(d.definition+(quality-1)*11,50,99.9);
+ const score=(completeness+reconciliation+timeliness+definition)/4;
+ const cycle=clamp(d.cycle*pressure*(1-.53*(automation-.25))*(1+.45*(1-quality)),.5,8);
+ const exceptions=Math.max(0,Math.round(d.exceptions*pressure*(2-quality)*(.5+.5*strictness)));
+ const effort=d.manual*pressure*(1-.72*automation);
+ const breach=score<(strictness*100-3) || reconciliation<strictness*100-2;
+ return {...d,completeness,reconciliation,timeliness,definition,score,cycle,exceptions,effort,breach};
+}
+function model(s=state){
+ const rows=baseline.map(d=>calcOne(d,s));
+ const avg=k=>rows.reduce((n,r)=>n+r[k]*r.products,0)/rows.reduce((n,r)=>n+r.products,0);
+ return {rows,products:rows.reduce((n,r)=>n+r.products,0),volume:rows.reduce((n,r)=>n+r.rows,0)*s.demand/100,quality:avg('score'),timeliness:avg('timeliness'),cycle:avg('cycle'),exceptions:rows.reduce((n,r)=>n+r.exceptions,0),effort:rows.reduce((n,r)=>n+r.effort,0),atRisk:rows.filter(r=>r.breach).length};
+}
+function badge(text,type){return '<span class="badge '+type+'">'+text+'</span>'}
+function makeSide(m){
+ const opts=[['base','Base'],['surge','Demand surge'],['disruption','Data disruption'],['uplift','Automation uplift']];
+ const sliders=[['demand','Reporting demand',70,160,'%'],['automation','Automation coverage',0,100,'%'],['quality','Source-data quality',65,115,'%'],['strictness','Publication threshold',75,99,'%']];
+ const read=state.atRisk===undefined?m.atRisk:state.atRisk;
+ $('side').innerHTML='<div class="st">Views</div><div class="nav-list">'+Object.entries(viewNames).map(([id,label],i)=>'<button class="nav '+(state.view===id?'active':'')+'" data-view="'+id+'"><span class="nn">0'+(i+1)+'</span><span class="nl">'+label+'</span></button>').join('')+'</div>'+
+ '<div class="readout" aria-live="polite"><div class="st" style="padding:0">Current readout</div><strong>'+m.atRisk+' of '+m.rows.length+' domains need review</strong><p>'+m.exceptions+' modeled open exceptions; '+pct(m.quality)+' portfolio assurance.</p></div>'+
+ '<div class="mobile-controls" style="display:none"><button class="clearbtn" data-action="toggle">Scenario controls</button></div>'+
+ '<div class="side-control-wrap" id="sideControls"><div class="side-group"><h4>Scenario</h4><div class="presets">'+opts.map(([k,n])=>'<button class="preset '+(state.scenario===k?'active':'')+'" data-preset="'+k+'">'+n+'</button>').join('')+'</div></div>'+
+ '<div class="side-group"><h4>Assumptions</h4>'+sliders.map(([k,n,lo,hi,suffix])=>'<div class="ctrl"><label for="sl-'+k+'">'+n+'<output id="out-'+k+'">'+state[k]+suffix+'</output></label><input id="sl-'+k+'" data-control="'+k+'" type="range" min="'+lo+'" max="'+hi+'" step="1" value="'+state[k]+'"></div>').join('')+'<button class="clearbtn" data-action="reset">Reset assumptions</button></div>'+
+ '<div class="side-group"><h4>Domain drill-down</h4><select id="domainSelect" class="domainselect">'+baseline.map(d=>'<option value="'+d.id+'" '+(state.domain===d.id?'selected':'')+'>'+d.name+'</option>').join('')+'</select><div class="side-footer">Synthetic demonstration data. Adjustments recalculate scores, exceptions, capacity and publication risks.</div></div></div>';
+ document.querySelectorAll('[data-view]').forEach(e=>e.onclick=()=>{state.view=e.dataset.view;render()});
+ document.querySelectorAll('[data-preset]').forEach(e=>e.onclick=()=>{state.scenario=e.dataset.preset;Object.assign(state,presets[state.scenario]);render()});
+ document.querySelectorAll('[data-control]').forEach(e=>e.oninput=()=>{state[e.dataset.control]=+e.value;state.scenario='custom';render();const x=$('sl-'+e.dataset.control);if(x)x.focus()});
+ document.querySelectorAll('[data-action=reset]').forEach(e=>e.onclick=()=>{state.scenario='base';Object.assign(state,presets.base);render()});
+ document.querySelectorAll('[data-action=toggle]').forEach(e=>e.onclick=()=>{$('sideControls').classList.toggle('open')});
+ $('domainSelect').onchange=e=>{state.domain=e.target.value;state.view='domain';render()};
+}
+function title(name,sub){return '<div class="head"><div><h2 class="pt">'+name+'</h2><p class="pd">'+sub+'</p></div><span class="demo">Illustrative model</span></div>'}
+function kpis(m){
+ const values=[['Reporting products',fmt(m.products),'Published reporting catalogue','RP'],['Assurance score',pct(m.quality),'Weighted control effectiveness','DQ'],['Open exceptions',fmt(m.exceptions),'Modelled across domains','EX'],['Mean cycle time',m.cycle.toFixed(1)+'d','Average turnaround','CT']];
+ return '<div class="grid metric-cards" style="margin-bottom:12px">'+values.map(([n,v,sub,code])=>'<div class="card"><div class="kpi"><div><div class="eye">'+n+'</div><div class="kv">'+v+'</div><div class="ks">'+sub+'</div></div><div class="ki">'+code+'</div></div></div>').join('')+'</div>';
+}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function matrixSvg(rows){
+ const w=760,h=305,l=64,r=26,t=28,b=46;
+ const xx=v=>l+(v-75)/25*(w-l-r),yy=v=>h-b-(v-65)/35*(h-t-b);
+ const circles=rows.map(d=>{const x=clamp(xx(d.timeliness),l,w-r),y=clamp(yy(d.score),t,h-b),rr=8+d.products*.9;return '<g class="domain-button" data-domain="'+d.id+'" role="button" tabindex="0" aria-label="'+esc(d.name)+'" style="cursor:pointer"><circle cx="'+x+'" cy="'+y+'" r="'+(rr+4)+'" fill="var(--s)" opacity=".85"/><circle cx="'+x+'" cy="'+y+'" r="'+rr+'" fill="'+(d.breach?'var(--r)':'var(--ok)')+'" opacity=".82" stroke="var(--s)" stroke-width="2"/><text x="'+x+'" y="'+(y+3)+'" fill="#fff" font-size="10" text-anchor="middle">'+d.products+'</text><text x="'+x+'" y="'+(y-rr-8)+'" fill="var(--i2)" font-size="11" text-anchor="middle">'+esc(d.name)+'</text></g>'}).join('');
+ return '<svg role="img" aria-label="Interactive assurance versus timeliness by reporting domain" viewBox="0 0 '+w+' '+h+'" class="chart chartarea">'+[70,80,90,100].map(v=>'<line x1="'+l+'" x2="'+(w-r)+'" y1="'+yy(v)+'" y2="'+yy(v)+'" stroke="var(--b)" stroke-dasharray="3 5"/><text x="'+(l-9)+'" y="'+(yy(v)+4)+'" text-anchor="end" fill="var(--i3)" font-size="11">'+v+'%</text>').join('')+[75,80,85,90,95,100].map(v=>'<line x1="'+xx(v)+'" x2="'+xx(v)+'" y1="'+t+'" y2="'+(h-b)+'" stroke="var(--b)" stroke-dasharray="3 5"/><text x="'+xx(v)+'" y="'+(h-b+20)+'" text-anchor="middle" fill="var(--i3)" font-size="11">'+v+'%</text>').join('')+'<text x="'+(w/2)+'" y="'+(h-3)+'" text-anchor="middle" fill="var(--i2)" font-size="12">Reporting timeliness</text><text x="17" y="'+(h/2)+'" transform="rotate(-90 17 '+(h/2)+')" text-anchor="middle" fill="var(--i2)" font-size="12">Assurance score</text>'+circles+'</svg>';
+}
+function stackedSvg(rows){
+ const w=700,h=260,left=148,right=76,top=20,rowH=42;let max=Math.max(...rows.map(r=>r.effort))*1.25;
+ return '<svg class="chart chartarea" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Estimated reporting effort by domain">'+rows.map((d,i)=>{let y=top+i*rowH,width=d.effort/max*(w-left-right);return '<text x="8" y="'+(y+18)+'" fill="var(--i2)" font-size="12">'+esc(d.name)+'</text><rect x="'+left+'" y="'+y+'" width="'+(w-left-right)+'" height="25" rx="5" fill="var(--sd)"/><rect x="'+left+'" y="'+y+'" width="'+width+'" height="25" rx="5" fill="var(--a)" opacity=".85"/><text x="'+(left+width+8)+'" y="'+(y+17)+'" fill="var(--i)" font-size="12">'+Math.round(d.effort)+' h</text>'}).join('')+'<text x="'+left+'" y="253" fill="var(--i3)" font-size="11">Estimated monthly manual effort, scenario adjusted</text></svg>';
+}
+function trendSvg(row){
+ const w=740,h=275,l=50,r=20,t=22,b=34,sy=v=>h-b-(v-55)/45*(h-t-b);
+ const base=Array.from({length:12},(_,i)=>clamp(row.score-9+(i*9/11)+Math.sin(i*1.2)*1.2,55,100));
+ const observed=Array.from({length:12},(_,i)=>clamp(row.score-8+i*8/11+(i>6?(state.quality-100)*.32:0)+Math.sin(i*.8)*1.4,55,100));
+ const path=a=>'M '+a.map((v,i)=>(l+i/11*(w-l-r)).toFixed(1)+' '+sy(v).toFixed(1)).join(' L ');
+ return '<svg class="chart chartarea" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="12 period synthetic assurance trend">'+[60,70,80,90,100].map(v=>'<line x1="'+l+'" x2="'+(w-r)+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="var(--b)" stroke-dasharray="3 5"/><text x="'+(l-9)+'" y="'+(sy(v)+4)+'" text-anchor="end" fill="var(--i3)" font-size="11">'+v+'%</text>').join('')+'<path d="'+path(base)+'" stroke="var(--bl)" stroke-width="2" fill="none"/><path d="'+path(observed)+'" stroke="var(--a)" stroke-width="3" fill="none"/>'+observed.map((v,i)=>'<circle cx="'+(l+i/11*(w-l-r))+'" cy="'+sy(v)+'" r="3" fill="var(--a)"><title>Period '+(i+1)+': '+pct(v)+'</title></circle>').join('')+'</svg><div class="legend"><span><i style="background:var(--bl)"></i>Reference trajectory</span><span><i style="background:var(--a)"></i>Current scenario</span></div>';
+}
+function table(rows){
+ return '<div class="detailwrap" id="detailPanel" '+(!state.details?'hidden':'')+'><div class="tablewrap"><table><thead><tr><th>Domain</th><th>Assurance</th><th>Timeliness</th><th>Reconciliation</th><th>Exceptions</th><th>Cycle</th><th>Publication</th></tr></thead><tbody>'+rows.map(d=>'<tr data-domain="'+d.id+'" class="'+(state.domain===d.id?'selected':'')+'"><td>'+esc(d.name)+'</td><td>'+pct(d.score)+'</td><td>'+pct(d.timeliness)+'</td><td>'+pct(d.reconciliation)+'</td><td>'+d.exceptions+'</td><td>'+d.cycle.toFixed(1)+'d</td><td>'+badge(d.breach?'Review':'Controlled',d.breach?'warn':'good')+'</td></tr>').join('')+'</tbody></table></div></div>';
+}
+function detailToggle(m){
+ return '<button class="detailbtn" id="detailToggle">'+(state.details?'Hide':'Show')+' detailed reporting assurance table</button>'+table(m.rows);
+}
+function riskText(m){
+ const critical=m.rows.filter(d=>d.breach).sort((a,b)=>a.score-b.score);
+ return critical.length?'Prioritise '+critical[0].name.toLowerCase()+'; assurance '+pct(critical[0].score)+' and '+critical[0].exceptions+' exceptions under current assumptions.':'All domains clear the selected publication controls. Monitor the highest-exception domain and retain source reconciliation evidence.';
+}
+function overview(m){
+ return title('Reporting assessment','Linked reporting performance, data assurance and exception prioritisation. Change assumptions in the sidebar and select any domain to investigate.')+
+ '<div class="worknote"><strong>Interactive model.</strong> Scenario presets and assumptions update assurance, cycle time, exception volumes and capacity estimates immediately.</div>'+kpis(m)+
+ '<div class="grid two"><section class="card feature"><div class="chart-title"><div><h3>Assurance versus timeliness</h3><p>Circle size represents published reporting products. Select a domain for its detailed case.</p></div></div>'+matrixSvg(m.rows)+'<div class="legend"><span><i style="background:var(--ok)"></i>Controlled</span><span><i style="background:var(--r)"></i>Requires review</span><span>Number = reporting products</span></div></section>'+
+ '<section class="card"><div class="chart-title"><div><h3>Reporting effort by domain</h3><p>Illustrative manual effort, adjusted for demand and automation.</p></div></div>'+stackedSvg(m.rows)+'</section></div>'+
+ '<div class="analysis" style="margin-top:12px"><section class="card"><div class="eye">Recommended action</div><div class="bigread">'+(m.atRisk?'Address assurance exceptions before publication':'Maintain publication controls')+'</div><p class="subtle">'+riskText(m)+'</p></section>'+
+ '<section class="card"><div class="eye">Change against base case</div><div class="bigread">'+(m.effort-model({...presets.base}).effort>=0?'+':'')+Math.round(m.effort-model({...presets.base}).effort)+' manual hours per month</div><p class="subtle">Reporting volume: '+fmt(m.volume)+' records. '+m.atRisk+' domains below current release criteria.</p></section></div>'+detailToggle(m);
+}
+function domainPage(m){
+ const d=m.rows.find(d=>d.id===state.domain)||m.rows[0];
+ const vals=[['Completeness',d.completeness],['Reconciliation',d.reconciliation],['Timeliness',d.timeliness],['Definition coverage',d.definition]];
+ return title('Domain case: '+d.name,'Inspect modelled performance, source lineage, exposure and suggested response for a single reporting domain.')+
+ '<div class="worknote">Select a domain in the sidebar or click a point on the assessment chart. Changes to demand, automation and quality flow into this case.</div>'+
+ '<div class="grid metric-cards" style="margin-bottom:12px">'+[['Assurance',pct(d.score)],['Open exceptions',d.exceptions],['Cycle time',d.cycle.toFixed(1)+'d'],['Manual effort',Math.round(d.effort)+' h']].map(([k,v])=>'<div class="card"><div class="eye">'+k+'</div><div class="kv">'+v+'</div></div>').join('')+'</div>'+
+ '<div class="analysis"><section class="card feature"><div class="chart-title"><div><h3>Assurance trend</h3><p>Illustrative 12-period trend; current scenario versus reference.</p></div></div>'+trendSvg(d)+'</section><section class="card"><div class="chart-title"><div><h3>Control health</h3><p>Four calculated dimensions behind the assurance score.</p></div></div>'+vals.map(([k,v])=>'<div class="mb" style="grid-template-columns:150px 1fr 52px;margin:17px 0"><label>'+k+'</label><div class="progress"><div style="width:'+v+'%"></div></div><div class="score">'+pct(v)+'</div></div>').join('')+'<div style="margin-top:20px">'+badge(d.breach?'Publication review':'Controls met',d.breach?'warn':'good')+'</div></section></div>'+
+ '<section class="card" style="margin-top:12px"><div class="chart-title"><h3>Evidence and action</h3></div><div class="evidence-grid">'+[['Source systems',d.source],['Control owner',d.owner],['Reporting products',d.products],['Estimated rows',fmt(d.rows*state.demand/100)]].map(([k,v])=>'<div class="evidence"><span>'+k+'</span><strong>'+v+'</strong></div>').join('')+'</div><p class="subtle" style="margin-top:12px"><b>Next action:</b> '+d.action+'. Validate the relevant definitions and reconciliations against source records before publication.</p></section>';
+}
+function assurance(m){
+ return title('Data assurance','Investigate completeness, reconciliation, timeliness and definition coverage across reporting domains.')+
+ '<div class="worknote">Change source-data quality or the publication threshold to see which domains fall outside acceptable control limits.</div>'+kpis(m)+
+ '<section class="card"><div class="chart-title"><div><h3>Control coverage by domain</h3><p>Cells respond to source quality, automation, demand and release threshold.</p></div></div><div class="tablewrap"><table><thead><tr><th>Domain</th><th>Complete</th><th>Reconciled</th><th>Timely</th><th>Definitions</th><th>Status</th></tr></thead><tbody>'+m.rows.map(d=>'<tr data-domain="'+d.id+'"><td>'+d.name+'</td>'+['completeness','reconciliation','timeliness','definition'].map(k=>'<td><span class="badge '+(d[k]>=state.strictness?'good':d[k]>=state.strictness-5?'warn':'bad')+'">'+pct(d[k])+'</span></td>').join('')+'<td>'+badge(d.breach?'Review':'Controlled',d.breach?'warn':'good')+'</td></tr>').join('')+'</tbody></table></div></section>'+
+ '<div class="domain-grid" style="margin-top:12px">'+m.rows.map(d=>'<button class="domainrow '+(d.id===state.domain?'active':'')+'" data-domain="'+d.id+'"><b>'+d.name+'</b><small>'+d.exceptions+' exceptions / '+pct(d.score)+' assurance</small></button>').join('')+'</div>';
+}
+function scenarioCompare(){
+ const cases=Object.entries(presets).map(([id,s])=>({id,name:{base:'Base',surge:'Demand surge',disruption:'Data disruption',uplift:'Automation uplift'}[id],...model(s)}));
+ const base=cases[0];
+ return title('Scenario comparison','Compare alternative reporting-demand and control assumptions, then apply one to inspect its consequences.')+
+ '<div class="worknote">Preset comparison is calculated from the same domain-level model as the assessment and drill-downs. Select a scenario to apply it.</div>'+
+ '<div class="grid metric-cards">'+cases.map(c=>'<button class="domainrow '+(state.scenario===c.id?'active':'')+'" data-preset="'+c.id+'"><div class="eye">'+c.name+'</div><div class="kv" style="margin-top:9px">'+pct(c.quality)+'</div><small>'+c.exceptions+' exceptions · '+c.cycle.toFixed(1)+' day cycle</small></button>').join('')+'</div>'+
+ '<div class="grid two" style="margin-top:12px"><section class="card feature"><div class="chart-title"><h3>Quality versus reporting effort</h3></div><div class="tablewrap"><table><thead><tr><th>Scenario</th><th>Assurance</th><th>Cycle</th><th>Exceptions</th><th>Manual hours</th><th>Domains at risk</th></tr></thead><tbody>'+cases.map(c=>'<tr><td>'+c.name+'</td><td>'+pct(c.quality)+'</td><td>'+c.cycle.toFixed(1)+'d</td><td>'+c.exceptions+'</td><td>'+Math.round(c.effort)+'</td><td>'+c.atRisk+'</td></tr>').join('')+'</tbody></table></div></section>'+
+ '<section class="card"><div class="chart-title"><h3>Effort difference from base</h3></div>'+cases.map(c=>'<div style="margin:15px 0"><div class="ctrl"><label>'+c.name+' <output>'+(c.effort-base.effort>=0?'+':'')+Math.round(c.effort-base.effort)+' h</output></label></div><div class="progress"><div style="width:'+clamp(c.effort/Math.max(...cases.map(k=>k.effort))*100,2,100)+'%"></div></div></div>').join('')+'</section></div>';
+}
+function governance(m){
+ const d=m.rows.find(d=>d.id===state.domain)||m.rows[0];
+ const flow=[['Business outcomes','Identify decision needs and reporting definitions'],['Source systems','Rally, Clarity and operational systems'],['Mapping','Reconcile outcome, epic and cost keys'],['Assurance','Verify data quality and exceptions'],['Publication','Release documented executive measures']];
+ return title('Governance and lineage','Trace reporting measures to source records, owners, validation checks and publication decisions.')+
+ '<div class="worknote">Selected source: '+esc(d.source)+'. Choose a domain to inspect its accountable owner and control evidence.</div>'+
+ '<div class="grid two"><section class="card"><div class="chart-title"><h3>Evidence pathway</h3><p>Business requirements through to controlled publication.</p></div><div class="flow">'+flow.map((x,i)=>(i?'<div class="arrow">→</div>':'')+'<div class="node '+(i===2?'active':'')+'"><div class="nt">'+x[0]+'</div><div class="nb">'+x[1]+'</div></div>').join('')+'</div></section><section class="card"><div class="chart-title"><h3>Selected control evidence</h3></div><div class="evidence-grid">'+[['Domain',d.name],['Owner',d.owner],['Source',d.source],['Exceptions',d.exceptions]].map(([k,v])=>'<div class="evidence"><span>'+k+'</span><strong>'+v+'</strong></div>').join('')+'</div><p class="subtle">'+d.action+'. Evidence is illustrative, not a representation of live enterprise records.</p></section></div>'+
+ '<section class="card" style="margin-top:12px"><div class="chart-title"><h3>Control register</h3><p>Review status is derived from the current scenario and release threshold.</p></div><div class="tablewrap"><table><thead><tr><th>Reporting domain</th><th>Accountable owner</th><th>Control evidence</th><th>Current decision</th></tr></thead><tbody>'+m.rows.map(d=>'<tr data-domain="'+d.id+'"><td>'+d.name+'</td><td>'+d.owner+'</td><td>'+d.action+'</td><td>'+badge(d.breach?'Hold and review':'Publish with controls',d.breach?'warn':'good')+'</td></tr>').join('')+'</tbody></table></div></section>';
+}
+function wire(){
+ document.querySelectorAll('g[data-domain],button[data-domain],tr[data-domain]').forEach(e=>{
+ const choose=()=>{state.domain=e.dataset.domain;state.view='domain';render()};
+ e.addEventListener('click',choose);if(e.tagName.toLowerCase()==='g')e.addEventListener('keydown',k=>{if(k.key==='Enter'||k.key===' '){k.preventDefault();choose()}});
+ });
+ document.querySelectorAll('[data-preset]').forEach(e=>{if(!e.onclick)e.onclick=()=>{state.scenario=e.dataset.preset;Object.assign(state,presets[state.scenario]);render()}});
+ const t=$('detailToggle');if(t)t.onclick=()=>{state.details=!state.details;render()};
+}
+function render(){
+ const m=model();
+ makeSide(m);
+ const views={overview:overview,domain:domainPage,assurance:assurance,scenarios:scenarioCompare,governance:governance};
+ $('main').innerHTML=views[state.view](m);
+ wire();
+}
+$('theme').addEventListener('click',()=>{let dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';$('themeText').textContent=dark?'Dark':'Light'});
+render();
+</script></body></html>
