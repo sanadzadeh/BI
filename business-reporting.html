@@ -170,7 +170,7 @@ disruption:{demand:112,automation:25,quality:78,strictness:95},
 uplift:{demand:118,automation:78,quality:106,strictness:90}
 };
 const state={view:'overview',scenario:'base',domain:'delivery',...presets.base,details:false};
-const viewNames={overview:'Reporting assessment',domain:'Domain case',assurance:'Data assurance',scenarios:'Scenario comparison',governance:'Governance and lineage'};
+const viewNames={overview:'Reporting overview',domain:'Domain analysis',scenarios:'Scenarios'};
 function calcOne(d,s=state){
  const pressure=s.demand/100,automation=s.automation/100,quality=s.quality/100,strictness=s.strictness/100;
  const completeness=clamp(d.complete+(quality-1)*17-(pressure-1)*1.8,60,99.9);
@@ -251,11 +251,11 @@ function overview(m){
 function domainPage(m){
  const d=m.rows.find(d=>d.id===state.domain)||m.rows[0];
  const vals=[['Completeness',d.completeness],['Reconciliation',d.reconciliation],['Timeliness',d.timeliness],['Definition coverage',d.definition]];
- return title('Domain case: '+d.name,'Inspect modelled performance, source lineage, exposure and suggested response for a single reporting domain.')+
+ return title('Domain analysis: '+d.name,'Inspect reporting performance, assurance controls, source lineage and actions for one domain.')+
  '<div class="worknote">Select a domain in the sidebar or click a point on the assessment chart. Changes to demand, automation and quality flow into this case.</div>'+
  '<div class="grid metric-cards" style="margin-bottom:12px">'+[['Assurance',pct(d.score)],['Open exceptions',d.exceptions],['Cycle time',d.cycle.toFixed(1)+'d'],['Manual effort',Math.round(d.effort)+' h']].map(([k,v])=>'<div class="card"><div class="eye">'+k+'</div><div class="kv">'+v+'</div></div>').join('')+'</div>'+
  '<div class="analysis"><section class="card feature"><div class="chart-title"><div><h3>Assurance trend</h3><p>Illustrative 12-period trend; current scenario versus reference.</p></div></div>'+trendSvg(d)+'</section><section class="card"><div class="chart-title"><div><h3>Control health</h3><p>Four calculated dimensions behind the assurance score.</p></div></div>'+vals.map(([k,v])=>'<div class="mb" style="grid-template-columns:150px 1fr 52px;margin:17px 0"><label>'+k+'</label><div class="progress"><div style="width:'+v+'%"></div></div><div class="score">'+pct(v)+'</div></div>').join('')+'<div style="margin-top:20px">'+badge(d.breach?'Publication review':'Controls met',d.breach?'warn':'good')+'</div></section></div>'+
- '<section class="card" style="margin-top:12px"><div class="chart-title"><h3>Evidence and action</h3></div><div class="evidence-grid">'+[['Source systems',d.source],['Control owner',d.owner],['Reporting products',d.products],['Estimated rows',fmt(d.rows*state.demand/100)]].map(([k,v])=>'<div class="evidence"><span>'+k+'</span><strong>'+v+'</strong></div>').join('')+'</div><p class="subtle" style="margin-top:12px"><b>Next action:</b> '+d.action+'. Validate the relevant definitions and reconciliations against source records before publication.</p></section>';
+ '<section class="card" style="margin-top:12px"><div class="chart-title"><h3>Data governance, lineage and actions</h3></div><div class="evidence-grid">'+[['Source systems',d.source],['Control owner',d.owner],['Reporting products',d.products],['Estimated rows',fmt(d.rows*state.demand/100)]].map(([k,v])=>'<div class="evidence"><span>'+k+'</span><strong>'+v+'</strong></div>').join('')+'</div><p class="subtle" style="margin-top:12px"><b>Next action:</b> '+d.action+'. Validate the relevant definitions and reconciliations against source records before publication.</p></section>';
 }
 function assurance(m){
  return title('Data assurance','Investigate completeness, reconciliation, timeliness and definition coverage across reporting domains.')+
@@ -266,7 +266,7 @@ function assurance(m){
 function scenarioCompare(){
  const cases=Object.entries(presets).map(([id,s])=>({id,name:{base:'Base',surge:'Demand surge',disruption:'Data disruption',uplift:'Automation uplift'}[id],...model(s)}));
  const base=cases[0];
- return title('Scenario comparison','Compare alternative reporting-demand and control assumptions, then apply one to inspect its consequences.')+
+ return title('Scenarios','Compare reporting demand and control assumptions, then select a scenario to inspect its effects.')+
  '<div class="worknote">Preset comparison is calculated from the same domain-level model as the assessment and drill-downs. Select a scenario to apply it.</div>'+
  '<div class="grid metric-cards">'+cases.map(c=>'<button class="domainrow '+(state.scenario===c.id?'active':'')+'" data-preset="'+c.id+'"><div class="eye">'+c.name+'</div><div class="kv" style="margin-top:9px">'+pct(c.quality)+'</div><small>'+c.exceptions+' exceptions · '+c.cycle.toFixed(1)+' day cycle</small></button>').join('')+'</div>'+
  '<div class="grid two" style="margin-top:12px"><section class="card feature"><div class="chart-title"><h3>Quality versus reporting effort</h3></div><div class="tablewrap"><table><thead><tr><th>Scenario</th><th>Assurance</th><th>Cycle</th><th>Exceptions</th><th>Manual hours</th><th>Domains at risk</th></tr></thead><tbody>'+cases.map(c=>'<tr><td>'+c.name+'</td><td>'+pct(c.quality)+'</td><td>'+c.cycle.toFixed(1)+'d</td><td>'+c.exceptions+'</td><td>'+Math.round(c.effort)+'</td><td>'+c.atRisk+'</td></tr>').join('')+'</tbody></table></div></section>'+
@@ -291,7 +291,7 @@ function wire(){
 function render(){
  const m=model();
  makeSide(m);
- const views={overview:overview,domain:domainPage,assurance:assurance,scenarios:scenarioCompare,governance:governance};
+ const views={overview:overview,domain:domainPage,scenarios:scenarioCompare};
  $('main').innerHTML=views[state.view](m);
  wire();
 }
